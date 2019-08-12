@@ -1,0 +1,3 @@
+# for simplicity we ignore everything but the configuration and test folder
+# use add -f to force adding files which would be ignored otherwise
+/node_modules/
