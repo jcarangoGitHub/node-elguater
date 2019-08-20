@@ -1,0 +1,73 @@
+{{>header}}
+<div class="container">
+  <form action="/postItem" method="post">
+    <input type="hidden" name="isUpdate" value="{{isUpdate}}">
+    <div class="form-group">
+      <h5 class="card-title">Registrar artículo</h5>
+      <br>
+      <div class="container">
+        <!--ROW 1-->
+        <div class="form-row">
+          <div class="col-md-2">
+            <label for="labelDocumentId">Código</label>
+            <input type="text" class="form-control" name="code"
+                   aria-describedby="Código" required
+                   {{#if isUpdate}} value="{{item.code}}" {{/if}}>
+          </div>
+
+          <div class="col">
+            <label for="labelLastName">Nombre</label>
+            <input type="text" class="form-control" name="name"
+                   aria-describedby="Nombre" required
+                   {{#if isUpdate}} value="{{item.name}}" {{/if}}>
+          </div>
+
+          <div class="col">
+            <label for="labelFirstName">Precio venta</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="text" class="form-control" name="salePrice"
+                     aria-describedby="Prcio venta" required
+                     onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
+                     {{#if isUpdate}} value="{{item.salePrice}}" {{/if}}>
+           </div>
+          </div>
+
+          <div class="col">
+            <label for="labelPurchasePrice">Precio compra</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="text" class="form-control" name="purchasePrice"
+                     aria-describedby="Precio compra" required
+                     onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
+                     {{#if isUpdate}} value="{{item.purchasePrice}}" {{/if}}>
+           </div>
+          </div>
+
+          <div class="col-md-2">
+            <label for="labelQuantity">Cantidad</label>
+            <input type="text" class="form-control" name="quantity">
+          </div>
+
+        </div>
+
+        <!--ROW 2-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelFirstName">Descripción</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+          </div>
+          <div class="col">
+            <label for="labelFirstName">Comentario</label>
+            <textarea class="form-control" name="comment" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{{>footer}}

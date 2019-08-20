@@ -36,6 +36,12 @@ app.get('/formUsers', (req, res) => {
   });
 });
 
+app.get('/formItem', (req, res) => {
+  res.render(dirViews + 'formItem', {
+    isUpdate: false
+  });
+});
+
 //POST METHODS
 app.post('/postUser', (req, res) => {
   postActions.createUser(req, res);
