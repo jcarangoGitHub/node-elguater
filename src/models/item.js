@@ -16,9 +16,6 @@ const itemSchema = new Schema({
     tirm: true,
     unique: true
   },
-  body_part: {
-    type: String
-  },
   purchase_price: {
     type: Number,
     require: true
@@ -36,9 +33,12 @@ const itemSchema = new Schema({
   },
   comment: {
     type: String
+  },
+  image: {
+    type: Buffer
   }
 });
 
-cons Item = mongoose.model('Item', itemSchema);
+const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Item

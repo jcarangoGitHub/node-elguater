@@ -1,9 +1,34 @@
 const User = require('./../models/user');
+const Item = require('./../models/item');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
 //Paths
 const dirViews = path.join(__dirname, '../../template/views/');
+
+const createItem = (req, res) => {
+  let item = new Item({
+    code: req.body.code,
+    name: req.body.name,
+    purchase_price: req.body.purchasePrice,
+    sale_price: req.body.salePrice,
+    quantity: req.body.quantity,
+    descrption: req.body.descrption,
+    comment: req.body.comment,
+    image: req.file ? req.file.buffer : null
+  });
+
+  item.save((err, result) => {
+    if (err) {
+      res.render(dirViews + 'index', {
+        myTitle: err
+      });
+    }
+    res.render(dirViews + 'index', {
+      myTitle: 'Artículo creado corréctamente'
+    });
+  })
+}
 
 const login = (req, res) => {
   User.findOne({$or: [{email: req.body.user}, {userName: req.body.user}] }).exec((err, result) => {
@@ -54,5 +79,6 @@ const createUser = (req, res) => {
 
 module.exports = {
   createUser,
-  login
+  login,
+  createItem
 }

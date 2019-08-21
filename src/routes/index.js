@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const hbs = require('hbs');
+const multer  = require('multer');
+
 require('../helpers/helpers');
 
 const postActions = require('../actions/post')
@@ -51,4 +53,34 @@ app.post('/login', (req, res) => {
   postActions.login(req, res);
 });
 
+var upload = multer({
+  limits: {
+    fileSize : 10000000 //MB
+  },
+  fileFilter (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|jpeg)$/)) {
+      return cb(new Error('Invalid file. Use jpg, png or jpeg files'))
+    }
+  // The function should call `cb` with a boolean
+  // to indicate if the file should be accepted
+
+  // To reject this file pass `false`, like so:
+  //cb(null, false)
+
+  // To accept the file pass `true`, like so:
+  cb(null, true)
+
+  // You can always pass an error if something goes wrong:
+  //cb(new Error('I don\'t have a clue!'))
+
+  }
+});
+
+app.post('/postItem', upload.single('image'), (req, res) => {
+  if (req.body.isUpdate) {
+    postActions.createItem(req, res);
+  } else {
+    postActions.updateItem(req, res);
+  }
+})
 module.exports = app;

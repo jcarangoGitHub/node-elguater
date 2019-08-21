@@ -1,6 +1,6 @@
 {{>header}}
 <div class="container">
-  <form action="/postItem" method="post">
+  <form action="/postItem" method="post" enctype="multipart/form-data">
     <input type="hidden" name="isUpdate" value="{{isUpdate}}">
     <div class="form-group">
       <h5 class="card-title">Registrar artículo</h5>
@@ -54,7 +54,6 @@
           </div>
 
         </div>
-
         <!--ROW 2-->
         <div class="form-row">
           <div class="col">
@@ -64,6 +63,25 @@
           <div class="col">
             <label for="labelFirstName">Comentario</label>
             <textarea class="form-control" name="comment" rows="3"></textarea>
+          </div>
+        </div>
+        <!--ROW 3-->
+        <div class="form row">
+          <div class="col">
+            <label for="labelFile">Imagen</label>
+            <input type="file" class="form-control" name="image" accept="image/">
+          </div>
+        </div>
+        <!--ROW 4-->
+        <div class="form-row">
+          <div class="col">
+            &nbsp
+          </div>
+        </div>
+        <!--ROW 5-->
+        <div class="form-row">
+          <div class="col">
+            <button class="btn btn-primary my-2 my-sm-0">Crear</button>
           </div>
         </div>
       </div>
