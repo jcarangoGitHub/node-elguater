@@ -13,7 +13,7 @@ const createItem = (req, res) => {
     purchase_price: req.body.purchasePrice,
     sale_price: req.body.salePrice,
     quantity: req.body.quantity,
-    descrption: req.body.descrption,
+    descrption: req.body.description,
     comment: req.body.comment,
     image: req.file ? req.file.buffer : null
   });

@@ -26,7 +26,13 @@ hbs.registerHelper('getSlideImages', (allItems) => {
     } else {
       html = html + '<div class="carousel-item">';
     }
-    html = html + `<img src="data:img/png;jpeg;jpg;base64, ${img}" class="img-fluid d-block w-100" alt="${item.description}"> </div>`;
+    html = html + `<img src="data:img/png;jpeg;jpg;base64, ${img}" class="img-fluid d-block w-100">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>${item.name}</h5>
+          <p>${item.description}</p>
+          <p>$ ${item.sale_price}</p>
+        </div>
+        </div>`;
     iter ++;
   });
 

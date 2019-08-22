@@ -29,19 +29,12 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/formSearchItems', (req, res) => {
+  getActions.getAllItems(req, res, 'formSearchItems');
+});
+
 app.get('/formStore', (req, res) => {
-  //getActions.getAllItems(req, res);
-  Item.find().exec((err, result) => {
-    if (err) {
-      res.render(dirViews + 'index', {
-        myTitle: err
-      });
-    }
-    console.log(result);
-    res.render(dirViews + 'formStore', {
-      allItems: result
-    });
-  });
+  getActions.getAllItems(req, res, 'formStore');
 });
 
 app.get('/logout', (req, res) => {
