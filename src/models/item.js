@@ -28,7 +28,7 @@ const itemSchema = new Schema({
     type: Number,
     require: true
   },
-  descrption: {
+  description: {
     type: String
   },
   comment: {

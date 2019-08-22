@@ -52,7 +52,6 @@ const login = (req, res) => {
 }
 
 const createUser = (req, res) => {
-  console.log('pass:' + req.body.password);
   let user = new User({
     documentId: req.body.documentId,
     lastName: req.body.lastName,

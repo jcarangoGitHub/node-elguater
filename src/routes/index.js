@@ -7,7 +7,11 @@ const multer  = require('multer');
 
 require('../helpers/helpers');
 
-const postActions = require('../actions/post')
+const postActions = require('../actions/post');
+const getActions = require('../actions/gets');
+
+const Item = require('./../models/item');
+
 
 //Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
@@ -22,6 +26,21 @@ hbs.registerPartials(dirPartials);
 app.get('/', (req, res) => {
   res.render(dirViews + 'index', {
 
+  });
+});
+
+app.get('/formStore', (req, res) => {
+  //getActions.getAllItems(req, res);
+  Item.find().exec((err, result) => {
+    if (err) {
+      res.render(dirViews + 'index', {
+        myTitle: err
+      });
+    }
+    console.log(result);
+    res.render(dirViews + 'formStore', {
+      allItems: result
+    });
   });
 });
 
