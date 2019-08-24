@@ -6,8 +6,15 @@
       <h5 class="card-title">Registrar artículo</h5>
       <br>
       <div class="container">
-        <!--ROW 1-->
+        <!--ROW 0-->
         <div class="form-row">
+          <div class="col">
+            {{#if item}}
+              <img src="data:img/png;jpeg;jpg;base64, {{{getImageFromItem item}}}" class="card-img-top" alt="...">
+            {{else}}
+              Sin imagen
+            {{/if}}
+          </div>
           <div class="col-md-2">
             <label for="labelDocumentId">Código</label>
             <input type="text" class="form-control" name="code"
@@ -21,6 +28,10 @@
                    aria-describedby="Nombre" required
                    {{#if isUpdate}} value="{{item.name}}" {{/if}}>
           </div>
+        </div>
+        <!--ROW 1-->
+        <div class="form-row">
+
 
           <div class="col">
             <label for="labelFirstName">Precio venta</label>

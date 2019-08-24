@@ -51,9 +51,23 @@ app.get('/formUsers', (req, res) => {
 });
 
 app.get('/formItem', (req, res) => {
-  res.render(dirViews + 'formItem', {
-    isUpdate: false
-  });
+  if (req.query.isUpdate) {
+    console.log(req.query.item_id)
+    Item.findById(req.query.item_id, (err, result) => {
+      if (err) {
+        return console.log(err)
+      }
+      res.render(dirViews + 'formItem', {
+        isUpdate: true,
+        item: result
+      });
+    })
+  } else {
+    res.render(dirViews + 'formItem', {
+      isUpdate: false
+    });
+  }
+
 });
 
 //POST METHODS
