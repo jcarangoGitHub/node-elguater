@@ -13,7 +13,7 @@ const getAllItems = (req, res, successForm) => {
         myTitle: err
       });
     }
-
+  
     res.render(dirViews + successForm, {
       allItems: result
     });

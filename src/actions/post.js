@@ -3,17 +3,49 @@ const Item = require('./../models/item');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
+const getActions = require('../actions/gets');
+
 //Paths
 const dirViews = path.join(__dirname, '../../template/views/');
+
+const updateItem = (req, res) => {
+  console.log('updating...')
+  let img = null
+  if (req.file) {
+    img = req.file.buffer;
+  } else if (req.body.imageUploaded) {
+    img = req.body.imageUploaded;
+  }
+  Item.updateOne({code: req.body.code},
+                 {name: req.body.name,
+                 purchase_price: parseFloat(req.body.purchasePrice.replace(".", "")),
+                 sale_price: parseFloat(req.body.salePrice.replace(".", "")),
+                 quantity: parseInt(req.body.quantity),
+                 description: req.body.description,
+                 comment: req.body.comment,
+                 image: img},
+                 (err, result) => {
+                   if (err) {
+                     renderIndex(res, err)
+                   }
+                   getActions.getAllItems(req, res, 'formSearchItems');
+                 })
+}
+
+const renderIndex = (res, msg) => {
+  res.render(dirViews + 'index', {
+    myTitle: msg
+  });
+}
 
 const createItem = (req, res) => {
   let item = new Item({
     code: req.body.code,
     name: req.body.name,
-    purchase_price: req.body.purchasePrice,
-    sale_price: req.body.salePrice,
-    quantity: req.body.quantity,
-    descrption: req.body.description,
+    purchase_price: parseFloat(req.body.purchasePrice.replace(".", "")),
+    sale_price: parseFloat(req.body.salePrice.replace(".", "")),
+    quantity: parseInt(req.body.quantity),
+    description: req.body.description,
     comment: req.body.comment,
     image: req.file ? req.file.buffer : null
   });
@@ -79,5 +111,6 @@ const createUser = (req, res) => {
 module.exports = {
   createUser,
   login,
-  createItem
+  createItem,
+  updateItem
 }

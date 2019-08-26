@@ -12,11 +12,16 @@ hbs.registerHelper('getImageFromItem', (item) => {
 })
 
 hbs.registerHelper('getTableItems', (allItems) => {
+  console.log(allItems);
   let iter = 1;
   let html = '';
   img = null;
   allItems.forEach(item => {
-    img = item.image.toString('base64');
+    img = null;
+    if (item.image) {
+        img = item.image.toString('base64');
+    }
+
     html = html +
       `<tr>
         <th scope="row">${iter}</th>
