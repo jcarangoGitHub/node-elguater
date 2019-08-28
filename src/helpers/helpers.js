@@ -12,7 +12,6 @@ hbs.registerHelper('getImageFromItem', (item) => {
 })
 
 hbs.registerHelper('getTableItems', (allItems) => {
-  console.log(allItems);
   let iter = 1;
   let html = '';
   img = null;
