@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'local') {
 	console.log('local');
 	urlDB = 'mongodb://localhost:27017/guater-mongo-db';
 } else {
-	urlDB = 'mongodb+srv://jca-admin:jca87admin@cluster0-zfyfv.mongodb.net/coursesManager?retryWrites=true';
+	urlDB = 'mongodb+srv://superuser:tWcy72K5wi4gljzf@cluster0-3vnbl.mongodb.net/elguater?retryWrites=true&w=majority';
 }
 
 process.env.URLDB = urlDB
