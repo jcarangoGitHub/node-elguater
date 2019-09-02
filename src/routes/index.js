@@ -102,7 +102,8 @@ var upload = multer({
   }
 });
 
-app.post('/postItem', upload.single('image'), (req, res) => {  
+app.post('/postItem', upload.single('image'), (req, res) => {
+  console.log('imagen: ' + req.body.imageUploaded);  
   if (req.body.isUpdate == 'true') {
     postActions.updateItem(req, res);
   } else {

@@ -1,3 +1,49 @@
+.elguater{
+    color: white;
+}
+
 .label {
   color: red;
+}
+
+.h1Img {
+  color: #2471A3;
+  font-weight: bold;
+}
+
+.h3Description {
+  color: #2980B9;
+}
+
+.h2Price {
+  color: #8E44AD;
+}
+
+.whatsapp {
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color:#25d366;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  font-size:30px;
+  z-index:100;
+}
+
+.whatsapp-icon {
+  margin-top:13px;
+}
+
+.btn-whatsapp {
+  background-color: #25d366; /* make the button transparent */
+  background-repeat: no-repeat;  /* make the background image appear only once */
+  background-position: 0px 0px;  /* equivalent to 'top left' */
+  border: none;           /* assuming we don't want any borders */
+  cursor: pointer;        /* make the cursor like hovering over an <a> element */
+  height: 38px;           /* make this the size of your image */
+  padding-left: 16px;     /* make text start to the right of the image */
+  vertical-align: middle; /* align the text vertically centered */
 }

@@ -8,28 +8,52 @@ const getActions = require('../actions/gets');
 //Paths
 const dirViews = path.join(__dirname, '../../template/views/');
 
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1,$2");
+    return x;
+}
+
 const updateItem = (req, res) => {
-  console.log('updating...')
-  let img = null
+  console.log('updating...');
   if (req.file) {
     img = req.file.buffer;
-  } else if (req.body.imageUploaded) {
+  } else {
     img = req.body.imageUploaded;
+  }  
+  if (img) {
+    Item.updateOne({code: req.body.code},
+                   {name: req.body.name,
+                   purchase_price: parseFloat(req.body.purchasePrice.replace(".", "")),
+                   sale_price: parseFloat(req.body.salePrice.replace(".", "")),
+                   quantity: parseInt(req.body.quantity),
+                   description: req.body.description,
+                   comment: req.body.comment,
+                   image: img},
+                   (err, result) => {
+                     if (err) {
+                       renderIndex(res, err)
+                     }
+                     getActions.getAllItems(req, res, 'formSearchItems');
+                   });
+  } else {
+    Item.updateOne({code: req.body.code},
+                   {name: req.body.name,
+                   purchase_price: parseFloat(req.body.purchasePrice.replace(".", "")),
+                   sale_price: parseFloat(req.body.salePrice.replace(".", "")),
+                   quantity: parseInt(req.body.quantity),
+                   description: req.body.description,
+                   comment: req.body.comment},
+                   (err, result) => {
+                     if (err) {
+                       renderIndex(res, err)
+                     }
+                     getActions.getAllItems(req, res, 'formSearchItems');
+                   })
   }
-  Item.updateOne({code: req.body.code},
-                 {name: req.body.name,
-                 purchase_price: parseFloat(req.body.purchasePrice.replace(".", "")),
-                 sale_price: parseFloat(req.body.salePrice.replace(".", "")),
-                 quantity: parseInt(req.body.quantity),
-                 description: req.body.description,
-                 comment: req.body.comment,
-                 image: img},
-                 (err, result) => {
-                   if (err) {
-                     renderIndex(res, err)
-                   }
-                   getActions.getAllItems(req, res, 'formSearchItems');
-                 })
+
 }
 
 const renderIndex = (res, msg) => {

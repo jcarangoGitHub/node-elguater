@@ -55,12 +55,23 @@ hbs.registerHelper('getSlideIndicators', (allItems) => {
   return html;
 });
 
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1,$2");
+    return x;
+}
+
 hbs.registerHelper('getSlideImages', (allItems) => {
   let iter = 0;
   let html = '';
   img = null;
   allItems.forEach(item => {
-    img = item.image.toString('base64');
+    let strPrice = numberWithCommas(item.sale_price.toString());
+    if (item.image) {
+      img = item.image.toString('base64');
+    }
     if (iter == 0) {
       html = html + '<div class="carousel-item active">';
     } else {
@@ -68,9 +79,17 @@ hbs.registerHelper('getSlideImages', (allItems) => {
     }
     html = html + `<img src="data:img/png;jpeg;jpg;base64, ${img}" class="img-fluid d-block w-100">
         <div class="carousel-caption d-none d-md-block">
-          <h5>${item.name}</h5>
-          <p>${item.description}</p>
-          <p>$ ${item.sale_price}</p>
+          <h1 class="h1Img">${item.name}</h1>
+          <h2 class="h1Img">$ ${strPrice}</h2>
+          <a href="https://api.whatsapp.com/send?phone=573046456220&text=Hola!%20Me%20interesa%20
+                  el%20artículo:%20${item.name}"
+            class="btn btn-primary btn-whatsapp" role="button" aria-pressed="true" target="_blank">
+            <i class="fa fa-whatsapp"></i>
+            Me interesa</a>
+
+</body>
+</html>
+
         </div>
         </div>`;
     iter ++;
