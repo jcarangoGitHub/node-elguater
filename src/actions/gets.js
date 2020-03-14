@@ -10,10 +10,10 @@ const getAllItems = (req, res, successForm) => {
   Item.find().exec((err, result) => {
     if (err) {
       res.render(dirViews + 'index', {
-        myTitle: err
+        msg: err
       });
     }
-  
+
     res.render(dirViews + successForm, {
       allItems: result
     });

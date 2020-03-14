@@ -71,6 +71,12 @@ app.get('/formItem', (req, res) => {
 });
 
 //POST METHODS
+app.post('/removeItem', (req, res) => {
+  console.log('remove: ' + req.query.code)
+  console.log('remove: ' + req.body.code)
+  postActions.removeItemByCode(req, res);
+});
+
 app.post('/postUser', (req, res) => {
   postActions.createUser(req, res);
 });
@@ -103,7 +109,7 @@ var upload = multer({
 });
 
 app.post('/postItem', upload.single('image'), (req, res) => {
-  console.log('imagen: ' + req.body.imageUploaded);  
+  console.log('imagen: ' + req.body.imageUploaded);
   if (req.body.isUpdate == 'true') {
     postActions.updateItem(req, res);
   } else {

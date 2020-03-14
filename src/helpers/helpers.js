@@ -20,7 +20,7 @@ hbs.registerHelper('getTableItems', (allItems) => {
     if (item.image) {
         img = item.image.toString('base64');
     }
-
+    console.log(item.code);
     html = html +
       `<tr>
         <th scope="row">${iter}</th>
@@ -31,6 +31,9 @@ hbs.registerHelper('getTableItems', (allItems) => {
               <h5 class="card-title" style="color:black;">${item.name}</h5>
               <p class="card-text">${item.description}</p>
               <a href="/formItem?isUpdate=true&item_id=${item._id}" class="btn btn-primary">Actualizar</a>
+              <a href="/removeItem?code=${item.code}" class="btn btn-danger">Eliminar</a>
+              <button type="submit" class="btn btn-danger"
+                onclick="setValueElement('code', '${item.code}')">Eliminar ${item.code}</button>
             </div>
           </div>
         </td>
@@ -86,9 +89,6 @@ hbs.registerHelper('getSlideImages', (allItems) => {
             class="btn btn-primary btn-whatsapp" role="button" aria-pressed="true" target="_blank">
             <i class="fa fa-whatsapp"></i>
             Me interesa</a>
-
-</body>
-</html>
 
         </div>
         </div>`;

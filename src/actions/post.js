@@ -8,6 +8,29 @@ const getActions = require('../actions/gets');
 //Paths
 const dirViews = path.join(__dirname, '../../template/views/');
 
+const renderView = (res, msg, view) => {
+  res.render(dirViews + view, {
+    msg: msg
+  });
+}
+
+const removeItemByCode = (req, res) => {
+  Item.findOneAndDelete({code: req.body.code}, req.body, (err, result) => {
+    if (err) {
+      res.render(dirViews + 'formSearchItems', {
+        errorMsg: err
+      });
+    }
+    if (!result) {
+      res.render(dirViews + 'formSearchItems', {
+        warningMsg: 'El artículo con código ' + req.body.code + ' no existe'
+      });
+    }
+
+    renderView(res, 'Artículo eliminado correctamente!', 'formSearchItems');
+  })
+}
+
 function numberWithCommas(x) {
     x = x.toString();
     var pattern = /(-?\d+)(\d{3})/;
@@ -17,12 +40,11 @@ function numberWithCommas(x) {
 }
 
 const updateItem = (req, res) => {
-  console.log('updating...');
   if (req.file) {
     img = req.file.buffer;
   } else {
     img = req.body.imageUploaded;
-  }  
+  }
   if (img) {
     Item.updateOne({code: req.body.code},
                    {name: req.body.name,
@@ -34,7 +56,7 @@ const updateItem = (req, res) => {
                    image: img},
                    (err, result) => {
                      if (err) {
-                       renderIndex(res, err)
+                       renderView(res, err, 'index')
                      }
                      getActions.getAllItems(req, res, 'formSearchItems');
                    });
@@ -48,18 +70,11 @@ const updateItem = (req, res) => {
                    comment: req.body.comment},
                    (err, result) => {
                      if (err) {
-                       renderIndex(res, err)
+                       renderView(res, err, 'index')
                      }
                      getActions.getAllItems(req, res, 'formSearchItems');
                    })
   }
-
-}
-
-const renderIndex = (res, msg) => {
-  res.render(dirViews + 'index', {
-    myTitle: msg
-  });
 }
 
 const createItem = (req, res) => {
@@ -80,9 +95,7 @@ const createItem = (req, res) => {
         myTitle: err
       });
     }
-    res.render(dirViews + 'index', {
-      myTitle: 'Artículo creado corréctamente'
-    });
+    renderView(res, 'Artículo creado corréctamente', 'index');
   })
 }
 
@@ -108,6 +121,7 @@ const login = (req, res) => {
 }
 
 const createUser = (req, res) => {
+  console.log('create user...')
   let user = new User({
     documentId: req.body.documentId,
     lastName: req.body.lastName,
@@ -120,6 +134,7 @@ const createUser = (req, res) => {
     image: req.file ? req.file.buffer : null
   });
   user.save((err, result) => {
+    console.log('**ERROR: ' + err)
     if (err) {
       res.render(dirViews + 'index', {
         myTitle: err
@@ -136,5 +151,6 @@ module.exports = {
   createUser,
   login,
   createItem,
-  updateItem
+  updateItem,
+  removeItemByCode
 }
