@@ -46,6 +46,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(require('./routes/index'));
 
 //Mongo connection
+// autoIndex: false } pdn
 mongoose.connect(process.env.URLDB, {useNewUrlParser: true}, (err, resutl) => {
   if (err) {
     return console.log('Error connecting db guater-mongo-db: ' + err)

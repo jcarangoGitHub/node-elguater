@@ -2,6 +2,10 @@ const hbs = require('hbs');
 const path = require('path');
 const dirPublic = path.join(__dirname, '../../public');
 
+hbs.registerHelper('getUserSession', (req) => {
+  return req.session.user
+})
+
 hbs.registerHelper('getImageFromItem', (item) => {
   if (item && item.image) {
       return item.image.toString('base64');

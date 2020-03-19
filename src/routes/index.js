@@ -29,6 +29,14 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/formNewContact', (req, res) => {
+  getActions.getNewContactForm(req, res)
+});
+
+app.get('/formUpdateContact', (req, res) => {
+  getActions.getUpdateContactForm(req, res)
+});
+
 app.get('/formSearchItems', (req, res) => {
   getActions.getAllItems(req, res, 'formSearchItems');
 });
@@ -46,7 +54,8 @@ app.get('/logout', (req, res) => {
 
 app.get('/formUsers', (req, res) => {
   res.render(dirViews + 'formUsers', {
-    isUpdate: false
+    isUpdate: false,
+    user    : req.session.user
   });
 });
 
@@ -72,8 +81,6 @@ app.get('/formItem', (req, res) => {
 
 //POST METHODS
 app.post('/removeItem', (req, res) => {
-  console.log('remove: ' + req.query.code)
-  console.log('remove: ' + req.body.code)
   postActions.removeItemByCode(req, res);
 });
 

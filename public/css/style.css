@@ -2,6 +2,16 @@
     color: white;
 }
 
+.menuLabels {
+  color: white;
+  font-size: 10px;
+}
+
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
 .label {
   color: red;
 }
@@ -46,4 +56,18 @@
   height: 38px;           /* make this the size of your image */
   padding-left: 16px;     /* make text start to the right of the image */
   vertical-align: middle; /* align the text vertically centered */
+}
+
+.panel-title > a:before {
+    font-family: FontAwesome;
+    content:"\f07c";
+    padding-right: 5px;
+}
+.panel-title > a.collapsed:before {
+    content:"\f07b";
+}
+.panel-title > a:hover,
+.panel-title > a:active,
+.panel-title > a:focus  {
+    text-decoration:none;
 }

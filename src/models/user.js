@@ -21,7 +21,7 @@ const userSchema = new Schema({
   },
   rol: {
     type: String,
-    enum: ['admin', 'customer'],
+    enum: ['admin', 'partner', 'customer'],
     require: [true, 'Please select a Rol']
   },
   telephone: {
@@ -45,7 +45,8 @@ const userSchema = new Schema({
   image: {
     type: Buffer,
     require: true
-  }
+  },
+  _contactId: Schema.Types.ObjectId
 })
 
 

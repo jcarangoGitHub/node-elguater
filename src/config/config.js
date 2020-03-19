@@ -8,5 +8,6 @@ if (process.env.NODE_ENV === 'local') {
 } else {
 	urlDB = 'mongodb+srv://superuser:tWcy72K5wi4gljzf@cluster0-3vnbl.mongodb.net/elguater?retryWrites=true&w=majority';
 }
-
+console.log(urlDB)
 process.env.URLDB = urlDB
+console.log('||||' + process.env.URDB);
