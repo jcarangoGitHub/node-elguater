@@ -1,0 +1,69 @@
+<div class="container">
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelCellPhoneNumber" class="text-secondary">Número celular</label>
+      <div class="input-group mb-3">
+        <span class="input-group-addon"><i class="fa fa-whatsapp fa-3x" aria-hidden="true"></i></span>
+        &nbsp;
+        <fieldset disabled>
+          <input type="tel" class="form-control-lg bg-dark" id="userCellPhoneNumber" name="userCellPhoneNumber"
+              placeholder="311-123-4567" required
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              maxlength="12">
+          <small class="form-text text-muted">
+            (*) Sólo números
+          </small>
+        </fieldset>
+      </div>
+    </div>
+  </div><!--ROW 1-->
+  <!--ROW 2-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelPassword" class="text-secondary">Contraseña</label>
+      <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-key fa-3x"></i></span>
+          &nbsp;
+          <input type="password" class="form-control-lg bg-dark" id="userPassword" name="userPassword"
+            placeholder="Contraseña">
+      </div>
+    </div>
+  </div><!--ROW 2-->
+  </br>
+  <!--ROW 3-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelPassword" class="text-secondary">Confirmar contraseña</label>
+      <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-key fa-3x"></i></span>
+          &nbsp;
+          <input type="password" class="form-control-lg bg-dark" id="exampleInputPassword1" placeholder="Contraseña">
+      </div>
+    </div>
+  </div><!--ROW 3-->
+  </br>
+  <!--ROW 4-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelPassword" class="text-secondary">Rol</label>
+      <div class="input-group-lg">
+        <span class="input-group-addon"><i class="fa fa-user-circle-o fa-3x"></i></span>
+        &nbsp;
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="admin" autocomplete="off" value="admin"> Administrador
+          </label>
+          &nbsp;
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="partner" autocomplete="off" value="partner"> Socio
+          </label>
+          &nbsp;
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="customer" autocomplete="off" value="customer" checked> Cliente
+          </label>
+        </div>
+      </div>
+    </div>
+  </div><!--ROW 4-->
+</div>  <!--<div class="container">-->
