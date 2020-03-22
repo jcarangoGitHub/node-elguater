@@ -1,146 +1,187 @@
 {{>header}}
-
-<div class="container">
-<form action="/postContact" method="post">
-  <input type="hidden" name="isUpdate" value="{{isUpdate}}">
-
-  <div class="card">
-    <div class="card-header bg-secondary">
-      <h5 class="card-title">Nuevo contacto</h5>
-    </div>
-  </div>
-  <div class="card-body bg-dark">
-    <!--ROW 1-->
-    <div class="form-row">
-      <div class="col">
-        <label for="labelCellPhoneNumber" class="text-secondary">Número celular</label>
-        <div class="input-group mb-3">
-          <span class="input-group-addon"><i class="fa fa-whatsapp fa-3x" aria-hidden="true"></i></span>
-          &nbsp;
-          <input type="tel" class="form-control-lg text-white bg-dark" id="cellPhoneNumber" name="cellPhoneNumber"
-              placeholder="311-123-4567"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              maxlength="12"
-              value="{{user.cellPhoneNumber}}"
-              onchange="updateFieldWithValue('userCellPhoneNumber', this.value)"
-              >
-          <small class="form-text text-muted">
-            (*) Sólo números
-          </small>
-        </div>
+<div class="container">  
+  <!--Error message -->
+  {{#if errorMsg}}
+    {{>messageError}}
+  {{/if}}
+  <!--Success message -->
+  {{#if successMsg}}
+    {{>messageSuccess}}
+  {{/if}}
+  <form action="/postContact" method="post">
+    <input type="hidden" name="isUpdate" value="{{inEditMode}}">
+    <div class="card">
+      <div class="card-header bg-secondary h5">
+        <h5 class="card-title">Nuevo contacto</h5>
       </div>
-      <div class="col">
-        <label for="labelCellPhoneNumber">&nbsp;</label>
-        <div class="input-group mb-3">
-          <button class="btn btn-success my-3 my-sm-0" type="submit">Crear</button>
-        </div>
-      </div>
-    </div><!--ROW 1-->
-  </div><!--CARD BODY-->
-</br>
-  <div class="card">
-    <div class="card-header bg-secondary">
-      <h5 class="card-title">Nuevo usuario</h5>
-    </div>
-  </div>
-  <div class="card-body bg-dark">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingOne">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion"
-                href="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                Crear usuario
-              </a>
-            </h4>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body">
-              {{>formUser}}
-            </div> <!--<div class="panel-body">-->
-          </div>
-        </div>
-      </div><!--accordion-->
-  </div><!--CARD BODY-->
-</br>
-  <div class="card">
-    <div class="card-header bg-secondary">
-      <h5 class="card-title">Datos adicionales</h5>
     </div>
     <div class="card-body bg-dark">
       <!--ROW 1-->
       <div class="form-row">
         <div class="col">
-          <label for="labelName" class="text-secondary">Nombre</label>
-          <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
-              &nbsp;
-              <input type="text" class="form-control-lg bg-dark" id="contactFirstName"
-                name="contactFirstName" placeholder="Nombre">
+          <label for="labelCellPhoneNumber" class="text-secondary">Número celular</label>
+          <div class="input-group mb-3">
+            <span class="input-group-addon"><i class="fa fa-whatsapp fa-3x" aria-hidden="true"></i></span>
+            &nbsp;
+            <input type="tel" class="form-control-lg text-white bg-dark" id="cellPhoneNumber" name="cellPhoneNumber"
+                placeholder="311-123-4567"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                maxlength="12"
+                {{#if contact}}
+                value="{{contact.cellPhoneNumber}}"
+                readonly
+                {{else}}
+                value=""
+                {{/if}}
+                onkeypress="if (isNumberKey(event)) {
+                              formatCellPhoneNumber(event, 'cellPhoneNumber');
+                              return true;
+                            } else {
+                              return false
+                            }"
+                onchange="updateFieldWithValue('userCellPhoneNumber', this.value)"
+                >
+            <small class="form-text text-muted">
+              (*) Sólo números
+            </small>
+          </div>
+        </div>
+        <div class="col">
+          <label for="labelCellPhoneNumber">&nbsp;</label>
+          {{#if contact}}
+          <div class="input-group mb-3">
+            <a class="btn btn-primary" href="javascript:enableFields(event);" role="button">Editar</a>
+          </div>
+          {{/if}}
+          <div class="input-group mb-3">
+            <button class="btn btn-success my-3 my-sm-0" type="submit">Crear</button>
           </div>
         </div>
       </div><!--ROW 1-->
-      &nbsp;
-      <!--ROW 2-->
-      <div class="form-row">
-        <div class="col">
-          <label for="labelLastName" class="text-secondary">Apellido</label>
-          <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
-              &nbsp;
-              <input type="text" class="form-control-lg bg-dark" id="contactLastName"
-                name="contactLastName" placeholder="Apellido">
-          </div>
-        </div>
-      </div><!--ROW 2-->
-      &nbsp;
-      <!--ROW 3-->
-      <div class="form-row">
-        <div class="col">
-          <label for="labelTypeID" class="text-secondary">Tipo documento</label>
-          <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
-              &nbsp;
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active text-white">
-                  <input type="radio" name="options" id="admin" autocomplete="off" value="admin" checked> Cédula
-                </label>
-                &nbsp;
-                <label class="btn btn-secondary text-white">
-                  <input type="radio" name="options" id="partner" autocomplete="off" value="partner"> Tarjeta de identidad
-                </label>
-                &nbsp;
-                <label class="btn btn-secondary text-white">
-                  <input type="radio" name="options" id="customer" autocomplete="off" value="customer"> Pasaporte
-                </label>
-              </div>
-          </div>
-        </div>
-      </div><!--ROW 3-->
-      &nbsp;
-      <!--ROW 4-->
-      <div class="form-row">
-        <div class="col">
-            <label for="labelNumberID" class="text-secondary">Número identificación</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
-                &nbsp;
-                <input type="text" class="form-control-lg bg-dark" id="contactNumberID"
-                  name="contactNumberID" placeholder="Número identificación">
-              </div>
-          </div>
-        </div><!--ROW 4-->
-      </div><!--CARD BODY-->
-    </div><!--CARD-->
+    </div><!--CARD BODY-->
   </br>
-    <div class="form-row">
-      <div class="col">
-        <div class="input-group mb-3">
-          <button class="btn btn-success my-3 my-sm-0" type="submit">Crear</button>
-        </div>
+    <div class="card">
+      <div class="card-header bg-secondary h5">
+        <h5 class="card-title">Nuevo usuario</h5>
       </div>
     </div>
-  </form>
+    <div class="card-body bg-dark">
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                  href="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Crear usuario
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                {{>formUser}}
+              </div> <!--<div class="panel-body">-->
+            </div>
+          </div>
+        </div><!--accordion-->
+    </div><!--CARD BODY-->
+  </br>
+    <div class="card">
+      <div class="card-header bg-secondary h5">
+        <h5 class="card-title">Datos adicionales</h5>
+      </div>
+      <div class="card-body bg-dark">
+        <!--ROW 1-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelName" class="text-secondary">Nombre</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
+                &nbsp;
+                <input type="text" class="form-control-lg text-white bg-dark" id="contactFirstName"
+                  name="contactFirstName" placeholder="Nombre"
+                  {{#if contact}}
+                  readonly
+                  {{/if}}
+                  >
+            </div>
+          </div>
+        </div><!--ROW 1-->
+        &nbsp;
+        <!--ROW 2-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelLastName" class="text-secondary">Apellido</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
+                &nbsp;
+                <input type="text" class="form-control-lg text-white bg-dark" id="contactLastName"
+                  name="contactLastName" placeholder="Apellido"
+                  {{#if contact}}
+                  readonly
+                  {{/if}}
+                  >
+            </div>
+          </div>
+        </div><!--ROW 2-->
+        &nbsp;
+        <!--ROW 3-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelTypeID" class="text-secondary">Tipo documento</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
+                &nbsp;
+                {{#if contact}}
+                <input type="text" class="form-control-lg text-white bg-dark" id="typeId"
+                  name="typeId" placeholder="Tipo documento"
+                  value="{{contact.typeId}}"
+                  readonly>
+                {{else}}
+                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="contactTipeId_div">
+                  <label class="btn btn-secondary active text-white">
+                    <input type="radio" name="contactTypeId" id="admin" autocomplete="off" value="CC" checked> Cédula
+                  </label>
+                  &nbsp;
+                  <label class="btn btn-secondary text-white">
+                    <input type="radio" name="contactTypeId" id="partner" autocomplete="off" value="TI"> Tarjeta de identidad
+                  </label>
+                  &nbsp;
+                  <label class="btn btn-secondary text-white">
+                    <input type="radio" name="contactTypeId" id="customer" autocomplete="off" value="PASAPORTE"> Pasaporte
+                  </label>
+                </div>
+                {{/if}}
+            </div>
+          </div>
+        </div><!--ROW 3-->
+        &nbsp;
+        <!--ROW 4-->
+        <div class="form-row">
+          <div class="col">
+              <label for="labelNumberID" class="text-secondary">Número identificación</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
+                  &nbsp;
+                  <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
+                    name="contactNumberID" placeholder="Número identificación"
+                    {{#if contact}}
+                    readonly
+                    {{/if}}
+                    >
+                </div>
+            </div>
+          </div><!--ROW 4-->
+        </div><!--CARD BODY-->
+      </div><!--CARD-->
+    </br>
+      <div class="form-row">
+        <div class="col">
+          <div class="input-group mb-3">
+            <button class="btn btn-success my-3 my-sm-0" type="submit">Crear</button>
+          </div>
+        </div>
+      </div>
+    </form>
 </div><!--CONTAINER-->
 {{>footer}}

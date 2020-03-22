@@ -2,15 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  cellPhoneNumber: {
+    type: String,    
+    unique: [true, 'Sorry, the cell phone number has been already registered'],
+    index: true
+  },
   documentId: {
     type: Number,
-    require: true,
     unique: [true, 'Document Id is already created, please try with other'],
     tirm: true
   },
   lastName: {
     type: String,
-    require: true,
     lowercase: true,
     tirm: true
   },
@@ -30,7 +33,6 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    require: true,
     tirm: true
   },
   userName: {

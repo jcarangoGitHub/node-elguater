@@ -23,13 +23,8 @@ const getAllItems = (req, res, successForm) => {
 }
 
 const getNewContactForm = (req, res) => {
-  let user = new User({
-
-  });
   res.render(dirViews + 'formContact', {
-    isUpdate: false,
-    showUserForm: false,
-    user: user
+    inEditMode: true
   });
 }
 

@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const contactSchema = new Schema({
   cellPhoneNumber:{
-    type: Number,
-    require: true,
+    type: String,
+    required: [true, 'Debes ingresar el número celular del contacto'],
     unique: [true, 'Sorry, the cell phone number has been already registered'],
     index: true
   },

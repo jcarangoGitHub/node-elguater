@@ -9,6 +9,7 @@ require('../helpers/helpers');
 
 const postActions = require('../actions/post');
 const getActions = require('../actions/gets');
+const contactPost = require('../actions/post/contactPost');
 
 const Item = require('./../models/item');
 
@@ -80,6 +81,10 @@ app.get('/formItem', (req, res) => {
 });
 
 //POST METHODS
+app.post('/postContact', (req, res) => {
+  contactPost.createContact(req, res);
+});
+
 app.post('/removeItem', (req, res) => {
   postActions.removeItemByCode(req, res);
 });
