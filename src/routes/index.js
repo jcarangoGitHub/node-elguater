@@ -9,7 +9,7 @@ require('../helpers/helpers');
 
 const postActions = require('../actions/post');
 const getActions = require('../actions/gets');
-const contactPost = require('../actions/post/contactPost');
+const contactController = require('../api/contact-controller');
 
 const Item = require('./../models/item');
 
@@ -31,7 +31,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/formNewContact', (req, res) => {
-  getActions.getNewContactForm(req, res)
+  contactController.getNewContactForm(req, res);
+});
+
+app.get('/contact', (req, res) => {
+  contactController.getSearchContactForm(req, res);
 });
 
 app.get('/formUpdateContact', (req, res) => {
@@ -80,9 +84,18 @@ app.get('/formItem', (req, res) => {
 
 });
 
+//PUT METHODS
+app.post('/put-contact', (req, res) => {
+  console.log('put contact...');
+});
+
 //POST METHODS
-app.post('/postContact', (req, res) => {
-  contactPost.createContact(req, res);
+app.post('/contact', (req, res) => {
+  contactController.createContact(req, res);
+});
+
+app.post('/search-contact', (req, res) => {
+  contactController.getSearchContactForm(req, res);
 });
 
 app.post('/removeItem', (req, res) => {

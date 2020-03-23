@@ -1,5 +1,5 @@
 {{>header}}
-<div class="container">  
+<div class="container">
   <!--Error message -->
   {{#if errorMsg}}
     {{>messageError}}
@@ -8,8 +8,8 @@
   {{#if successMsg}}
     {{>messageSuccess}}
   {{/if}}
-  <form action="/postContact" method="post">
-    <input type="hidden" name="isUpdate" value="{{inEditMode}}">
+  <form action="/contact" method="post">
+    <input type="hidden" name="inEditMode" value="{{inEditMode}}">
     <div class="card">
       <div class="card-header bg-secondary h5">
         <h5 class="card-title">Nuevo contacto</h5>

@@ -1,15 +1,11 @@
-const Contact = require('./../../models/contact');
-const User = require('./../../models/user');
+const Contact = require('./../models/contact');
+const User = require('./../models/user');
 
 const path = require('path');
 
-const dirViews = path.join(__dirname, '../../../template/views/');
+const dirViews = path.join(__dirname, '../../template/views/');
 
 const createContact = (req, res) => {
-  console.log('***CEL****...');
-  console.log(req.body.cellPhoneNumber);
-  console.log(req.body.cellPhoneNumber === '');
-  console.log(req.body.cellPhoneNumber !== '');
   let contact = new Contact({
     cellPhoneNumber: req.body.cellPhoneNumber != null && req.body.cellPhoneNumber !== '' ? req.body.cellPhoneNumber : null,
     name: req.body.contactFirstName,
@@ -27,8 +23,6 @@ const createContact = (req, res) => {
       });
       return;
     }
-    console.log(resContact);
-    console.log(req.body.userPassword.value)
     if (typeof req.body.userPassword === String) {
       console.log('creating user');
       let user = new User({
@@ -45,10 +39,9 @@ const createContact = (req, res) => {
             errorMsg: err
           });
         }
-        console.log(resUser);
       });
     }
-    res.render(dirViews + 'formContact', {
+    res.render(dirViews + 'formSearchContact', {
       inEditMode: false,
       contact: resContact,
       successMsg: 'Contacto con ID ' + resContact.cellPhoneNumber + ' creado exitósamente!'
@@ -56,6 +49,31 @@ const createContact = (req, res) => {
   });
 }
 
+const getNewContactForm = (req, res) => {
+  res.render(dirViews + 'formContact', {
+    inEditMode: false
+  });
+}
+
+const getSearchContactForm = (req, res) => {
+  if (typeof req.body.cellPhoneToSearch !== 'undefined' && req.body.cellPhoneToSearch) {
+    console.log('cellPhoneToSearch !== null' + req.body.cellPhoneToSearch);
+    var query  = Contact.where({ cellPhoneNumber: req.body.cellPhoneToSearch});
+    query.findOne(function (err, result) {
+      res.render(dirViews + 'formSearchContact', {
+        contact: result
+      });
+      return
+    });
+  } else {
+    res.render(dirViews + 'formSearchContact', {
+      successMsg: req.successMsg
+    });
+  }
+}
+
 module.exports = {
-  createContact
+  createContact,
+  getNewContactForm,
+  getSearchContactForm
 }

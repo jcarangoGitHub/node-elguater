@@ -14,3 +14,12 @@ function formatCellPhoneNumber(event, field) {
     document.getElementById(field).value = value;
   }
 }
+
+function onkeypressCellPhoneField(event, field) {
+  if (isNumberKey(event)) {
+    formatCellPhoneNumber(event, field);
+    return true;
+  } else {
+    return false;
+  }
+}

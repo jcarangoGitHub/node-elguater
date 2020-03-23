@@ -1,0 +1,132 @@
+{{>header}}
+
+<div class="container">
+  <form method="post" action="/search-contact" class="searchContact">
+    <div class="card">
+      <div class="card-header bg-secondary h5">
+        <h5 class="card-title">Buscar contactos</h5>
+      </div>
+    </div>
+    <div class="card-body bg-dark">
+      <!--ROW 1-->
+      <div class="form-row">
+        <div class="col">
+          <label for="labelCellPhoneNumber" class="text-secondary">Número celular</label>
+          <div class="input-group mb-3">
+            <span class="input-group-addon"><i class="fa fa-whatsapp fa-3x" aria-hidden="true"></i></span>
+            &nbsp;
+            <input type="tel" class="form-control-lg text-white bg-dark" id="cellPhoneToSearch" name="cellPhoneToSearch"
+                placeholder="311-123-4567" required
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                maxlength="12"
+                onkeypress="onkeypressCellPhoneField(event, 'cellPhoneToSearch');"
+                {{#if contact}}
+                value="{{contact.cellPhoneNumber}}"
+                {{/if}}
+                >
+            <small class="form-text text-muted">
+              (*) Sólo números
+            </small>
+          </div>
+        </div>
+        <div class="col">
+          <label for="labelCellPhoneNumber">&nbsp;</label>
+          <div class="input-group mb-3">
+            <button class="btn btn-success my-3 my-sm-0 searchContact" type="submit">Buscar</button>
+          </div>
+        </div>
+      </div><!--ROW 1-->
+    </div><!--CARD BODY-->
+  </form>
+
+  </br>
+  <!--Success message -->
+  {{#if successMsg}}
+    {{>messageSuccess}}
+  {{/if}}
+
+  <form action="/put-contact" method="post" class="updateContact">
+    <input type="hidden" name="inEditMode" value="true">
+    <div class="card">
+      <div class="card-header bg-secondary h5">
+        {{#if contact}}
+        <h5 class="card-title">Cotacto encontrado</h5>
+        <button class="btn btn-success my-3 my-sm-0 updateContact" type="submit">Actualizar</button>
+        {{else}}
+        <h5 class="card-title">Contacto no encontrado</h5>
+        {{/if}}
+
+      </div>
+    </div>
+    <div class="card-body bg-dark">
+      <!--ROW 1-->
+      <div class="form-row">
+        <div class="col">
+          <label for="labelName" class="text-secondary">Nombre</label>
+          <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
+              &nbsp;
+              <input type="text" class="form-control-lg text-white bg-dark" id="contactFirstName"
+                name="contactFirstName" placeholder="Nombre" readonly
+                {{#if contact}}
+                value="{{contact.name}}"
+                {{/if}}
+                >
+          </div>
+        </div>
+      </div><!--ROW 1-->
+      <!--ROW 2-->
+      <div class="form-row">
+        <div class="col">
+          <label for="labelLastName" class="text-secondary">Apellido</label>
+          <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
+              &nbsp;
+              <input type="text" class="form-control-lg text-white bg-dark" id="contactLastName"
+                name="contactLastName" placeholder="Apellido" readonly
+                {{#if contact}}
+                value="{{contact.lastName}}"
+                {{/if}}
+                >
+          </div>
+        </div>
+      </div><!--ROW 2-->
+      &nbsp;
+      <!--ROW 3-->
+      <div class="form-row">
+        <div class="col">
+          <label for="labelTypeID" class="text-secondary">Tipo documento</label>
+          <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
+              &nbsp;
+              {{#if contact}}
+              <input type="text" class="form-control-lg text-white bg-dark" id="typeId"
+                name="typeId" placeholder="Tipo documento" readonly
+                value="{{contact.typeId}}">
+              {{/if}}
+          </div>
+        </div>
+      </div><!--ROW 3-->
+      &nbsp;
+      <!--ROW 4-->
+      <div class="form-row">
+        <div class="col">
+            <label for="labelNumberID" class="text-secondary">Número identificación</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
+                &nbsp;
+                <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
+                  name="contactNumberID" placeholder="Número identificación" readonly
+                  {{#if contact}}
+                  value="{{contact.contactId}}"
+                  {{/if}}
+                  >
+              </div>
+          </div>
+        </div><!--ROW 4-->
+    </div><!--CARD BODY-->
+  </form>
+
+
+</div><!--CONTAINER-->
+{{>footer}}
