@@ -45,8 +45,12 @@
     {{>messageSuccess}}
   {{/if}}
 
-  <form action="/put-contact" method="post" class="updateContact">
-    <input type="hidden" name="inEditMode" value="true">
+  <form action="/contact-put" method="post" class="updateContact">
+    <input type="hidden" name="_contactId" id="_contactId"
+      {{#if contact}}
+      value="{{contact._id}}"
+      {{/if}}
+    >
     <div class="card">
       <div class="card-header bg-secondary h5">
         {{#if contact}}
@@ -67,7 +71,7 @@
               <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
               &nbsp;
               <input type="text" class="form-control-lg text-white bg-dark" id="contactFirstName"
-                name="contactFirstName" placeholder="Nombre" readonly
+                name="contactFirstName" placeholder="Nombre"
                 {{#if contact}}
                 value="{{contact.name}}"
                 {{/if}}
@@ -83,7 +87,7 @@
               <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
               &nbsp;
               <input type="text" class="form-control-lg text-white bg-dark" id="contactLastName"
-                name="contactLastName" placeholder="Apellido" readonly
+                name="contactLastName" placeholder="Apellido"
                 {{#if contact}}
                 value="{{contact.lastName}}"
                 {{/if}}
@@ -100,8 +104,8 @@
               <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
               &nbsp;
               {{#if contact}}
-              <input type="text" class="form-control-lg text-white bg-dark" id="typeId"
-                name="typeId" placeholder="Tipo documento" readonly
+              <input type="text" class="form-control-lg text-white bg-dark" id="contactTypeId"
+                name="contactTypeId" placeholder="Tipo documento"
                 value="{{contact.typeId}}">
               {{/if}}
           </div>
@@ -116,7 +120,7 @@
                 <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
                 &nbsp;
                 <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
-                  name="contactNumberID" placeholder="Número identificación" readonly
+                  name="contactNumberID" placeholder="Número identificación"
                   {{#if contact}}
                   value="{{contact.contactId}}"
                   {{/if}}

@@ -7,7 +7,7 @@ function enableFields(event) {
   document.getElementById("contactTipeId_div").style.visibility = 'visible';
 }
 
-$('button.searchContact').click( function() {
+$('button.searchContact')?.click( function() {
     $('form.searchContact').submit();
 });
 $('button.updateContact').click( function() {

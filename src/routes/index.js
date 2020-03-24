@@ -65,8 +65,7 @@ app.get('/formUsers', (req, res) => {
 });
 
 app.get('/formItem', (req, res) => {
-  if (req.query.isUpdate) {
-    console.log(req.query.item_id)
+  if (req.query.isUpdate) {    
     Item.findById(req.query.item_id, (err, result) => {
       if (err) {
         return console.log(err)
@@ -85,8 +84,9 @@ app.get('/formItem', (req, res) => {
 });
 
 //PUT METHODS
-app.post('/put-contact', (req, res) => {
+app.post('/contact-put', (req, res) => {
   console.log('put contact...');
+  contactController.updateContact(req, res);
 });
 
 //POST METHODS
