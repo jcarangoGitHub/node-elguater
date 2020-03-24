@@ -33,12 +33,7 @@
                 {{else}}
                 value=""
                 {{/if}}
-                onkeypress="if (isNumberKey(event)) {
-                              formatCellPhoneNumber(event, 'cellPhoneNumber');
-                              return true;
-                            } else {
-                              return false
-                            }"
+                onkeypress="onkeypressCellPhoneField(event, 'cellPhoneNumber')"
                 onchange="updateFieldWithValue('userCellPhoneNumber', this.value)"
                 >
             <small class="form-text text-muted">
@@ -90,90 +85,9 @@
       <div class="card-header bg-secondary h5">
         <h5 class="card-title">Datos adicionales</h5>
       </div>
-      <div class="card-body bg-dark">
-        <!--ROW 1-->
-        <div class="form-row">
-          <div class="col">
-            <label for="labelName" class="text-secondary">Nombre</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
-                &nbsp;
-                <input type="text" class="form-control-lg text-white bg-dark" id="contactFirstName"
-                  name="contactFirstName" placeholder="Nombre"
-                  {{#if contact}}
-                  readonly
-                  {{/if}}
-                  >
-            </div>
-          </div>
-        </div><!--ROW 1-->
-        &nbsp;
-        <!--ROW 2-->
-        <div class="form-row">
-          <div class="col">
-            <label for="labelLastName" class="text-secondary">Apellido</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user-o fa-3x"></i></span>
-                &nbsp;
-                <input type="text" class="form-control-lg text-white bg-dark" id="contactLastName"
-                  name="contactLastName" placeholder="Apellido"
-                  {{#if contact}}
-                  readonly
-                  {{/if}}
-                  >
-            </div>
-          </div>
-        </div><!--ROW 2-->
-        &nbsp;
-        <!--ROW 3-->
-        <div class="form-row">
-          <div class="col">
-            <label for="labelTypeID" class="text-secondary">Tipo documento</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
-                &nbsp;
-                {{#if contact}}
-                <input type="text" class="form-control-lg text-white bg-dark" id="typeId"
-                  name="typeId" placeholder="Tipo documento"
-                  value="{{contact.typeId}}"
-                  readonly>
-                {{else}}
-                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="contactTipeId_div">
-                  <label class="btn btn-secondary active text-white">
-                    <input type="radio" name="contactTypeId" id="admin" autocomplete="off" value="CC" checked> Cédula
-                  </label>
-                  &nbsp;
-                  <label class="btn btn-secondary text-white">
-                    <input type="radio" name="contactTypeId" id="partner" autocomplete="off" value="TI"> Tarjeta de identidad
-                  </label>
-                  &nbsp;
-                  <label class="btn btn-secondary text-white">
-                    <input type="radio" name="contactTypeId" id="customer" autocomplete="off" value="PASAPORTE"> Pasaporte
-                  </label>
-                </div>
-                {{/if}}
-            </div>
-          </div>
-        </div><!--ROW 3-->
-        &nbsp;
-        <!--ROW 4-->
-        <div class="form-row">
-          <div class="col">
-              <label for="labelNumberID" class="text-secondary">Número identificación</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x"></i></span>
-                  &nbsp;
-                  <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
-                    name="contactNumberID" placeholder="Número identificación"
-                    {{#if contact}}
-                    readonly
-                    {{/if}}
-                    >
-                </div>
-            </div>
-          </div><!--ROW 4-->
-        </div><!--CARD BODY-->
-      </div><!--CARD-->
+      {{>contactAdditionalInfo}}
+
+    </div><!--CARD-->
     </br>
       <div class="form-row">
         <div class="col">

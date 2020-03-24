@@ -6,6 +6,20 @@ hbs.registerHelper('getUserSession', (req) => {
   return req.session.user
 })
 
+hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
+  let typeId = contact.typeId;
+  console.log('-*-*-*-*-*');
+  console.log(typeId);
+  console.log(option);
+  console.log(typeId === option);
+  if (typeId === option) {
+    console.log('return checked');
+    return 'active';
+  } else {
+    return '';
+  }
+})
+
 hbs.registerHelper('getImageFromItem', (item) => {
   if (item && item.image) {
       return item.image.toString('base64');

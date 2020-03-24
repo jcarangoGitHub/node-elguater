@@ -1,9 +1,44 @@
-.elguater{
+  .elguater{
     color: white;
 }
 
 .h5 {
   color: white;
+  font-family: "Courier New", monospace;
+}
+
+label {
+  font-family: "Courier New", monospace;
+}
+
+input {
+  font-family: "Courier New", monospace;
+}
+
+button {
+  font-family: "Courier New", monospace;
+}
+
+a {
+  font-family: "Courier New", monospace;  
+}
+
+.logo-en {
+  color: white;
+  font-family: "Impact", "Lucida Grande", sans-serif;
+  font-size: 90px;
+}
+
+.logo-punto {
+  color: #F1C40F;
+  font-family: "Impact", "Lucida Grande", sans-serif;
+  font-size: 90px;
+}
+
+.logo-com {
+  color: #5cb85c;
+  font-family: "Impact", "Lucida Grande", sans-serif;
+  font-size: 36px;
 }
 
 .menuLabels {
@@ -14,10 +49,6 @@
 .form-group.required .control-label:after {
   content:"*";
   color:red;
-}
-
-.label {
-  color: red;
 }
 
 .h1Img {

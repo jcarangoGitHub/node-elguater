@@ -1,0 +1,83 @@
+<div class="card-body bg-dark">
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelName" class="text-light">Nombre</label>
+      <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user-o fa-3x fa-fw" style="color:white"></i></span>
+          &nbsp;
+          <input type="text" class="form-control-lg text-white bg-dark" id="contactFirstName"
+            name="contactFirstName" placeholder="Nombre"
+            {{#if contact}}
+            value="{{contact.name}}"
+            {{/if}}
+            >
+      </div>
+    </div>
+  </div><!--ROW 1-->
+  <!--ROW 2-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelLastName" class="text-light">Apellido</label>
+      <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user-o fa-3x fa-fw" style="color:white"></i></span>
+          &nbsp;
+          <input type="text" class="form-control-lg text-white bg-dark" id="contactLastName"
+            name="contactLastName" placeholder="Apellido"
+            {{#if contact}}
+            value="{{contact.lastName}}"
+            {{/if}}
+            >
+      </div>
+    </div>
+  </div><!--ROW 2-->
+  &nbsp;
+  <!--ROW 3-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelTypeID" class="text-light">Tipo documento</label>
+
+      <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x fa-fw" style="color:white"></i></span>
+          &nbsp;
+          <div class="btn-group btn-group-toggle" data-toggle="buttons" id="contactTipeId_div">
+            <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'cc'}}} {{/if}} text-white">
+              <input type="radio" name="contactTypeId" id="cc"
+              autocomplete="off" value="cc"
+              > Cédula</input>
+            </label>
+            &nbsp;
+            <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'ti'}}} {{/if}} text-white">
+              <input type="radio" name="contactTypeId" id="ti"
+              autocomplete="off" value="ti"
+              > Tarjeta de identidad</input>
+            </label>
+            &nbsp;
+            <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'pasaporte'}}} {{/if}} text-white">
+              <input type="radio" name="contactTypeId" id="pasaporte"
+              autocomplete="off" value="pasaporte"
+              checked> Pasaporte
+              </input>
+            </label>
+          </div>
+      </div>
+    </div>
+  </div><!--ROW 3-->
+  &nbsp;
+  <!--ROW 4-->
+  <div class="form-row">
+    <div class="col">
+        <label for="labelNumberID" class="text-light">Número identificación</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x fa-fw" style="color:white"></i></span>
+            &nbsp;
+            <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
+              name="contactNumberID" placeholder="Número identificación"
+              {{#if contact}}
+              value="{{contact.contactId}}"
+              {{/if}}
+              >
+          </div>
+      </div>
+    </div><!--ROW 4-->
+</div><!--CARD BODY-->
