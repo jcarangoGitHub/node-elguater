@@ -39,9 +39,14 @@ app.get('/contact', (req, res) => {
 });
 
 app.get('/formUpdateContact', (req, res) => {
-  getActions.getUpdateContactForm(req, res)
+  contactController.getUpdateContactForm(req, res)
 });
 
+app.get('/partner', (req, res) => {  
+  contactController.getFormPartner(req, res);
+});
+
+//olds, checks usages
 app.get('/formSearchItems', (req, res) => {
   getActions.getAllItems(req, res, 'formSearchItems');
 });
@@ -65,7 +70,7 @@ app.get('/formUsers', (req, res) => {
 });
 
 app.get('/formItem', (req, res) => {
-  if (req.query.isUpdate) {    
+  if (req.query.isUpdate) {
     Item.findById(req.query.item_id, (err, result) => {
       if (err) {
         return console.log(err)

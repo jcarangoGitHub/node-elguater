@@ -1,0 +1,38 @@
+{{>header}}
+<div class="container">
+  <!--Error message -->
+  {{#if errorMsg}}
+    {{>messageError}}
+  {{/if}}
+  <!--Success message -->
+  {{#if successMsg}}
+    {{>messageSuccess}}
+  {{/if}}
+
+  <form action="/partner" method="post">
+    <div class="card">
+      <div class="card-header bg-secondary h5">
+        <h5 class="card-title">Socio</h5>
+      </div>
+    </div>
+
+    <div class="card-body bg-dark">
+      {{#if contact}}
+      <!--ROW 1-->
+      <div class="form-row">
+        <div class="col">
+          <label for="labelLastName" class="text-light">
+            {{contact.fullName}} -
+            <a class="btn btn-link"
+              href="/contact?cellPhoneToSearch={{contact.cellPhoneNumber}}"
+              role="button">{{contact.cellPhoneNumber}}
+            </a>
+          </label>
+        </div>
+      </div>
+
+      {{/if}}
+    </div>
+  <form>
+</div><!--end container-->
+{{>footer}}

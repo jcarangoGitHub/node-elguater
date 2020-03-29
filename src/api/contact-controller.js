@@ -15,12 +15,16 @@ const updateContact = (req, res) => {
     contactId: req.body.contactNumberID},
     (err, result) => {
       if (err) {
-        return console.log(err);
+        res.render(dirViews + 'formSearchContact', {
+          errorMsg: err
+        });
       }
       if (result.ok === 1) {
         Contact.findById(_id, (err, result) => {
           if (err) {
-            return console.log(err);
+            res.render(dirViews + 'formSearchContact', {
+              errorMsg: err
+            });
           }
           res.render(dirViews + 'formSearchContact', {
             contact: result,
@@ -85,8 +89,12 @@ const getNewContactForm = (req, res) => {
 }
 
 const getSearchContactForm = (req, res) => {
-  if (typeof req.body.cellPhoneToSearch !== 'undefined' && req.body.cellPhoneToSearch) {
-    var query  = Contact.where({ cellPhoneNumber: req.body.cellPhoneToSearch});
+  let bodyCellPhone = req.body.cellPhoneToSearch;
+  let queryCellPhone = req.query.cellPhoneToSearch;
+  if ((typeof bodyCellPhone !== 'undefined' && bodyCellPhone) ||
+       typeof queryCellPhone !== 'undefined' && queryCellPhone) {
+    let cellPhoneToSearch = bodyCellPhone ? bodyCellPhone : queryCellPhone;
+    var query  = Contact.where({ cellPhoneNumber: cellPhoneToSearch});
     query.findOne(function (err, result) {
       res.render(dirViews + 'formSearchContact', {
         contact: result
@@ -94,12 +102,45 @@ const getSearchContactForm = (req, res) => {
       return
     });
   } else {
-    console.log('---MSG---');
-    console.log(req.successMsg);
     res.render(dirViews + 'formSearchContact', {
       successMsg: req.successMsg
     });
   }
+}
+
+const getUpdateContactForm = (req, res) => {
+
+  Contact.findById(req.session.user._contactId).exec((err, result) => {
+    if (err) {
+      res.render(dirViews + 'index', {
+        msg: err
+      });
+    }
+    res.render(dirViews + 'formContact', {
+      isUpdate: true,
+      user    : req.session.user,
+      contact : result
+    });
+  });
+}
+
+const getFormPartner = (req, res) => {
+  let cellPhone = req.query.cell;
+  Contact.findOne({cellPhoneNumber: cellPhone}).exec((err, result) => {
+    if (err) {
+      res.render(dirViews + 'formPartner', {
+        errorMsg: err
+      });
+    }
+    if (result === null) {
+      res.render(dirViews + 'formPartner', {
+        errorMsg: 'El número ' + cellPhone + ' no está registrado'
+      });
+    }
+    res.render(dirViews + 'formPartner', {
+      contact: result
+    });
+  });
 }
 
 /******************************************************************************/
@@ -109,4 +150,6 @@ module.exports = {
   createContact,
   getNewContactForm,
   getSearchContactForm,
+  getUpdateContactForm,
+  getFormPartner
 }

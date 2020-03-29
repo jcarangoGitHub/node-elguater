@@ -22,30 +22,6 @@ const getAllItems = (req, res, successForm) => {
   });
 }
 
-const getNewContactForm = (req, res) => {
-  res.render(dirViews + 'formContact', {
-    inEditMode: true
-  });
-}
-
-const getUpdateConctactForm = (req, res) => {
-
-  Contact.findById(req.session.user._contactId).exec((err, result) => {
-    if (err) {
-      res.render(dirViews + 'index', {
-        msg: err
-      });
-    }
-    res.render(dirViews + 'formContact', {
-      isUpdate: true,
-      user    : req.session.user,
-      contact : result
-    });
-  });
-}
-
 module.exports = {
-  getAllItems,
-  getNewContactForm,
-  getUpdateConctactForm
+  getAllItems
 }

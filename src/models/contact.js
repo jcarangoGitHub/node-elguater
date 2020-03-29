@@ -10,12 +10,12 @@ const contactSchema = new Schema({
   },
   name: {
     type: String,
-    lowercase: true,
+    uppercase: true,
     trim: true
   },
   lastName: {
     type: String,
-    lowercase: true,
+    uppercase: true,
     trim: true
   },
   typeId: {
@@ -32,7 +32,7 @@ const contactSchema = new Schema({
   },
   address: {
     type: String,
-    lowercase: true,
+    uppercase: true,
     trim: true
   },
   email: {
@@ -49,6 +49,10 @@ const contactSchema = new Schema({
   image: {
     type: Buffer
   }
+});
+
+contactSchema.virtual('fullName').get(function() {
+  return this.name + ' ' + this.lastName;
 });
 
 const Contact = mongoose.model('Contact', contactSchema);
