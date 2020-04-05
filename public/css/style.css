@@ -15,12 +15,16 @@ input {
   font-family: "Courier New", monospace;
 }
 
+textarea {
+  font-family: "Courier New", monospace;
+}
+
 button {
   font-family: "Courier New", monospace;
 }
 
 a {
-  font-family: "Courier New", monospace;  
+  font-family: "Courier New", monospace;
 }
 
 .logo-en {

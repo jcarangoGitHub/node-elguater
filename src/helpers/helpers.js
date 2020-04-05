@@ -4,22 +4,28 @@ const dirPublic = path.join(__dirname, '../../public');
 
 hbs.registerHelper('getUserSession', (req) => {
   return req.session.user
-})
+});
 
 hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
   let typeId = contact.typeId;
-  console.log('-*-*-*-*-*');
-  console.log(typeId);
-  console.log(option);
-  console.log(typeId === option);
   if (typeId === option) {
-    console.log('return checked');
     return 'active';
   } else {
     return '';
   }
-})
+});
 
+hbs.registerHelper('getImageFromServicePlace', (servicePlace) => {
+  if (servicePlace && servicePlace.images[0]) {
+  return `<img src="data:img/png;jpeg;jpg;base64, ${servicePlace.images[0].toString('base64')}"
+    class="rounded float-left w-50" alt="..." name="imageUploaded" id="imageUploaded">`
+  } else {
+    return `<img src="../../images/no-image.png"
+      class="rounded float-left w-50" alt="..." name="imageUploaded" id="imageUploaded">`
+  }
+});
+
+//***********************************************
 hbs.registerHelper('getImageFromItem', (item) => {
   if (item && item.image) {
       return item.image.toString('base64');
@@ -27,7 +33,7 @@ hbs.registerHelper('getImageFromItem', (item) => {
     return dirPublic + '\\images\\no-image.png';
   }
 
-})
+});
 
 hbs.registerHelper('getTableItems', (allItems) => {
   let iter = 1;
@@ -38,7 +44,7 @@ hbs.registerHelper('getTableItems', (allItems) => {
     if (item.image) {
         img = item.image.toString('base64');
     }
-    console.log(item.code);
+    
     html = html +
       `<tr>
         <th scope="row">${iter}</th>

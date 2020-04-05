@@ -9,30 +9,121 @@
     {{>messageSuccess}}
   {{/if}}
 
-  <form action="/partner" method="post">
-    <div class="card">
-      <div class="card-header bg-secondary h5">
-        <h5 class="card-title">Socio</h5>
-      </div>
-    </div>
-
-    <div class="card-body bg-dark">
+  <form action="/partner" method="post" enctype="multipart/form-data">
+    <div class="form-group">
       {{#if contact}}
-      <!--ROW 1-->
-      <div class="form-row">
-        <div class="col">
-          <label for="labelLastName" class="text-light">
-            {{contact.fullName}} -
-            <a class="btn btn-link"
-              href="/contact?cellPhoneToSearch={{contact.cellPhoneNumber}}"
-              role="button">{{contact.cellPhoneNumber}}
-            </a>
-          </label>
+      <input type="hidden" name="_contactId" id="_contactId" value="{{contact._id}}">
+      <input type="hidden" name="_partnerId" id="_partnerId" value="{{contact._partnerId}}">
+      <div class="card">
+        <div class="card-header bg-secondary h5">
+          <h5 class="card-title">{{#if partner}} Socio {{else}} Aún no es socio {{/if}}</h5>
         </div>
       </div>
 
-      {{/if}}
-    </div>
-  <form>
+      <div class="card-body bg-dark">
+        <!--ROW 1-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelLastName" class="text-light">
+              {{contact.fullName}} -
+              <a class="btn btn-link"
+                href="/contact?cellPhoneToSearch={{contact.cellPhoneNumber}}"
+                role="button">{{contact.cellPhoneNumber}}
+              </a>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header bg-secondary h5">
+          <!--ROW 1-->
+          <div class="form-row">
+            <div class="col">
+              <h5 class="card-title">Punto de servicio</h5>
+            </div><!--col--->
+
+            <div class="col">
+              <button class="btn btn-success my-3 my-sm-0 updatePartner" type="submit">
+              <span class="input-group-addon"><i class="fa fa-pencil-square-o fa-1x fa-fw" aria-hidden="true"></i></span>
+              {{#if contact._partnerId}} Actualizar {{else}} Asociar {{/if}}
+              </button>
+            </div>
+          </div><!--ROW 1-->
+        </div> <!--header-->
+      </div><!--card-->
+
+      <div class="card-body bg-dark">
+        <!--ROW 1-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelName" class="text-light">Nombre</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-address-book-o fa-3x fa-fw" style="color:white"></i></span>
+                &nbsp;
+                <input type="text" class="form-control-lg text-white bg-dark" id="servicePlaceName"
+                  name="servicePlaceName" placeholder="Nombre"
+                  {{#if servicePlace}}
+                  value="{{servicePlace.name}}"
+                  {{/if}}
+                  >
+            </div>
+          </div>
+        </div><!--ROW 1-->
+      </br>
+        <!--ROW 2-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelName" class="text-light">Dirección</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-marker fa-3x fa-fw" style="color:white"></i></span>
+                &nbsp;
+                <input type="text" class="form-control-lg text-white bg-dark" id="servicePlaceAddress"
+                  name="servicePlaceAddress" placeholder="Dirección"
+                  {{#if servicePlace}}
+                  value="{{servicePlace.address}}"
+                  {{/if}}
+                  >
+            </div>
+          </div>
+        </div><!--ROW 2-->
+        </br>
+        <!--ROW 3-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelName" class="text-light">Descripción</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-info fa-3x fa-fw" style="color:white"></i></span>
+                &nbsp;
+                <textarea class="form-control-lg text-white bg-dark" id="servicePlaceDescription"
+                  name="servicePlaceDescription" placeholder="Descripción" rows="5" cols="27"
+                  >
+                  {{#if servicePlace}}
+                  {{servicePlace.description}}
+                  {{/if}}
+                </textarea>
+            </div>
+          </div>
+        </div><!--ROW 3-->
+        <!--ROW 4-->
+        <div class="form-row">
+          <div class="col">
+            <label for="labelName" class="text-light">Imagen</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-picture-o fa-3x fa-fw" style="color:white"></i></span>
+                &nbsp;
+                <input type="file" class="form-control-lg text-white bg-dark" id="image"
+                  name="image" onchange="updateImage(this);" accept="image/">
+                </input>
+            </div>
+
+            {{{getImageFromServicePlace servicePlace}}}
+
+          </div> <!--col-->
+        </div><!--ROW 4-->
+      </div> <!--card body-->
+      {{/if}} <!--end if contact-->
+    </div> <!--div form-group-->
+  </form>
 </div><!--end container-->
 {{>footer}}

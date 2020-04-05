@@ -1,5 +1,7 @@
 const Contact = require('./../models/contact');
 const User = require('./../models/user');
+const Partner = require('./../models/partner');
+const ServicePlace = require('./../models/servicePlace');
 
 const path = require('path');
 
@@ -55,7 +57,6 @@ const createContact = (req, res) => {
       return;
     }
     if (typeof req.body.userPassword === String) {
-      console.log('creating user');
       let user = new User({
         cellPhoneNumber: req.body.userCellPhoneNumber,
         password: req.body.userPassword,
@@ -126,20 +127,50 @@ const getUpdateContactForm = (req, res) => {
 
 const getFormPartner = (req, res) => {
   let cellPhone = req.query.cell;
-  Contact.findOne({cellPhoneNumber: cellPhone}).exec((err, result) => {
-    if (err) {
+  Contact.findOne({cellPhoneNumber: cellPhone}).exec((errContact, resContact) => {
+    if (errContact) {
       res.render(dirViews + 'formPartner', {
-        errorMsg: err
+        errorMsg: errContact
       });
     }
-    if (result === null) {
+    if (resContact === null) {
       res.render(dirViews + 'formPartner', {
         errorMsg: 'El número ' + cellPhone + ' no está registrado'
       });
+    } else if (resContact._partnerId) {
+      Partner.findById(resContact._partnerId, (errPartner, resPartner) => {
+        if (errPartner) {
+          res.render(dirViews + 'formPartner', {
+            errorMsg: errPartner
+          });
+          return;
+        }
+
+        console.log(resPartner);
+        if (resPartner) {
+          ServicePlace.findById(resPartner.servicePlaces[0], (errServicePlace, resServicePlace) => {
+            if (errServicePlace) {
+              res.render(dirViews + 'formPartner', {
+                errorMsg: errPartner
+              });
+              return;
+            }
+
+            if (resServicePlace) {
+              res.render(dirViews + 'formPartner', {
+                contact: resContact,
+                partner: resPartner,
+                servicePlace: resServicePlace
+              });
+            }//if (resServicePlace)
+          })//ServicePlace.findById
+        }//if (resPartner)
+      });//Partner.findById
+    } else {
+      res.render(dirViews + 'formPartner', {
+        contact: resContact
+      });
     }
-    res.render(dirViews + 'formPartner', {
-      contact: result
-    });
   });
 }
 

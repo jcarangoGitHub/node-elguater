@@ -10,6 +10,7 @@ require('../helpers/helpers');
 const postActions = require('../actions/post');
 const getActions = require('../actions/gets');
 const contactController = require('../api/contact-controller');
+const partnerController = require('../api/partner-controller');
 
 const Item = require('./../models/item');
 
@@ -22,6 +23,7 @@ const dirViews = path.join(__dirname, '../../template/views/');
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
+
 
 //GET METHODS
 app.get('/', (req, res) => {
@@ -42,7 +44,7 @@ app.get('/formUpdateContact', (req, res) => {
   contactController.getUpdateContactForm(req, res)
 });
 
-app.get('/partner', (req, res) => {  
+app.get('/partner', (req, res) => {
   contactController.getFormPartner(req, res);
 });
 
@@ -103,6 +105,34 @@ app.post('/search-contact', (req, res) => {
   contactController.getSearchContactForm(req, res);
 });
 
+var upload = multer({
+  limits: {
+    fileSize : 10000000 //MB
+  },
+  fileFilter (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|png|jpeg)$/)) {
+      return cb(new Error('Invalid file. Use jpg, png or jpeg files'));
+    }
+  // The function should call `cb` with a boolean
+  // to indicate if the file should be accepted
+
+  // To reject this file pass `false`, like so:
+  //cb(null, false)
+
+  // To accept the file pass `true`, like so:
+  cb(null, true);
+
+  // You can always pass an error if something goes wrong:
+  //cb(new Error('I don\'t have a clue!'))
+
+  }
+});
+
+app.post('/partner', upload.single('image'), (req, res) => {  
+  partnerController.createPartner(req, res);
+});
+
+//olds chech usages
 app.post('/removeItem', (req, res) => {
   postActions.removeItemByCode(req, res);
 });
@@ -113,29 +143,6 @@ app.post('/postUser', (req, res) => {
 
 app.post('/login', (req, res) => {
   postActions.login(req, res);
-});
-
-var upload = multer({
-  limits: {
-    fileSize : 10000000 //MB
-  },
-  fileFilter (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|png|jpeg)$/)) {
-      return cb(new Error('Invalid file. Use jpg, png or jpeg files'))
-    }
-  // The function should call `cb` with a boolean
-  // to indicate if the file should be accepted
-
-  // To reject this file pass `false`, like so:
-  //cb(null, false)
-
-  // To accept the file pass `true`, like so:
-  cb(null, true)
-
-  // You can always pass an error if something goes wrong:
-  //cb(new Error('I don\'t have a clue!'))
-
-  }
 });
 
 app.post('/postItem', upload.single('image'), (req, res) => {

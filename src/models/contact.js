@@ -27,6 +27,7 @@ const contactSchema = new Schema({
     type: Number,
     index: true
   },
+  _partnerId: Schema.Types.ObjectId,
   landLine: {
     type: Number
   },
