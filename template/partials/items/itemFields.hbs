@@ -24,7 +24,9 @@
         &nbsp;
         <textarea class="form-control-lg text-white bg-dark" id="itemDescription"
           name="itemDescription" placeholder="Descripción" rows="5" style="height:106px">
-
+          {{#if item}}
+          {{item.description}}
+          {{/if}}
         </textarea>
     </div>
   </div>
@@ -39,7 +41,11 @@
       &nbsp;
       <input type="text" class="form-control-lg text-white bg-dark" id="itemPrice"
         name="itemPrice" placeholder="Precio predeterminado"
-        onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);">
+        onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
+        {{#if item}}
+        value={{item.price_default}}
+        {{/if}}
+        >
     </div> <!--input-group-->
   </div> <!--col-->
 </div> <!--ROW 3-->
@@ -55,7 +61,7 @@
         </input>
     </div>
     </br>
-    {{{getImageFromItem null}}}
+    {{{getImageFromItem item}}}
 
   </div> <!--col-->
 </div><!--ROW 4-->

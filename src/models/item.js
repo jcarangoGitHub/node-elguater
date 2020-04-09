@@ -15,7 +15,7 @@ const itemSchema = new Schema({
     trim: true
   },
   price_default: {
-    type: Number
+    type: String
   },
   images: [Buffer]
 });
