@@ -12,7 +12,7 @@ const partnerSchema = new Schema({
     type: String,
     trim: true,
     default: 'Primera generación de socios'
-  }
+  },
 });
 
 const Partner = mongoose.model('Partner', partnerSchema);

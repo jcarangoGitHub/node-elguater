@@ -1,3 +1,26 @@
+function formatMilesSeparetor(input) {
+  var num = input.value.replace(/\./g,'');
+  if (!isNaN(num)) {
+    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+    num = num.split('').reverse().join('').replace(/^[\.]/,'');
+    input.value = num;
+  } else {
+    alert('Solo se permiten números');
+    input.value = input.value.replace(/[^\d\.]*/g,'');
+  }
+}
+
+function updateImage(input, fieldImage) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $(fieldImage)
+              .attr('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
 function clearField(fieldId) {
   document.getElementById(fieldId).value = "";
 }

@@ -2,41 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const itemSchema = new Schema({
-  code: {
-    type: String,
-    require: true,
-    lowercase: true,
-    tirm: true,
-    unique: true
-  },
+  _partnerId: Schema.Types.ObjectId,
   name: {
     type: String,
     require: true,
-    lowercase: true,
-    tirm: true,
-    unique: true
-  },
-  purchase_price: {
-    type: Number,
-    require: true
-  },
-  sale_price: {
-    type: Number,
-    require: true
-  },
-  quantity: {
-    type: Number,
-    require: true
+    uppercase: true,
+    tirm: true
   },
   description: {
-    type: String
+    type: String,
+    uppercase: true,
+    trim: true
   },
-  comment: {
-    type: String
+  price_default: {
+    type: Number
   },
-  image: {
-    type: Buffer
-  }
+  images: [Buffer]
 });
 
 const Item = mongoose.model('Item', itemSchema);

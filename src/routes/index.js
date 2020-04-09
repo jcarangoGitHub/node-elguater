@@ -11,18 +11,24 @@ const postActions = require('../actions/post');
 const getActions = require('../actions/gets');
 const contactController = require('../api/contact-controller');
 const partnerController = require('../api/partner-controller');
+const itemController = require('../api/item-controller');
 
 const Item = require('./../models/item');
 
 
 //Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
+const dirPartialsItems = path.join(__dirname, '../../template/partials/items');
+const dirPartialsServicePlace = path.join(__dirname, '../../template/partials/servicePlace');
+
 const dirViews = path.join(__dirname, '../../template/views/');
 
 //Hbs
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
+hbs.registerPartials(dirPartialsItems);
+hbs.registerPartials(dirPartialsServicePlace);
 
 
 //GET METHODS
@@ -128,11 +134,15 @@ var upload = multer({
   }
 });
 
-app.post('/partner', upload.single('image'), (req, res) => {  
+app.post('/partner', upload.single('image'), (req, res) => {
   partnerController.createPartner(req, res);
 });
 
-//olds chech usages
+app.post('/item',  upload.single('image'), (req, res) => {
+  itemController.createItem(req, res);
+});
+
+//olds check usages
 app.post('/removeItem', (req, res) => {
   postActions.removeItemByCode(req, res);
 });
@@ -146,7 +156,6 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/postItem', upload.single('image'), (req, res) => {
-  console.log('imagen: ' + req.body.imageUploaded);
   if (req.body.isUpdate == 'true') {
     postActions.updateItem(req, res);
   } else {

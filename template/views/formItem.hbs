@@ -13,7 +13,7 @@
               <img src="data:img/png;jpeg;jpg;base64, {{{getImageFromItem item}}}"
                 class="rounded float-left w-50" alt="..." name="imageUploaded" id="imageUploaded">
             {{else}}
-              <img src="{{{getImageFromItem item}}}" class="rounded float-left w-50" alt="Sin imagen" name="imageUploaded" id="imageUploaded">
+              <img src="{{{getImageFromItem2 item}}}" class="rounded float-left w-50" alt="Sin imagen" name="imageUploaded" id="imageUploaded">
             {{/if}}
             <input type="file" onchange="updateImage(this);" class="form-control" name="image" accept="image/">
           </div>

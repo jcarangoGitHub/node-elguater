@@ -2,6 +2,7 @@ const Contact = require('./../models/contact');
 const User = require('./../models/user');
 const Partner = require('./../models/partner');
 const ServicePlace = require('./../models/servicePlace');
+const Item = require('./../models/item');
 
 const path = require('path');
 
@@ -110,7 +111,6 @@ const getSearchContactForm = (req, res) => {
 }
 
 const getUpdateContactForm = (req, res) => {
-
   Contact.findById(req.session.user._contactId).exec((err, result) => {
     if (err) {
       res.render(dirViews + 'index', {
@@ -125,53 +125,39 @@ const getUpdateContactForm = (req, res) => {
   });
 }
 
-const getFormPartner = (req, res) => {
+const handlerError = (msj, res) => {
+  res.render(dirViews + 'formPartner', {
+    errorMsg: msj
+  });
+}
+
+async function getFormPartner(req, res) {
   let cellPhone = req.query.cell;
-  Contact.findOne({cellPhoneNumber: cellPhone}).exec((errContact, resContact) => {
-    if (errContact) {
-      res.render(dirViews + 'formPartner', {
-        errorMsg: errContact
-      });
-    }
-    if (resContact === null) {
-      res.render(dirViews + 'formPartner', {
-        errorMsg: 'El número ' + cellPhone + ' no está registrado'
-      });
-    } else if (resContact._partnerId) {
-      Partner.findById(resContact._partnerId, (errPartner, resPartner) => {
-        if (errPartner) {
-          res.render(dirViews + 'formPartner', {
-            errorMsg: errPartner
-          });
-          return;
-        }
-
-        console.log(resPartner);
-        if (resPartner) {
-          ServicePlace.findById(resPartner.servicePlaces[0], (errServicePlace, resServicePlace) => {
-            if (errServicePlace) {
-              res.render(dirViews + 'formPartner', {
-                errorMsg: errPartner
-              });
-              return;
-            }
-
-            if (resServicePlace) {
-              res.render(dirViews + 'formPartner', {
-                contact: resContact,
-                partner: resPartner,
-                servicePlace: resServicePlace
-              });
-            }//if (resServicePlace)
-          })//ServicePlace.findById
-        }//if (resPartner)
-      });//Partner.findById
+  try {
+    let contact = await Contact.findByCellPhone(cellPhone);
+    if (contact === null) {
+      handlerError('El número ' + cellPhone + ' no está registrado', res);
+      return;
+    } else if(contact._partnerId) {
+      let partner = await Partner.findById(contact._partnerId);
+      if (partner.servicePlaces[0]) {
+        let servicePlace = await ServicePlace.findById(partner.servicePlaces[0]);
+        let items = await Item.find({_partnerId: partner._id});
+        res.render(dirViews + 'formPartner', {
+          contact: contact,
+          partner: partner,
+          servicePlace: servicePlace,
+          items: items
+        });
+      }
     } else {
       res.render(dirViews + 'formPartner', {
-        contact: resContact
+        contact: contact
       });
     }
-  });
+  } catch(e) {
+    handlerError(e, res);
+  }
 }
 
 /******************************************************************************/

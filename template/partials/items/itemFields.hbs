@@ -1,0 +1,61 @@
+<!--ROW 1-->
+<div class="form-row">
+  <div class="col">
+    <label for="labelName" class="text-light">Nombre</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-address-book-o fa-3x fa-fw" style="color:white"></i></span>
+      &nbsp;
+      <input type="text" class="form-control-lg text-white bg-dark" id="itemName"
+        name="itemName" placeholder="Nombre" required
+        {{#if item}}
+        value="{{item.name}}"
+        {{/if}}
+        >
+    </div> <!--input-group-->
+  </div><!--col-->
+</div> <!--ROW 1-->
+</br>
+<!--ROW 2-->
+<div class="form-row">
+  <div class="col">
+    <label for="labelDescription" class="text-light">Descripción</label>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-info fa-3x fa-fw" style="color:white"></i></span>
+        &nbsp;
+        <textarea class="form-control-lg text-white bg-dark" id="itemDescription"
+          name="itemDescription" placeholder="Descripción" rows="5" style="height:106px">
+
+        </textarea>
+    </div>
+  </div>
+</div><!--ROW 2-->
+</br>
+<!--ROW 3-->
+<div class="form-row">
+  <div class="col">
+    <label for="labelPriceDefault" class="text-light">Precio predeterminado</label>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-usd -o fa-3x fa-fw" style="color:white"></i></span>
+      &nbsp;
+      <input type="text" class="form-control-lg text-white bg-dark" id="itemPrice"
+        name="itemPrice" placeholder="Precio predeterminado"
+        onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);">
+    </div> <!--input-group-->
+  </div> <!--col-->
+</div> <!--ROW 3-->
+<!--ROW 4-->
+<div class="form-row">
+  <div class="col">
+    <label for="labeImage" class="text-light">Imagen</label>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-picture-o fa-3x fa-fw" style="color:white"></i></span>
+        &nbsp;
+        <input type="file" class="form-control-lg text-white bg-dark" id="image"
+          name="image" onchange="updateImage(this, '#imageUploadedItem');" accept="image/">
+        </input>
+    </div>
+    </br>
+    {{{getImageFromItem null}}}
+
+  </div> <!--col-->
+</div><!--ROW 4-->

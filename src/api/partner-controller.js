@@ -26,7 +26,7 @@ const updatePartnerByIdWithoutImage = (req, res) => {
             if (resServicePlace) {
               Contact.findById(req.body._contactId, (errContact, resContact) => {
                   if (resContact) {
-                    res.render(dirViews + 'formPartner', {
+                    res.render('formPartner', {
                       successMsg: 'Socio actualizado!',
                       partner: resPartner,
                       contact: resContact,
@@ -85,12 +85,11 @@ const createPartner = (req, res) => {
   let contactId = req.body._contactId;
   let partnerId = req.body._partnerId;
   let image = req.file ? req.file.buffer : req.body.imageUploaded;
-  let arrayImages = [image];
   let servicePlace = image ? new ServicePlace({
       name: req.body.servicePlaceName,
       address: req.body.servicePlaceAddress,
       description: req.body.servicePlaceDescription,
-      images: arrayImages
+      images: [image]
     }) : new ServicePlace({
         name: req.body.servicePlaceName,
         address: req.body.servicePlaceAddress,
@@ -107,10 +106,13 @@ const createPartner = (req, res) => {
     }//else
   }
   //CREATE
-  let partner = new Partner({
+  let partner = image ? new Partner({
     _contactId: contactId,
     servicePlaces: [servicePlace],
-    images: arrayImages
+    images: [image]
+  }) : new Partner({
+    _contactId: contactId,
+    servicePlaces: [servicePlace]
   });
 
   partner.save((errPartner, resPartner) => {
@@ -118,7 +120,7 @@ const createPartner = (req, res) => {
       res.render(dirViews + 'formPartner', {
         errorMsg: errPartner
       });
-      return
+      return;
     }
 
     if (resPartner) {

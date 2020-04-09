@@ -15,6 +15,16 @@ hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
   }
 });
 
+hbs.registerHelper('getImageFromItem', (item) => {
+  if (item && item.images[0]) {
+  return `<img src="data:img/png;jpeg;jpg;base64, ${item.images[0].toString('base64')}"
+    class="rounded float-left w-50" alt="..." name="imageUploadedItem" id="imageUploadedItem">`
+  } else {
+    return `<img src="../../images/no-image.png"
+      class="rounded float-left w-50" alt="..." name="imageUploadedItem" id="imageUploadedItem">`
+  }
+});
+
 hbs.registerHelper('getImageFromServicePlace', (servicePlace) => {
   if (servicePlace && servicePlace.images[0]) {
   return `<img src="data:img/png;jpeg;jpg;base64, ${servicePlace.images[0].toString('base64')}"
@@ -25,8 +35,14 @@ hbs.registerHelper('getImageFromServicePlace', (servicePlace) => {
   }
 });
 
+hbs.registerHelper('getLengthOfArray', (array) => {
+  return array.length;
+});
+
+
+
 //***********************************************
-hbs.registerHelper('getImageFromItem', (item) => {
+hbs.registerHelper('getImageFromItem2', (item) => {
   if (item && item.image) {
       return item.image.toString('base64');
   } else {
@@ -44,7 +60,7 @@ hbs.registerHelper('getTableItems', (allItems) => {
     if (item.image) {
         img = item.image.toString('base64');
     }
-    
+
     html = html +
       `<tr>
         <th scope="row">${iter}</th>
