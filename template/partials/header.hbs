@@ -57,36 +57,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" style="color:white" href="/formStore" id="navbarDropdown"
-                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Tienda virtual
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/formStore">Tienda</a>
-                    {{#if session}}
-                    <a class="dropdown-item" href="/formAdminStore">Administrar</a>
-                    {{/if}}
-                  </div>
-
-                </li>
-              </ul>
-
-
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarDropdown"
-                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Inventario
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/formItem">Nuevo artículo</a>
-                    <a class="dropdown-item" href="/formSearchItems">Buscar</a>
-                  </div>
-                </li>
-              </ul>
-
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" style="color: white"
                      role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Contactos
@@ -97,23 +67,6 @@
                   </div>
                 </li>
               </ul>
-
-
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarDropdown"
-                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Bienvenid@ {{user.firstName}}
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Actualizar datos usuario</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout">Salir</a>
-                  </div>
-                </li>
-              </ul>
-
-
 
               <div class="collapse navbar-collapse" id="navbarNav">
                   <a class="btn btn-outline-light" href="/logout">Salir</a>

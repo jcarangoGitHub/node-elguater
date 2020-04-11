@@ -1,9 +1,6 @@
 //Model objects
 const Contact = require('./../models/contact');
 const User = require('./../models/user');
-const Partner = require('./../models/partner');
-const ServicePlace = require('./../models/servicePlace');
-const Item = require('./../models/item');
 
 const path = require('path');
 
@@ -15,7 +12,7 @@ const userUtils = require('./../utils/user-utils');
 
 
 //PUT ?
-//used
+//used index.app.post('/contact-put', (req, res)
 async function updateContact(req, res) {
   try {
     let id = req.body._contactId;
@@ -44,15 +41,10 @@ async function createContact(req, res) {
   try {
       let contact = contactUtils.getInstanceOfContact(req);
       let resContact = await contact.save();
-      console.log(resContact);
-      console.log(req.body.userPassword);
       if (req.body.userPassword) {
-        console.log('entró');
         let user = await userUtils.getInstanceOfUser(req, resContact._id);
-        console.log(user);
         let resUser = await user.save();
       }
-      console.log(resContact);
       res.render(dirViews + 'formSearchContact', {
         contact: resContact,
         successMsg: 'Contacto con ID ' + resContact.cellPhoneNumber + ' creado exitósamente!'
@@ -93,24 +85,6 @@ async function getSearchContactForm(req, res) {
   }
 }
 
-const getUpdateContactForm = (req, res) => {
-  Contact.findById(req.session.user._contactId).exec((err, result) => {
-    if (err) {
-      res.render(dirViews + 'index', {
-        msg: err
-      });
-    }
-    res.render(dirViews + 'formContact', {
-      isUpdate: true,
-      user    : req.session.user,
-      contact : result
-    });
-  });
-}
-
-
-
-
 
 /******************************************************************************/
 
@@ -118,6 +92,5 @@ module.exports = {
   updateContact,
   createContact,
   getNewContactForm,
-  getSearchContactForm,
-  getUpdateContactForm
+  getSearchContactForm
 }
