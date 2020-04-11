@@ -52,19 +52,16 @@ const contactSchema = new Schema({
   }
 });
 
+//virtual functions
 contactSchema.virtual('fullName').get(function() {
   return this.name + ' ' + this.lastName;
 });
 
-contactSchema.query.byCellPhone = function (cellPhone) {
-  return this.where({cellPhoneNumber: cellPhone});
-}
 
+//static functions
 contactSchema.statics.findByCellPhone = function(cellPhone) {
   return this.findOne({ cellPhoneNumber: cellPhone});
-};
-
-
+}
 
 const Contact = mongoose.model('Contact', contactSchema);
 

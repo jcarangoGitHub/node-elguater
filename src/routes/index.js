@@ -16,7 +16,7 @@ const itemController = require('../api/item-controller');
 const Item = require('./../models/item');
 
 
-//Paths
+//Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
 const dirPartialsItems = path.join(__dirname, '../../template/partials/items');
 const dirPartialsServicePlace = path.join(__dirname, '../../template/partials/servicePlace');
@@ -38,10 +38,12 @@ app.get('/', (req, res) => {
   });
 });
 
+//used
 app.get('/formNewContact', (req, res) => {
   contactController.getNewContactForm(req, res);
 });
 
+//used
 app.get('/contact', (req, res) => {
   contactController.getSearchContactForm(req, res);
 });
@@ -50,8 +52,9 @@ app.get('/formUpdateContact', (req, res) => {
   contactController.getUpdateContactForm(req, res)
 });
 
+//used
 app.get('/partner', (req, res) => {
-  contactController.getFormPartner(req, res);
+  partnerController.getFormPartner(req, res);
 });
 
 //olds, checks usages
@@ -97,16 +100,18 @@ app.get('/formItem', (req, res) => {
 });
 
 //PUT METHODS
+//used
 app.post('/contact-put', (req, res) => {
-  console.log('put contact...');
   contactController.updateContact(req, res);
 });
 
 //POST METHODS
+//used
 app.post('/contact', (req, res) => {
   contactController.createContact(req, res);
 });
 
+//used
 app.post('/search-contact', (req, res) => {
   contactController.getSearchContactForm(req, res);
 });
@@ -135,7 +140,7 @@ var upload = multer({
 });
 
 app.post('/partner', upload.single('image'), (req, res) => {
-  partnerController.createPartner(req, res);
+  partnerController.handlerPost(req, res);
 });
 
 app.post('/item',  upload.single('image'), (req, res) => {
