@@ -15,10 +15,11 @@ hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
   }
 });
 
+//used itemFields.hbs
 hbs.registerHelper('getImageFromItem', (item) => {
   if (item && item.images[0]) {
   return `<img src="data:img/png;jpeg;jpg;base64, ${item.images[0].toString('base64')}"
-    class="rounded float-left w-50" alt="..." name="imageUploadedItem" id="imageUploadedItem">`
+    class="rounded float-left w-50" alt="..." name="imageUploadedItem${item._id}" id="imageUploadedItem${item._id}">`
   } else {
     return `<img src="../../images/no-image.png"
       class="rounded float-left w-50" alt="..." name="imageUploadedItem" id="imageUploadedItem">`

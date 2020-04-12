@@ -58,7 +58,7 @@ async function createContact(req, res) {
 /******************************************************************************/
 
 //GETS
-//used
+//used index.app.get('/formNewContact', (req, res)
 const getNewContactForm = (req, res) => {
   res.render(dirViews + 'formContact');
 }

@@ -18,6 +18,7 @@ const Item = require('./../models/item');
 const dirPartials = path.join(__dirname, '../../template/partials');
 const dirPartialsItems = path.join(__dirname, '../../template/partials/items');
 const dirPartialsServicePlace = path.join(__dirname, '../../template/partials/servicePlace');
+const dirPartialsContact = path.join(__dirname, '../../template/partials/contact');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
@@ -27,6 +28,7 @@ app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
 hbs.registerPartials(dirPartialsItems);
 hbs.registerPartials(dirPartialsServicePlace);
+hbs.registerPartials(dirPartialsContact);
 
 
 //GET METHODS

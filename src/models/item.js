@@ -7,7 +7,8 @@ const itemSchema = new Schema({
     type: String,
     require: true,
     uppercase: true,
-    tirm: true
+    tirm: true,
+    unique: true
   },
   description: {
     type: String,

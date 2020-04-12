@@ -5,10 +5,15 @@
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-address-book-o fa-3x fa-fw" style="color:white"></i></span>
       &nbsp;
-      <input type="text" class="form-control-lg text-white bg-dark" id="itemName"
-        name="itemName" placeholder="Nombre" required
+      <input type="text" class="form-control-lg text-white bg-dark"
+        placeholder="Nombre" required
         {{#if item}}
+        id="itemName{{item._id}}"
+        name="itemName{{item._id}}"
         value="{{item.name}}"
+        {{else}}
+        id="itemName"
+        name="itemName"
         {{/if}}
         >
     </div> <!--input-group-->
@@ -22,8 +27,15 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-info fa-3x fa-fw" style="color:white"></i></span>
         &nbsp;
-        <textarea class="form-control-lg text-white bg-dark" id="itemDescription"
-          name="itemDescription" placeholder="Descripción" rows="5" style="height:106px">
+        <textarea class="form-control-lg text-white bg-dark"
+          {{#if item}}
+          id="itemDescription{{item._id}}"
+          name="itemDescription{{item._id}}"
+          {{else}}
+          id="itemDescription"
+          name="itemDescription"
+          {{/if}}
+          placeholder="Descripción" rows="5" style="height:106px">
           {{#if item}}
           {{item.description}}
           {{/if}}
@@ -39,11 +51,16 @@
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-usd -o fa-3x fa-fw" style="color:white"></i></span>
       &nbsp;
-      <input type="text" class="form-control-lg text-white bg-dark" id="itemPrice"
-        name="itemPrice" placeholder="Precio predeterminado"
+      <input type="text" class="form-control-lg text-white bg-dark"
+        placeholder="Precio predeterminado"
         onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
         {{#if item}}
+        id="itemPrice{{item_id}}"
+        name="itemPrice{{item_id}}"
         value={{item.price_default}}
+        {{else}}
+        id="itemPrice"
+        name="itemPrice"
         {{/if}}
         >
     </div> <!--input-group-->

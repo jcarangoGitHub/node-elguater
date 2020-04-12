@@ -44,29 +44,35 @@ async function updatePartnerAndServicePlacesById(req, res) {
 }//async function updatePartnerByIdWithoutImage
 
 async function createPartnerAndServicePlaces(req, res) {
-  let image = req.file ? req.file.buffer : req.body.imageUploaded;
-  let servicePlace = servicePlaceUtils.getInstanceOfServicePlace(req, image)
-  let partner = partnerUtils.getInstanceOfPartnerAccordingToImage(req, req.body._contactId, servicePlace, image);
-  let resPartner = await partner.save();
-  if (resPartner && resPartner._id) {
-    servicePlace._partnerId = resPartner._id;
-    let resServicePlace = await servicePlace.save();
-    let resContact = await Contact.findByIdAndUpdate(contactId, {_partnerId: resPartner._id}, {new: true});
+  try {
+    let image = req.file ? req.file.buffer : req.body.imageUploaded;
+    let contactId = req.body._contactId;
+    let servicePlace = servicePlaceUtils.getInstanceOfServicePlace(req, image)
+    let partner = partnerUtils.getInstanceOfPartnerAccordingToImage(req.body._contactId, servicePlace, image);
+    let resPartner = await partner.save();
+    if (resPartner && resPartner._id) {
+      servicePlace._partnerId = resPartner._id;
+      let resServicePlace = await servicePlace.save();
+      let resContact = await Contact.findByIdAndUpdate(contactId, {_partnerId: resPartner._id}, {new: true});
 
-    res.render(dirViews + 'formPartner', {
-      successMsg: 'Ahora somos socios!',
-      partner: resPartner,
-      contact: resContact,
-      servicePlace: resServicePlace
-    });
-  } else {
-    commonUtils.handlerError('Error inesperado, partner._id no encontado', res, 'formPartner');
+      res.render(dirViews + 'formPartner', {
+        successMsg: 'Ahora somos socios!',
+        partner: resPartner,
+        contact: resContact,
+        servicePlace: resServicePlace
+      });
+    } else {
+      commonUtils.handlerError('Error inesperado, partner._id no encontado', res, 'formPartner');
+    }
+  } catch(e) {
+    commonUtils.handlerError(e, res, 'formPartner');
   }
 }
 
 //used index.app.post('/partner', upload.single('image'), (req, res)
 async function handlerPost(req, res) {
   try {
+    let partnerId = req.body._partnerId;
     //update
     if (partnerId) {
       updatePartnerAndServicePlacesById(req, res);
