@@ -24,8 +24,6 @@ const servicePlaceSchema = new Schema({
 //static functions
 servicePlaceSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id) {
   let image = req.file ? req.file.buffer : req.body.imageUploaded;
-  console.log('imageeee');
-  console.log(image);
   if (image) {
     return this.findByIdAndUpdate({_id: id},
                             {name: req.body.servicePlaceName,

@@ -53,6 +53,7 @@ mongoose.connect(process.env.URLDB, {useNewUrlParser: true}, (err, resutl) => {
   }
   return console.log('Connected to guater-mongo-db successfully!')
 });
+mongoose.set('useFindAndModify', false);
 
 //Server
 server.listen(port, () => {

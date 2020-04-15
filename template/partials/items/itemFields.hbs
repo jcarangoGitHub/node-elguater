@@ -8,12 +8,17 @@
       <input type="text" class="form-control-lg text-white bg-dark"
         placeholder="Nombre" required
         {{#if item}}
-        id="itemName{{item._id}}"
-        name="itemName{{item._id}}"
         value="{{item.name}}"
-        {{else}}
+          {{#unless isEdit}}
+          readonly
+          {{/unless}}
+        {{/if}}
+        {{#if isEdit}}
         id="itemName"
         name="itemName"
+        {{else}}
+        id="itemName{{item._id}}"
+        name="itemName{{item._id}}"
         {{/if}}
         >
     </div> <!--input-group-->
@@ -28,14 +33,21 @@
         <span class="input-group-addon"><i class="fa fa-info fa-3x fa-fw" style="color:white"></i></span>
         &nbsp;
         <textarea class="form-control-lg text-white bg-dark"
-          {{#if item}}
-          id="itemDescription{{item._id}}"
-          name="itemDescription{{item._id}}"
-          {{else}}
+          {{#if isEdit}}
           id="itemDescription"
           name="itemDescription"
+          {{else}}
+          id="itemDescription{{item._id}}"
+          name="itemDescription{{item._id}}"
           {{/if}}
-          placeholder="Descripción" rows="5" style="height:106px">
+          placeholder="Descripción" rows="5" style="height:106px"
+          {{#if item}}
+            {{#unless isEdit}}
+            readonly
+            {{/unless}}
+          {{/if}}
+          >
+
           {{#if item}}
           {{item.description}}
           {{/if}}
@@ -55,12 +67,17 @@
         placeholder="Precio predeterminado"
         onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
         {{#if item}}
-        id="itemPrice{{item_id}}"
-        name="itemPrice{{item_id}}"
         value={{item.price_default}}
-        {{else}}
+          {{#unless isEdit}}
+          readonly
+          {{/unless}}
+        {{/if}}
+        {{#if isEdit}}
         id="itemPrice"
         name="itemPrice"
+        {{else}}
+        id="itemPrice{{item_id}}"
+        name="itemPrice{{item_id}}"
         {{/if}}
         >
     </div> <!--input-group-->
@@ -73,9 +90,15 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-picture-o fa-3x fa-fw" style="color:white"></i></span>
         &nbsp;
+        {{#if isEdit}}
         <input type="file" class="form-control-lg text-white bg-dark" id="image"
-          name="image" onchange="updateImage(this, '#imageUploadedItem');" accept="image/">
+        name="image" onchange="updateImage(this, '#imageUploadedItem');" accept="image/">
         </input>
+        {{else unless item}}
+        <input type="file" class="form-control-lg text-white bg-dark" id="image"
+        name="image" onchange="updateImage(this, '#imageUploadedItem');" accept="image/">
+        </input>
+        {{/if}}
     </div>
     </br>
     {{{getImageFromItem item}}}

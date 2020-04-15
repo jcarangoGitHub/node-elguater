@@ -15,6 +15,14 @@
     <div id="collapseItem{{_id}}" class="collapse" aria-labelledby="headingItem"
       data-parent="#accordionItem{{_id}}">
         <div class="card-header bg-secondary h5">
+          <!--ROW 1-->
+          <div class="form-row">
+            <div class="col">
+              <a class="btn btn-light" href="/editItem?item={{_id}}" role="button">Editar</a>
+            </div>
+          </div><!--ROW 1-->
+        </div>
+        <div class="card-body bg-dark">
           {{>itemFields index=@index item=this}}
         </div>
     </div> <!--collapse item-->

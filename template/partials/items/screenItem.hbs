@@ -40,16 +40,17 @@
         </div><!--card-body-->
     </div> <!--collapseNewItem-->
   </div> <!--accordion-->
+</form>
 
-  {{#if items}}
-  <div class="card-header bg-secondary h5">
-    <!--ROW 1-->
-    <div class="form-row">
-      <div class="col">
-        <h5 class="card-title">Productos registrados</h5>
-      </div>
+
+{{#if items}}
+<div class="card-header bg-secondary h5">
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <h5 class="card-title">Productos registrados</h5>
     </div>
   </div>
-  {{>listItems}}
-  {{/if}}
-</form>
+</div>
+{{>listItems}}
+{{/if}}

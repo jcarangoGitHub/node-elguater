@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/editItem', (req, res) => {
+  itemController.getEditItemForm(req, res);
+});
+
 //used
 app.get('/formNewContact', (req, res) => {
   contactController.getNewContactForm(req, res);
@@ -108,6 +112,6 @@ app.post('/partner', upload.single('image'), (req, res) => {
 
 //used
 app.post('/item',  upload.single('image'), (req, res) => {
-  itemController.createItem(req, res);
+  itemController.handlerPost(req, res);
 });
 module.exports = app;

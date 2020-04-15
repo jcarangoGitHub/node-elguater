@@ -5,10 +5,9 @@ const itemSchema = new Schema({
   _partnerId: Schema.Types.ObjectId,
   name: {
     type: String,
-    require: true,
+    required: true,
     uppercase: true,
-    tirm: true,
-    unique: true
+    tirm: true
   },
   description: {
     type: String,
@@ -20,6 +19,25 @@ const itemSchema = new Schema({
   },
   images: [Buffer]
 });
+
+//static functions
+itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) {
+  console.log('findByIdAndUpdateAccordingToImage...' + id);
+  if (image) {
+    return this.findByIdAndUpdate({_id: id},
+                                  {name: req.body.itemName,
+                                  description: req.body.itemDescription,
+                                  price_default: req.body.itemPrice.toString(),
+                                  images: [image]},
+                                  {new: true});
+  } else {
+    return res = this.findByIdAndUpdate({_id: id},
+                                  {name: req.body.itemName,
+                                  description: req.body.itemDescription,
+                                  price_default: req.body.itemPrice.toString()},
+                                  {new: true});
+  }
+}
 
 const Item = mongoose.model('Item', itemSchema);
 
