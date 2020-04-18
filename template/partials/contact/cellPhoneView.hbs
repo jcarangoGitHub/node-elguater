@@ -2,12 +2,8 @@
 <div class="form-row">
   <div class="col">
     <label for="labelCellPhoneNumber" class="text-light">Número celular</label>
-    <div class="input-group mb-3">
-      <span class="input-group-addon">
-        <i class="fa fa-whatsapp fa-3x fa-fw" aria-hidden="true" style="color:#4FCE5D"></i>
-      </span>
-      &nbsp;
-      <input type="tel" class="form-control-lg text-white bg-dark" id="cellPhoneToSearch" name="cellPhoneToSearch"
+    <div class="input-group mb-3">      
+      <input type="search" class="form-control-lg text-white bg-dark" id="cellPhoneToSearch" name="cellPhoneToSearch"
           placeholder="311-123-4567" required
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           maxlength="12"
@@ -15,7 +11,7 @@
           {{#if contact}}
           value="{{contact.cellPhoneNumber}}"
           {{/if}}
-          >
+          font-s>
     </div>
     <small class="form-text text-light">
       (*) Sólo números

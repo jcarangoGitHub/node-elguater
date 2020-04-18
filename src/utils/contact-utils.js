@@ -2,7 +2,7 @@ const Contact = require('./../models/contact');
 
 const getInstanceOfContact = (req) => {
   return new Contact({
-    cellPhoneNumber: req.body.cellPhoneNumber != null && req.body.cellPhoneNumber !== '' ? req.body.cellPhoneNumber : null,
+    cellPhoneNumber: req.body.cellPhoneToSearch != null && req.body.cellPhoneToSearch !== '' ? req.body.cellPhoneToSearch : null,
     name: req.body.contactFirstName,
     lastName: req.body.contactLastName,
     typeId: req.body.contactTypeId,

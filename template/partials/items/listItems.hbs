@@ -18,7 +18,21 @@
           <!--ROW 1-->
           <div class="form-row">
             <div class="col">
-              <a class="btn btn-light" href="/editItem?item={{_id}}" role="button">Editar</a>
+              <a class="btn btn-light" href="/editItem?item={{_id}}" role="button"
+                style="font-size: 25px">
+                <span class="input-group-addon"><i class="fa fa-pencil-square-o fa-1x fa-fw" aria-hidden="true"></i></span>
+                Editar
+              </a>
+            </div>
+            <div class="col">
+              <form action="/item?isRemove=true" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="_itemId" id="_itemId" value="{{_id}}">
+                  <input type="hidden" name="_partnerId" id="_partnerId" value="{{_partnerId}}">
+                  <button class="btn btn-danger my-3 my-sm-0 removeItem" type="submit" style="font-size: 25px">
+                  <span class="input-group-addon"><i class="fa fa-trash-o fa-1x fa-fw" aria-hidden="true"></i></span>
+                  Eliminar
+                  </button>
+              </form>
             </div>
           </div><!--ROW 1-->
         </div>

@@ -3,21 +3,22 @@
   <input type="hidden" name="_partnerId" id="_partnerId" value="{{contact._partnerId}}">
   <div class="form-group">
     <div class="card">
-      <div class="card-header bg-secondary h5">
-        <h5 class="card-title">Punto de servicio</h5>
+      <div class="card-header bg-secondary h">
+        <span class="input-group-addon"><i class="fa fa-map-marker fa-1x fa-fw" style="color:white"></i></span>
+        <h class="card-title">Punto de servicio</h>
       </div>
     </div>
 
     <div {{#if servicePlace}} class="accordion bg-dark" {{else}} class="bg-dark" {{/if}} id="accordingServicePlace">
       {{#if servicePlace}}
       <div class="card-header" id="headingOne">
-        <h5 class="mb-0">
+        <h class="mb-0">
           <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                   data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne">
             {{servicePlace.name}}
           </button>
-        </h5>
+        </h>
       </div>
       {{/if}}
 
@@ -29,7 +30,7 @@
             <!--ROW 1-->
             <div class="form-row">
               <div class="col">
-                <button class="btn btn-success my-3 my-sm-0 updatePartner" type="submit">
+                <button class="btn btn-success my-3 my-sm-0 updatePartner" type="submit" style="font-size: 25px">
                 <span class="input-group-addon"><i class="fa fa-pencil-square-o fa-1x fa-fw" aria-hidden="true"></i></span>
                 {{#if contact._partnerId}} Actualizar {{else}} Asociar {{/if}}
                 </button>
@@ -44,8 +45,6 @@
             <div class="col">
               <label for="labelName" class="text-light">Nombre</label>
               <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-address-book-o fa-3x fa-fw" style="color:white"></i></span>
-                  &nbsp;
                   <input type="text" class="form-control-lg text-white bg-dark" id="servicePlaceName"
                     name="servicePlaceName" placeholder="Nombre" required
                     {{#if servicePlace}}
@@ -61,8 +60,6 @@
             <div class="col">
               <label for="labelName" class="text-light">Dirección</label>
               <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-map-marker fa-3x fa-fw" style="color:white"></i></span>
-                  &nbsp;
                   <input type="text" class="form-control-lg text-white bg-dark" id="servicePlaceAddress"
                     name="servicePlaceAddress" placeholder="Dirección"
                     {{#if servicePlace}}
@@ -78,8 +75,6 @@
             <div class="col">
               <label for="labelName" class="text-light">Descripción</label>
               <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-info fa-3x fa-fw" style="color:white"></i></span>
-                  &nbsp;
                   <textarea class="form-control-lg text-white bg-dark" id="servicePlaceDescription"
                     name="servicePlaceDescription" placeholder="Descripción" rows="5"
                     style="height: 106px">
@@ -90,13 +85,12 @@
               </div>
             </div>
           </div><!--ROW 3-->
+          </br>
           <!--ROW 4-->
           <div class="form-row">
             <div class="col">
               <label for="labelName" class="text-light">Imagen</label>
               <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-picture-o fa-3x fa-fw" style="color:white"></i></span>
-                  &nbsp;
                   <input type="file" class="form-control-lg text-white bg-dark" id="image"
                     name="image" onchange="updateImage(this, '#imageUploaded');" accept="image/">
                   </input>

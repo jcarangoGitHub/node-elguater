@@ -41,10 +41,16 @@ async function createContact(req, res) {
   try {
       let contact = contactUtils.getInstanceOfContact(req);
       let resContact = await contact.save();
-      if (req.body.userPassword) {
-        let user = await userUtils.getInstanceOfUser(req, resContact._id);
-        let resUser = await user.save();
+      if (resContact) {
+        let userPassword = req.body.userPassword;
+        if (typeof userPassword !== 'undefined' && userPassword) {
+          let user = await userUtils.getInstanceOfUser(req, resContact._id);
+          let resUser = await user.save();
+          console.log('User created!');
+          console.log(resUser);
+        }
       }
+
       res.render(dirViews + 'formSearchContact', {
         contact: resContact,
         successMsg: 'Contacto con ID ' + resContact.cellPhoneNumber + ' creado exitósamente!'

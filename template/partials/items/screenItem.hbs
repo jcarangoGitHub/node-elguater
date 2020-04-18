@@ -2,24 +2,26 @@
 <form action="/item" method="post" enctype="multipart/form-data">
   <input type="hidden" name="_contactId" id="_contactId" value="{{contact._id}}">
   <input type="hidden" name="_partnerId" id="_partnerId" value="{{contact._partnerId}}">
-  <div class="card-header bg-secondary h5">
+  <div class="card-header bg-secondary h">
     <!--ROW 1-->
     <div class="form-row">
       <div class="col">
-        <h5 class="card-title">Productos</h5>
+        <span class="input-group-addon"><i class="fa fa-cutlery fa-1x fa-fw" style="color:white"></i></span>
+        <h class="card-title">Platos</h>
       </div>
     </div>
   </div>
 
-  <div class="accordion bg-dark" id="accordionNewItem">
+  <div class="accordion bg-dark h" id="accordionNewItem">
     <div class="card-header" id="headingNewItem">
-      <h5 class="mb-0">
+      <h class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                 data-target="#collapseNewItem" aria-expanded="true"
-                aria-controls="collapseNewItem">
-          Nuevo
+                aria-controls="collapseNewItem" style="font-size: 25px">
+          <span class="input-group-addon"><i class="fa fa-file-o fa-1x fa-fw" aria-hidden="true"></i></span>
+          &nbsp;Nuevo
         </button>
-      </h5>
+      </h>
     </div><!--card header-->
 
     <div id="collapseNewItem" class="collapse" aria-labelledby="headingNewItem"
@@ -28,7 +30,7 @@
           <!--ROW 1-->
           <div class="form-row">
             <div class="col">
-              <button class="btn btn-success my-3 my-sm-0 updatePartner" type="submit">
+              <button class="btn btn-success my-3 my-sm-0 updatePartner" type="submit" style="font-size: 25px">
               <span class="input-group-addon"><i class="fa fa-plus -o fa-1x fa-fw" aria-hidden="true"></i></span>
               Crear
               </button>
@@ -44,11 +46,11 @@
 
 
 {{#if items}}
-<div class="card-header bg-secondary h5">
+<div class="card-header bg-secondary h">
   <!--ROW 1-->
   <div class="form-row">
     <div class="col">
-      <h5 class="card-title">Productos registrados</h5>
+      <h class="card-title">Platos registrados</h>
     </div>
   </div>
 </div>

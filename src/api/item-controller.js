@@ -47,6 +47,7 @@ async function handlerSuccess(req, res, item, msg) {
 }
 
 const handlerError = (err, res) => {
+  console.log(err);
   res.render(dirViews + 'formSearchContact', {
     errorMsg: err
   });
@@ -55,18 +56,34 @@ const handlerError = (err, res) => {
 async function handlerPost(req, res) {
   try {
     let itemId = req.body._itemId;
-    if (itemId) {
+    if (req.query.isEdit) {
       updateItem(req, res, itemId);
-    } else {
-      createItem(req, res);
+      return;
     }
+    if (req.query.isRemove) {
+      removeItem(req, res);
+      return;
+    }
+    createItem(req, res);
+
   } catch (e) {
     handlerError(e, res);
   }
 }
 
+async function removeItem(req, res) {
+  let resDelete = await Item.deleteOne({_id: req.body._itemId});
+  console.log(resDelete);
+  if (resDelete && resDelete.ok == 1) {
+    let item = new Item({_partnerId: req.body._partnerId});
+    handlerSuccess(req, res, item, 'Producto eliminado exitósamente!');
+    return;
+  }
+  handlerError('Error al eliminar un producto', res);
+  return;
+}
+
 async function updateItem(req, res, itemId) {
-  console.log('updating...');
   let image = req.file ? req.file.buffer : null;
   let resItem = await Item.findByIdAndUpdateAccordingToImage(req, itemId, image);
   console.log(resItem);

@@ -111,7 +111,7 @@ app.post('/partner', upload.single('image'), (req, res) => {
 });
 
 //used
-app.post('/item',  upload.single('image'), (req, res) => {
+app.post('/item',  upload.single('image'), (req, res) => {  
   itemController.handlerPost(req, res);
 });
 module.exports = app;

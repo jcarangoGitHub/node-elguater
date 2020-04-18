@@ -2,29 +2,41 @@
     color: white;
 }
 
-.h5 {
+.h {
   color: white;
-  font-family: "Courier New", monospace;
+  font-family: "Candara", monospace;
+  font-size: 25px;
 }
 
 label {
-  font-family: "Courier New", monospace;
+  font-family: "Candara", monospace;
+  font-size: 25px;
 }
 
 input {
-  font-family: "Courier New", monospace;
+  font-family: "Candara", monospace;
+  font-size: 50px;
+  width: 300px;
 }
+
 
 textarea {
-  font-family: "Courier New", monospace;
+  font-family: "Candara", monospace;
+  font-size: 25px;
+  width: 300px;
 }
 
-button {
-  font-family: "Courier New", monospace;
+
+.button {
+  font-family: "Arial Narrow", monospace;
+  height: 50px;
+  width: 130px;
 }
 
-a {
-  font-family: "Courier New", monospace;
+
+.a {
+  font-family: "Arial Narrow", monospace;
+  font-size: 50px;
 }
 
 .logo-en {

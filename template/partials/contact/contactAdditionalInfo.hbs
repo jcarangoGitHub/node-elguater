@@ -1,11 +1,13 @@
+<div class="card-header bg-secondary h">
+  <span class="input-group-addon"><i class="fa fa-id-card fa-1x fa-fw" style="color:white"></i></span>
+  <h class="card-title">Datos adicionales</h>
+</div>
 <div class="card-body bg-dark">
   <!--ROW 1-->
   <div class="form-row">
     <div class="col">
       <label for="labelName" class="text-light">Nombre</label>
       <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-user-o fa-3x fa-fw" style="color:white"></i></span>
-          &nbsp;
           <input type="text" class="form-control-lg text-white bg-dark" id="contactFirstName"
             name="contactFirstName" placeholder="Nombre"
             {{#if contact}}
@@ -15,13 +17,12 @@
       </div>
     </div>
   </div><!--ROW 1-->
+  &nbsp;
   <!--ROW 2-->
   <div class="form-row">
     <div class="col">
       <label for="labelLastName" class="text-light">Apellido</label>
       <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-user-o fa-3x fa-fw" style="color:white"></i></span>
-          &nbsp;
           <input type="text" class="form-control-lg text-white bg-dark" id="contactLastName"
             name="contactLastName" placeholder="Apellido"
             {{#if contact}}
@@ -38,8 +39,6 @@
       <label for="labelTypeID" class="text-light">Tipo documento</label>
 
       <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x fa-fw" style="color:white"></i></span>
-          &nbsp;
           <div class="btn-group btn-group-toggle" data-toggle="buttons" id="contactTipeId_div">
             <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'cc'}}} {{/if}} text-white">
               <input type="radio" name="contactTypeId" id="cc"
@@ -69,8 +68,6 @@
     <div class="col">
         <label for="labelNumberID" class="text-light">Número identificación</label>
           <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-id-card-o fa-3x fa-fw" style="color:white"></i></span>
-            &nbsp;
             <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
               name="contactNumberID" placeholder="Número identificación"
               {{#if contact}}

@@ -1,17 +1,26 @@
 {{>header}}
 
 <div class="container">
+  <!--Error message -->
+  {{#if errorMsg}}
+    {{>messageError}}
+  {{/if}}
+  <!--Success message -->
+  {{#if successMsg}}
+    {{>messageSuccess}}
+  {{/if}}
   <form method="post" action="/search-contact" class="searchContact">
     <div class="card">
-      <div class="card-header bg-secondary h5">
+      <div class="card-header bg-secondary h">
         <!--ROW 1-->
         <div class="form-row">
           <div class="col">
-            <h5 class="card-title">Buscar contactos</h5>
+            <span class="input-group-addon"><i class="fa fa-search fa-1x fa-fw" style="color:white"></i></span>
+            <h class="card-title">Buscar contactos</h>
           </div>
           <div class="col-2">
             <div class="input-group mb-3">
-              <button class="btn btn-success my-3 my-sm-0 searchContact" type="submit">
+              <button class="btn btn-success searchContact" style="font-size: 25px" type="submit">
               <span class="input-group-addon"><i class="fa fa-search fa-1x fa-fw" aria-hidden="true"></i></span>
               Buscar
               </button>
@@ -19,7 +28,7 @@
           </div>
           <div class="col-3">
             <div class="input-group mb-3">
-              <a class="btn btn-dark" onclick="clearField('cellPhoneToSearch');" role="button">
+              <a class="btn btn-dark" onclick="clearField('cellPhoneToSearch');" role="button" style="font-size: 25px">
                 <span class="input-group-addon"><i class="fa fa-eraser fa-1x fa-fw" aria-hidden="true"></i></span>
                 Limpiar
               </a>
@@ -46,34 +55,44 @@
       {{/if}}
     >
     <div class="card">
-      <div class="card-header bg-secondary h5">
+      <div class="card-header bg-secondary h">
         {{#if contact}}
         <!--ROW 1-->
         <div class="form-row">
           <div class="col">
-            <h5 class="card-title">Cotacto encontrado</h5>
-          </div>
-          <div class="col">
-            <a class="btn btn-link" style="color:#4FCE5D"
+            <span class="input-group-addon"><i class="fa fa-user fa-1x fa-fw" style="color:white"></i></span>
+            <a class="btn btn-link" style="font-size: 25px"
               href="/contact?cellPhoneToSearch={{contact.cellPhoneNumber}}"
               role="button">{{contact.cellPhoneNumber}}
             </a>
           </div>
           <div class="col">
-            <button class="btn btn-success my-3 my-sm-0 updateContact" type="submit">
+            <button class="btn btn-success my-3 my-sm-0 updateContact" type="submit" style="font-size: 25px">
             <span class="input-group-addon"><i class="fa fa-pencil-square-o fa-1x fa-fw" aria-hidden="true"></i></span>
             Actualizar
             </button>
           </div>
           <div class="col">
-            <a class="btn btn-success" href="/partner?cell={{contact.cellPhoneNumber}}" role="button">
+            {{#if contact._partnerId}}
+            <a class="btn btn-outline-light" href="/partner?cell={{contact.cellPhoneNumber}}" role="button" style="font-size: 25px">
+            <span class="input-group-addon"><i class="fa fa-map-marker fa-1x fa-fw" style="color:white"></i></span>
+            Punto de servicio
+            </a>
+            {{else}}
+            <a class="btn btn-success" href="/partner?cell={{contact.cellPhoneNumber}}" role="button" style="font-size: 25px">
             <span class="input-group-addon"><i class="fa fa-handshake-o fa-1x" aria-hidden="true"></i></span>
             Asociar
             </a>
+            {{/if}}
           </div>
         </div>
         {{else}}
-        <h5 class="card-title">Contacto no encontrado</h5>
+        <div class="form-row">
+          <div class="col">
+            <span class="input-group-addon"><i class="fa fa-frown-o fa-1x fa-fw" style="color:white"></i></span>
+            <h class="card-title">Contacto no encontrado</h>
+          </div>
+        </div>
         {{/if}}
 
       </div><!--header-->
