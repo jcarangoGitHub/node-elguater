@@ -4,5 +4,21 @@
 
   </br>
 
+  {{#each allServicePlaces}}
+  <div class="card text-center text-white bg-dark mb-3">
+    <div class="card-header">
+      <a href="/formStore?servicePlaceId={{_id}}">
+        <h5 class="card-title">{{name}}</h5>
+      </a>
+    </div>
+    <div class="card-body">
+      <a href="/formStore?servicePlaceId={{_id}}">
+      {{{getImageFromServicePlace this}}}
+      </a>
+      <p class="card-text">{{description}}</p>
+    </div>
+  </div><!--card center-->
+  {{/each}}
+
 </div>
 {{>footer}}

@@ -7,11 +7,13 @@ const multer  = require('multer');
 
 require('../helpers/helpers');
 
+const indexController = require('../api/index-controller');
 const contactController = require('../api/contact-controller');
 const partnerController = require('../api/partner-controller');
 const itemController = require('../api/item-controller');
+const storeController = require('../api/store-controller');
 
-const Item = require('./../models/item');
+
 
 
 //Partials - Paths
@@ -33,9 +35,7 @@ hbs.registerPartials(dirPartialsContact);
 
 //GET METHODS
 app.get('/', (req, res) => {
-  res.render(dirViews + 'index', {
-
-  });
+    indexController.getIndexForm(req, res);
 });
 
 app.get('/editItem', (req, res) => {
@@ -55,6 +55,11 @@ app.get('/contact', (req, res) => {
 //used
 app.get('/partner', (req, res) => {
   partnerController.getFormPartner(req, res);
+});
+
+//used
+app.get('/formStore', (req, res) => {
+  storeController.getFormPartner(req, res);
 });
 
 
@@ -111,7 +116,7 @@ app.post('/partner', upload.single('image'), (req, res) => {
 });
 
 //used
-app.post('/item',  upload.single('image'), (req, res) => {  
+app.post('/item',  upload.single('image'), (req, res) => {
   itemController.handlerPost(req, res);
 });
 module.exports = app;

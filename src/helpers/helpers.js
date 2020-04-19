@@ -19,20 +19,21 @@ hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
 hbs.registerHelper('getImageFromItem', (item) => {
   if (item && item.images[0]) {
   return `<img src="data:img/png;jpeg;jpg;base64, ${item.images[0].toString('base64')}"
-    class="rounded float-left w-50" alt="..." name="imageUploadedItem${item._id}" id="imageUploadedItem${item._id}">`
+    class="img-thumbnail rounded mx-auto d-block" alt="..." name="imageUploadedItem${item._id}" id="imageUploadedItem${item._id}">`
   } else {
     return `<img src="../../images/no-image.png"
-      class="rounded float-left w-50" alt="..." name="imageUploadedItem" id="imageUploadedItem">`
+      class="img-thumbnail rounded mx-auto d-block" alt="..." name="imageUploadedItem" id="imageUploadedItem">`
   }
 });
 
+//used index.hbs
 hbs.registerHelper('getImageFromServicePlace', (servicePlace) => {
   if (servicePlace && servicePlace.images[0]) {
   return `<img src="data:img/png;jpeg;jpg;base64, ${servicePlace.images[0].toString('base64')}"
-    class="rounded float-left w-50" alt="..." name="imageUploaded" id="imageUploaded">`
+    class="img-thumbnail rounded mx-auto d-block" alt="..." name="imageUploaded" style="width: 400px;" id="imageUploaded">`
   } else {
     return `<img src="../../images/no-image.png"
-      class="rounded float-left w-50" alt="..." name="imageUploaded" id="imageUploaded">`
+      class="img-thumbnail rounded mx-auto d-block" alt="..." name="imageUploaded" style="width: 400px;" id="imageUploaded">`
   }
 });
 
