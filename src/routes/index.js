@@ -76,7 +76,11 @@ app.post('/contact-put', (req, res) => {
   contactController.updateContact(req, res);
 });
 
-//POST METHODS
+//**********POST METHODS*********************
+app.post('/login', (req, res) => {
+  indexController.handlerLoginPost(req, res);
+})
+
 //used
 app.post('/contact', (req, res) => {
   contactController.createContact(req, res);
