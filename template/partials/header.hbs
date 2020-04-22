@@ -5,43 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="icon" href="/images/enpunto.png">
-    <title>enPunto.com</title>
+    <title>en-punto.com</title>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <script src="js/contactUIHelper.js"></script>
     <script src="js/utilEvents.js"></script>
-    <div class="jumbotron" style="background-color:#696969">
+    <div class="jumbotron" style="background-color:#152238">
       <div class="container">
-
-        <div class="row">
-          <div class="col-sm col-lg-5">
-            <!--<img src="/images/enpunto.png">-->
-            <big class="logo-en">En</big> <big class="logo-punto">Punto</big><small class="logo-com">.com</small>
-
-            <!--<h1 class="elguater">Enpunto.com</h1>-->
-          </div>
-
-          {{#unless session}}
-            <div class="col-sm col-lg-6">
-              <div class="row">&nbsp;</div>
-              <div class="row">&nbsp;</div>
-              <div class="row">&nbsp;</div>
-              <div class="row">
-                <form class="form-inline my-2 my-lg-0" action="/login" method="post">
-                  <input class="form-control mr-1" type="text" name="user" placeholder="Usuario o email" required>
-                  <input class="form-control mr-2" type="password" name="password" placeholder="Contraseña" required>
-                  <button class="btn btn-success my-3 my-sm-0" type="submit">Entrar</button>
-                </form>
-              </div>
-            </div>
-          {{/unless}}
-        </div><!--ROW-->
+        <img src="/images/enpunto.png" class="rounded mx-auto d-block">
+        </br>
+        <!--<h1 class="elguater">Enpunto.com</h1>-->
 
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-          <a class="navbar-brand" href="#" style="color:white">Menu</a>
-
           <button class="navbar-toggler" type="button" data-toggle="collapse"
                   data-target="#navbarNav" aria-controls="navbarNav"
                   aria-expanded="false" aria-label="Toggle navigation">
@@ -54,23 +31,41 @@
               </li>
             </ul>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" style="color: white"
-                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Contactos
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/contact">Buscar</a>
-                    <a class="dropdown-item" href="/formNewContact">Nuevo</a>
-                  </div>
-                </li>
-              </ul>
-
+            {{#if session}}
               <div class="collapse navbar-collapse" id="navbarNav">
-                  <a class="btn btn-outline-light" href="/logout">Salir</a>
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" style="color: white"
+                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <i class="fa fa-user" aria-hidden="true"></i>
+                       &nbsp;
+                       {{#if contact.name}}
+                       {{contact.name}}
+                       {{else}}
+                       {{contact.cellPhoneNumber}}
+                       {{/if}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item">Usuario:</a>
+                      {{#if contact.name}}
+                      <a class="dropdown-item font-weight-bolder">{{contact.name}}</a>
+                      {{else}}
+                      <a class="dropdown-item font-weight-bolder">{{contact.cellPhoneNumber}}</a>
+                      {{/if}}
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/contact-edit">Actualizar datos</a>
+                      <a class="dropdown-item" href="/formNewContact">Mi cuenta</a>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <a class="btn btn-outline-light" href="/logout">Salir</a>
+                </div>
               </div>
-            </div>
+
+            {{/if}} <!--if session-->
+
           </nav>
-    </div>
+        </div>
+      </br>

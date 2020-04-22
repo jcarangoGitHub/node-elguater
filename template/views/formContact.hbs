@@ -15,41 +15,68 @@
         <div class="form-row">
           <div class="col">
             <span class="input-group-addon"><i class="fa fa-user-plus fa-1x fa-fw" style="color:white"></i></span>
-            <h class="card-title">Nuevo contacto</h>
+            <h class="card-title">Actualizar datos usuario</h>
           </div>
           <div class="col">
-            {{#if contact}}
-            <div class="input-group mb-3">
-              <a class="btn btn-success btn-lg" href="javascript:enableFields(event);" role="button">Editar</a>
-            </div>
-            {{/if}}
-            <div class="input-group mb-3">
-              <button class="btn btn-success btn-lg" style="font-size: 25px" type="submit">
-                <span class="input-group-addon"><i class="fa fa-plus fa-1x fa-fw" aria-hidden="true"></i></span>
-                Crear
-              </button>
-            </div>
+
           </div>
         </div><!--ROW 1-->
       </div>
     </div>
-    <div class="card-body bg-dark">
-
-      {{>cellPhoneView}}
-
-    </div><!--CARD BODY-->
+    <div class="card text-center text-white">
+      <div class="card-body bg-dark">
+        <div class="form-row">
+          <div class="col">
+            {{>cellPhoneView}}
+          </div>
+        </div>
+        <br>
+      </div><!--CARD BODY-->
+    </div>
     </br>
-    <div class="card">
-      {{>contactAdditionalInfo}}
-    </div><!--CARD-->
+    <div class="card-header bg-secondary h">
+      <span class="input-group-addon"><i class="fa fa-id-card fa-1x fa-fw" style="color:white"></i></span>
+      <h class="card-title">Datos adicionales</h>
+    </div>
+    <div class="card text-center text-white">
+      <div class="card-body bg-dark">
+        {{>contactAdditionalInfo}}
+        <div class="form-row">
+          <div class="col">
+            <div class="input-group-lg mb-3">
+              <button class="btn btn-success btn-lg btn-block" type="submit">
+                Actualizar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div><!--card body-->
+    </div><!--card-->
     </br>
-    {{>newUserView}}
+
+    <div class="accordion bg-dark h" id="accordionUser">
+      <div class="card-header" id="headingUser">
+        <h class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseUser" aria-expanded="true"
+                  aria-controls="collapseUser" style="font-size: 25px">
+            Usuario
+          </button>
+        </h>
+      </div><!--card header-->
+      <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
+        data-parent="#accordionUser">
+        {{>newUserView}}
+      </div>
+    </div>
+
+
     </br>
     </br>
       <div class="form-row">
         <div class="col">
           <div class="input-group mb-3">
-            <button class="btn btn-success btn-block" style="font-size: 25px" type="submit">Crear</button>
+            <button class="btn btn-success btn-lg btn-block" type="submit">Actualizar</button>
           </div>
         </div>
       </div>

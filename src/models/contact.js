@@ -28,6 +28,7 @@ const contactSchema = new Schema({
     index: true
   },
   _partnerId: Schema.Types.ObjectId,
+  _userId: Schema.Types.ObjectId,
   landLine: {
     type: Number
   },

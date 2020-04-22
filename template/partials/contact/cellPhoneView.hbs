@@ -2,16 +2,16 @@
 <div class="form-row">
   <div class="col">
     <label for="labelCellPhoneNumber" class="text-light">Número celular</label>
-    <div class="input-group mb-3">
+    <div class="input-group-lg mb-3">
       <input type="search" class="form-control-lg text-white bg-dark" id="cellPhoneToSearch" name="cellPhoneToSearch"
-          placeholder="300-123-4567" required style="height: 80px; width: 355px; font-size: 50px" 
+          placeholder="300-123-4567" required
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           maxlength="12"
           onkeypress="onkeypressCellPhoneField(event, 'cellPhoneToSearch');"
           {{#if contact}}
           value="{{contact.cellPhoneNumber}}"
           {{/if}}
-          font-s>
+          >
     </div>
     <small class="form-text text-light">
       (*) Sólo números

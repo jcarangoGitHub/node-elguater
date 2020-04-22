@@ -35,22 +35,15 @@ hbs.registerPartials(dirPartialsContact);
 
 //GET METHODS
 app.get('/', (req, res) => {
-    indexController.getIndexForm(req, res);
+  indexController.getIndexForm(req, res);
 });
 
 app.get('/editItem', (req, res) => {
   itemController.getEditItemForm(req, res);
 });
 
-//used
-app.get('/formNewContact', (req, res) => {
-  contactController.getNewContactForm(req, res);
-});
 
-//used
-app.get('/contact', (req, res) => {
-  contactController.getSearchContactForm(req, res);
-});
+
 
 //used
 app.get('/partner', (req, res) => {
@@ -65,30 +58,17 @@ app.get('/formStore', (req, res) => {
 
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
-    if (err) return console.log(err)
+    if (err) return console.log(err);
+    res.redirect('/');
   });
-  res.redirect('/');
 });
 
 //PUT METHODS
-//used
-app.post('/contact-put', (req, res) => {
-  contactController.updateContact(req, res);
-});
 
 //**********POST METHODS*********************
+//index.hbs
 app.post('/login', (req, res) => {
   indexController.handlerLoginPost(req, res);
-})
-
-//used
-app.post('/contact', (req, res) => {
-  contactController.createContact(req, res);
-});
-
-//used
-app.post('/search-contact', (req, res) => {
-  contactController.getSearchContactForm(req, res);
 });
 
 var upload = multer({

@@ -11,49 +11,39 @@ const commonUtils = require('./../utils/common-utils');
 const userUtils = require('./../utils/user-utils');
 
 
-//PUT ?
-//used index.app.post('/contact-put', (req, res)
-async function updateContact(req, res) {
-  try {
-    let id = req.body._contactId;
-
-    let result = await Contact.findByIdAndUpdate(id, {
-                  name: req.body.contactFirstName,
-                  lastName: req.body.contactLastName,
-                  typeId: req.body.contactTypeId,
-                  contactId: req.body.contactNumberID}, {new: true});
-
-    res.render(dirViews + 'formSearchContact', {
-      contact: result,
-      successMsg: 'Contacto con ID ' + result.cellPhoneNumber + ' actualizado exitósamente!'
-    });
-  } catch(e) {
-    commonUtils.handlerError(e, res, 'formSearchContact');
-  }
-}
 
 //POST
 
 /**
 ** used!
 **/
-async function createContact(req, res) {
+async function updateContact(req, res) {
   try {
-      let contact = contactUtils.getInstanceOfContact(req);
-      let resContact = await contact.save();
+      if (! req.session.contact) {
+        commonUtils.handlerError('Permiso denegado', res, 'index');
+        return;
+      }
+
+      let resContact = await Contact.findByIdAndUpdate(req.session.contact._id, {
+          cellPhoneNumber: req.body.cellPhoneToSearch,
+          name: req.body.contactFirstName,
+          lastName: req.body.contactLastName,
+          typeId: req.body.contactTypeId,
+          contactId: req.body.contactNumberID}, {new: true, upsert: true});
+
       if (resContact) {
         let userPassword = req.body.userPassword;
         if (typeof userPassword !== 'undefined' && userPassword) {
           let user = await userUtils.getInstanceOfUser(req, resContact._id);
           let resUser = await user.save();
-          console.log('User created!');
-          console.log(resUser);
+          resContact = await Contact.findByIdAndUpdate(resContact._id, {_userId: resUser}, {new: true});
         }
       }
 
-      res.render(dirViews + 'formSearchContact', {
+      req.session.contact = resContact;
+      res.render(dirViews + 'formContact', {
         contact: resContact,
-        successMsg: 'Contacto con ID ' + resContact.cellPhoneNumber + ' creado exitósamente!'
+        successMsg: 'Contacto con ID ' + resContact.cellPhoneNumber + ' actualizado exitósamente!'
       });
   } catch (e) {
       commonUtils.handlerError(e, res, 'formContact');
@@ -66,7 +56,16 @@ async function createContact(req, res) {
 //GETS
 //used index.app.get('/formNewContact', (req, res)
 const getNewContactForm = (req, res) => {
-  res.render(dirViews + 'formContact');
+  if (! req.session.contact) {
+    commonUtils.handlerError('Permiso denegado', res, 'index');
+    return;
+  }
+
+  res.render(dirViews + 'formContact', {
+    contact: req.session.contact
+  });
+
+
 }
 
 //used
@@ -96,7 +95,6 @@ async function getSearchContactForm(req, res) {
 
 module.exports = {
   updateContact,
-  createContact,
   getNewContactForm,
   getSearchContactForm
 }

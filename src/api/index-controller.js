@@ -1,6 +1,7 @@
 const Partner = require('./../models/partner');
 const ServicePlace = require('./../models/servicePlace');
 const Contact = require('./../models/contact');
+const User = require('./../models/user');
 
 const partnerController = require('./partner-controller');
 
@@ -11,8 +12,7 @@ async function getIndexForm(req, res) {
     let resAllServicePlaces = await ServicePlace.find();
     let messageWarning;
     if (!req.session.contact) {
-      messageWarning = 'Debes iniciar sesión para hacer pedidos. Sólo déjanos' +
-                        ' un número celular donde podamos contactarnos';
+      messageWarning = 'Debes iniciar sesión para hacer pedidos.';
     }
     res.render('index', {
       allServicePlaces: resAllServicePlaces,
@@ -30,11 +30,12 @@ async function handlerLoginPost(req, res) {
     let resAllServicePlaces = await ServicePlace.find();
     if (cellPhoneToSearch) {
       let resContact = await Contact.findByCellPhone(cellPhoneToSearch);
-        req.session.contact = resContact;
+        req.session.contact = resContact ? resContact : new Contact({cellPhoneNumber: req.body.cellPhoneToSearch});
+        req.session.user = resContact && resContact._userId ? await User.findById(resContact._userId) : null;
         res.render('index', {
           session: true,
           allServicePlaces: resAllServicePlaces,
-          contact: resContact
+          contact: req.session.contact
         });
     }
 

@@ -1,36 +1,13 @@
 {{>header}}
 </br>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">{{servicePlace.name}}</div>
-        <div class="card-body">
-          <h5 class="card-title">Estamos en servicio</h5>
-          <p class="card-text">Hoy domingo 19 de abril hasta las 12:00 del medio día recibimos pedidos</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">Plato del día - $11.000</div>
-        <div class="card-body">
-          <h5 class="card-title"><a href="">Delicioso mondongo</a></h5>
-          <p class="card-text">Acompañado de arroz, ensalada, banano, aguacate y jugo</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">Promoción del día</div>
-        <div class="card-body">
-          <h5 class="card-title"><a href="">Si compras 3 platos del día</a></h5>
-          <p class="card-text">Cada uno te cuesta $10.000, es decir, pagas en total $30.000</p>
-        </div>
-      </div>
-    </div>
-  </div> <!--ROW-->
 
+<div class="container">
+  {{>cardView header=servicePlace.name title='Estamos en servicio' text='Hoy domingo 19 de abril hasta las 12:00 del medio día recibimos pedidos'}}
+  </br>
+  {{>cardView header='Plato del día - $11.000' title='Delicioso mondongo' text='Acompañado de arroz, ensalada, banano, aguacate y jugo'}}
+  </br>
+  {{>cardView header='Promoción del día' title='Si compras 3 platos del día' text='Cada uno te cuesta $10.000, es decir, pagas en total $30.000'}}
+  
   {{#if items}}
   <div class="card-header bg-secondary h">
     <span class="input-group-addon"><i class="fa fa-cutlery fa-1x fa-fw" style="color:white"></i></span>
