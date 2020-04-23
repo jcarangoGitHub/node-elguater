@@ -25,8 +25,8 @@ hbs.registerPartials(dirPartialsContact);
 
 //GET METHODS
 //used header
-app.get('/contact-edit', (req, res) => {
-  contactController.getNewContactForm(req, res);
+app.get('/formEditContact', (req, res) => {
+  contactController.getEditContactForm(req, res);
 });
 
 
@@ -35,7 +35,10 @@ app.get('/contact', (req, res) => {
   contactController.getSearchContactForm(req, res);
 });
 
-
+//used header
+app.get('/formNewContact', (req, res) => {
+  contactController.getNewContactForm(req, res);
+});
 
 
 //**********POST METHODS*********************

@@ -6,6 +6,7 @@ hbs.registerHelper('getUserSession', (req) => {
   return req.session.user
 });
 
+//used contactAdditionalInfo.hbs
 hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
   let typeId = contact.typeId;
   if (typeId === option) {

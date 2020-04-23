@@ -11,11 +11,19 @@ const commonUtils = require('./../utils/common-utils');
 const userUtils = require('./../utils/user-utils');
 
 
+const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
+  res.render(dirViews + formToRender, {
+    contactSession: req.session.contact,
+    user: req.session.user,
+    contact: contact,
+    successMsg: successMsg
+  });
+}
 
 //POST
 
 /**
-** used!
+** used
 **/
 async function updateContact(req, res) {
   try {
@@ -41,35 +49,38 @@ async function updateContact(req, res) {
       }
 
       req.session.contact = resContact;
-      res.render(dirViews + 'formContact', {
-        contact: resContact,
-        successMsg: 'Contacto con ID ' + resContact.cellPhoneNumber + ' actualizado exitósamente!'
-      });
+      handlerSuccess(req, res, 'formContact', resContact, 'Contacto con ID ' + resContact.cellPhoneNumber + ' actualizado exitósamente!');
   } catch (e) {
       commonUtils.handlerError(e, res, 'formContact');
   }
 }
 
-
 /******************************************************************************/
 
 //GETS
-//used index.app.get('/formNewContact', (req, res)
+//used contact-route.get('/formNewContact', (req, res)
 const getNewContactForm = (req, res) => {
+  if (! req.session.contact || ! req.session.user) {
+    commonUtils.handlerError('Permiso denegado', res, 'index');
+    return;
+  }
+  handlerSuccess(req, res, 'formContact', null, null);
+}
+
+const getEditContactForm = (req, res) => {
   if (! req.session.contact) {
     commonUtils.handlerError('Permiso denegado', res, 'index');
     return;
   }
-
-  res.render(dirViews + 'formContact', {
-    contact: req.session.contact
-  });
-
-
+  handlerSuccess(req, res, 'formContact', req.session.contact, null);
 }
 
 //used
 async function getSearchContactForm(req, res) {
+  if (! req.session.contact || ! req.session.user) {
+    commonUtils.handlerError('Permiso denegado', res, 'index');
+    return;
+  }
   try {
     let bodyCellPhone = req.body.cellPhoneToSearch;
     let queryCellPhone = req.query.cellPhoneToSearch;
@@ -78,12 +89,9 @@ async function getSearchContactForm(req, res) {
 
       let cellPhoneToSearch = bodyCellPhone ? bodyCellPhone : queryCellPhone;
       let contact = await Contact.findByCellPhone(cellPhoneToSearch);
-
-      res.render(dirViews + 'formSearchContact', {
-        contact: contact
-      });
+      handlerSuccess(req, res, 'formSearchContact', contact, null);
     } else {
-      res.render(dirViews + 'formSearchContact')
+      handlerSuccess(req, res, 'formSearchContact', null, null);
     }
   } catch (e) {
     commonUtils.handlerError(e, res, 'formSearchContact');
@@ -96,5 +104,6 @@ async function getSearchContactForm(req, res) {
 module.exports = {
   updateContact,
   getNewContactForm,
+  getEditContactForm,
   getSearchContactForm
 }

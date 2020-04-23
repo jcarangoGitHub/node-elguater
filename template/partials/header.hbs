@@ -32,6 +32,23 @@
             </ul>
 
             {{#if session}}
+              {{#if user}}
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" style="color: white"
+                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Contactos
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/contact">Buscar</a>
+                        <a class="dropdown-item" href="/formNewContact">Crear contacto</a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              {{/if}}
+
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item dropdown">
@@ -39,22 +56,21 @@
                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        <i class="fa fa-user" aria-hidden="true"></i>
                        &nbsp;
-                       {{#if contact.name}}
-                       {{contact.name}}
+                       {{#if contactSession.name}}
+                       {{contactSession.name}}
                        {{else}}
-                       {{contact.cellPhoneNumber}}
+                       {{contactSession .cellPhoneNumber}}
                        {{/if}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item">Usuario:</a>
-                      {{#if contact.name}}
-                      <a class="dropdown-item font-weight-bolder">{{contact.name}}</a>
+                      {{#if contactSession.name}}
+                      <a class="dropdown-item font-weight-bolder">{{contactSession.name}}</a>
                       {{else}}
-                      <a class="dropdown-item font-weight-bolder">{{contact.cellPhoneNumber}}</a>
+                      <a class="dropdown-item font-weight-bolder">{{contactSession .cellPhoneNumber}}</a>
                       {{/if}}
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/contact-edit">Actualizar datos</a>
-                      <a class="dropdown-item" href="/formNewContact">Mi cuenta</a>
+                      <a class="dropdown-item" href="/formEditContact">Actualizar datos</a>
                     </div>
                   </li>
                 </ul>
