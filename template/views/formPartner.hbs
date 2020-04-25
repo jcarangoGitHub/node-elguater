@@ -18,25 +18,44 @@
         </div>
       </div>
 
-      <div class="card-body bg-dark">
-        <!--ROW 1-->
-        <div class="form-row">
-          <div class="col">
-            <label for="labelLastName" class="text-light">
-              {{contact.fullName}} -
-              <a class="btn btn-link" style="font-size: 25px"
-                href="/contact?cellPhoneToSearch={{contact.cellPhoneNumber}}"
-                role="button">{{contact.cellPhoneNumber}}
-              </a>
-            </label>
+      <div class="card text-center text-white bg-dark mb-3">
+        <div class="card-body bg-dark">
+          <!--ROW 1-->
+          <div class="form-row">
+            <div class="col">
+              <label for="labelLastName" class="text-light">
+                {{contact.fullName}} -
+                <a class="btn btn-link" style="font-size: 25px"
+                  href="/contact?cellPhoneToSearch={{contact.cellPhoneNumber}}"
+                  role="button">{{contact.cellPhoneNumber}}
+                </a>
+              </label>
+            </div>
           </div>
         </div>
       </div>
       </br>
       <!--SERVICE PLACE-->
+      <div class="card">
+        <div class="card-header bg-secondary h">
+          <span class="input-group-addon"><i class="fa fa-map-marker fa-1x fa-fw" style="color:white"></i></span>
+          <h class="card-title">Punto de servicio</h>
+        </div>
+      </div>
+      <div class="card text-center text-white bg-dark mb-3">
       {{>screenServicePlace contact=contact servicePlace=servicePlace}}
+      </div>
 
       <!--ITEM-->
+      <div class="card-header bg-secondary h">
+        <!--ROW 1-->
+        <div class="form-row">
+          <div class="col">
+            <span class="input-group-addon"><i class="fa fa-cutlery fa-1x fa-fw" style="color:white"></i></span>
+            <h class="card-title">Platos</h>
+          </div>
+        </div>
+      </div>
       {{>screenItem}}
 
       {{/if}} <!--end if contact-->

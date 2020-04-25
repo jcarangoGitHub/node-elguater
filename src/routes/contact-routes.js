@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const hbs = require('hbs');
-const multer  = require('multer');
 
 require('../helpers/helpers');
 

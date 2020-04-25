@@ -16,7 +16,7 @@ async function getIndexForm(req, res) {
     }
     return commonUtils.handerSuccesIndex(req, res, resAllServicePlaces, messageWarning);
   }catch (e) {
-    commonUtils.handlerError('Error cargando index. Consulte con el administrador del sistema: ' + e,
+    commonUtils.handlerError(req, 'Error cargando index. Consulte con el administrador del sistema: ' + e,
                              res, 'index');
   }
 }
@@ -36,7 +36,7 @@ async function handlerLoginPost(req, res) {
       commonUtils.handerSuccesIndexWithSession(req, res, resAllServicePlaces);
     }
   } catch (e) {
-    commonUtils.handlerError('Error cargando index. Consulte con el administrador del sistema: ' + e,
+    commonUtils.handlerError(req, 'Error cargando index. Consulte con el administrador del sistema: ' + e,
                              res, 'index');
   }
 }

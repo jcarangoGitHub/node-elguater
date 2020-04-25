@@ -7,7 +7,7 @@
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
                 data-target="#collapseItem{{_id}}" aria-expanded="true"
                 aria-controls="collapseItem{{_id}}">
-          {{name}}          
+          {{name}}
         </button>
       </h5>
 
@@ -25,21 +25,19 @@
                 Editar
               </a>
             </div>
-            <div class="col">
-              <form action="/item?isRemove=true" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="_itemId" id="_itemId" value="{{_id}}">
-                  <input type="hidden" name="_partnerId" id="_partnerId" value="{{_partnerId}}">
-                  <button class="btn btn-danger my-3 my-sm-0 removeItem" type="submit" style="font-size: 25px">
-                  <span class="input-group-addon"><i class="fa fa-trash-o fa-1x fa-fw" aria-hidden="true"></i></span>
-                  Eliminar
-                  </button>
-              </form>
-            </div>
           </div><!--ROW 1-->
         </div>
         <div class="card-body bg-dark">
           {{>itemFields index=@index item=this}}
         </div>
+        <form action="/item?isRemove=true" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_itemId" id="_itemId" value="{{_id}}">
+            <input type="hidden" name="_partnerId" id="_partnerId" value="{{_partnerId}}">
+            <button class="btn btn-danger btn-lg btn-block" type="submit" style="font-size: 25px">
+            <span class="input-group-addon"><i class="fa fa-trash-o fa-1x fa-fw" aria-hidden="true"></i></span>
+            Eliminar
+            </button>
+        </form>
     </div> <!--collapse item-->
   </div> <!--accordion-->
   {{/each}}

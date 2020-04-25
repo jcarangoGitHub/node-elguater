@@ -57,7 +57,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //Routes
 app.use(require('./routes/index'));
-app.use(require('./routes/contact-route'));
+app.use(require('./routes/partner-routes'));
+app.use(require('./routes/contact-routes'));
+app.use(require('./routes/item-routes'));
+
+
+
 
 //Mongo connection
 // autoIndex: false } pdn

@@ -14,7 +14,7 @@ const userUtils = require('./../utils/user-utils');
 const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
   res.render(dirViews + formToRender, {
     contactSession: req.session.contact,
-    user: req.session.user,
+    userSession: req.session.user,
     contact: contact,
     successMsg: successMsg
   });
@@ -28,7 +28,7 @@ const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
 async function updateContact(req, res) {
   try {
       if (! req.session.contact) {
-        commonUtils.handlerError('Permiso denegado', res, 'index');
+        commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
         return;
       }
 
@@ -51,7 +51,7 @@ async function updateContact(req, res) {
       req.session.contact = resContact;
       handlerSuccess(req, res, 'formContact', resContact, 'Contacto con ID ' + resContact.cellPhoneNumber + ' actualizado exitósamente!');
   } catch (e) {
-      commonUtils.handlerError(e, res, 'formContact');
+      commonUtils.handlerError(req, e, res, 'formContact');
   }
 }
 
@@ -61,7 +61,7 @@ async function updateContact(req, res) {
 //used contact-route.get('/formNewContact', (req, res)
 const getNewContactForm = (req, res) => {
   if (! req.session.contact || ! req.session.user) {
-    commonUtils.handlerError('Permiso denegado', res, 'index');
+    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
     return;
   }
   handlerSuccess(req, res, 'formContact', null, null);
@@ -69,7 +69,7 @@ const getNewContactForm = (req, res) => {
 
 const getEditContactForm = (req, res) => {
   if (! req.session.contact) {
-    commonUtils.handlerError('Permiso denegado', res, 'index');
+    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
     return;
   }
   handlerSuccess(req, res, 'formContact', req.session.contact, null);
@@ -78,7 +78,7 @@ const getEditContactForm = (req, res) => {
 //used
 async function getSearchContactForm(req, res) {
   if (! req.session.contact || ! req.session.user) {
-    commonUtils.handlerError('Permiso denegado', res, 'index');
+    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
     return;
   }
   try {
@@ -94,7 +94,7 @@ async function getSearchContactForm(req, res) {
       handlerSuccess(req, res, 'formSearchContact', null, null);
     }
   } catch (e) {
-    commonUtils.handlerError(e, res, 'formSearchContact');
+    commonUtils.handlerError(req, e, res, 'formSearchContact');
   }
 }
 

@@ -11,6 +11,8 @@ const partnerUtils = require('./../utils/partner-utils');
 const servicePlaceUtils = require('./../utils/service-place-utils');
 const commonUtils = require('./../utils/common-utils');
 
+const validator = require('./../validator/partner-validator');
+
 //private functions
 async function updatePartnerAndServicePlacesById(req, res) {
   try {
@@ -25,7 +27,7 @@ async function updatePartnerAndServicePlacesById(req, res) {
         let resContact = await Contact.findById(req.body._contactId);
         if (resContact) {
           res.render('formPartner', {
-            successMsg: 'Socio actualizado!',
+            successMsg: 'Datos actualizados!',
             partner: resPartner,
             contact: resContact,
             servicePlace: resServicePlace
@@ -62,10 +64,10 @@ async function createPartnerAndServicePlaces(req, res) {
         servicePlace: resServicePlace
       });
     } else {
-      commonUtils.handlerError('Error inesperado, partner._id no encontado', res, 'formPartner');
+      commonUtils.handlerError(req, 'Error inesperado, partner._id no encontado', res, 'formPartner');
     }
   } catch(e) {
-    commonUtils.handlerError(e, res, 'formPartner');
+    commonUtils.handlerError(req, e, res, 'formPartner');
   }
 }
 
@@ -82,46 +84,50 @@ async function handlerPost(req, res) {
     }
 
   } catch (e) {
-    commonUtils.handlerError(e, res, 'formPartner');
+    commonUtils.handlerError(req, e, res, 'formPartner');
   }
 }
 
+
+const handlerSuccess = (req, res, contact, partner, servicePlace, items) => {
+  res.render(dirViews + 'formPartner', {
+    contactSession: req.session.contact,
+    userSession: req.session.user,
+    contact: contact,
+    partner: partner,
+    servicePlace:servicePlace,
+    items: items
+  });
+}
 /**
-** used index.app.get('/partner', (req, res)
+** used partner-routes.app.get('/partner', (req, res)
 **/
 async function getFormPartner(req, res) {
+  if (! validator.canShowPartnerForm(req)) {
+    return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+  }
+
   let cellPhone = req.query.cell;
   try {
     let contact = await Contact.findByCellPhone(cellPhone);
     if (contact === null) {
-      commonUtils.handlerError('El número ' + cellPhone + ' no está registrado', res, 'formPartner');
+      commonUtils.handlerError(req, 'El número ' + cellPhone + ' no está registrado', res, 'formPartner');
       return;
     } else if (contact._partnerId) {
       let partner = await Partner.findById(contact._partnerId);
       if (partner.servicePlaces[0]) {
         let servicePlace = await ServicePlace.findById(partner.servicePlaces[0]);
         let items = await Item.find({_partnerId: partner._id});
-        res.render(dirViews + 'formPartner', {
-          contact: contact,
-          partner: partner,
-          servicePlace: servicePlace,
-          items: items
-        });
+        handlerSuccess(req, res, contact, partner, servicePlace, items)
         return;
       } else {
-        res.render(dirViews + 'formPartner', {
-          contact: contact,
-          partner: partner
-        });
+        handlerSuccess(req, res, contact, partner, null, null);
       }
     }
-
-    res.render(dirViews + 'formPartner', {
-      contact: contact
-    });
+    handlerSuccess(req, res, contact, null, null, null);
     return;
   } catch(e) {
-    commonUtils.handlerError(e, res, 'formPartner');
+    commonUtils.handlerError(req, e, res, 'formPartner');
   }
 }
 

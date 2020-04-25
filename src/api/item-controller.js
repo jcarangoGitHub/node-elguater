@@ -7,6 +7,8 @@ const path = require('path');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
+const validator = require('./../validator/partner-validator');
+const commonUtils = require('./../utils/common-utils');
 
 const instanceOfItemAccordingToImage = (req) => {
   let image = req.file ? req.file.buffer : req.body.imageUploadedItem;
@@ -54,6 +56,10 @@ const handlerError = (err, res) => {
 }
 
 async function handlerPost(req, res) {
+  if (! validator.canShowPartnerForm(req)) {
+    return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+  }
+
   try {
     let itemId = req.body._itemId;
     if (req.query.isEdit) {
@@ -111,6 +117,10 @@ const createItem = (req, res) => {
 
 //***********GETS*****************************/
 async function getEditItemForm(req, res) {
+  if (! validator.canShowPartnerForm(req)) {
+    return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+  }
+
   let idItem = req.query.item;
   try {
     let resItem = await Item.findById(idItem);

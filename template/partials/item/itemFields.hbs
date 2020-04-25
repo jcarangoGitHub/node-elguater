@@ -2,7 +2,7 @@
 <div class="form-row">
   <div class="col">
     <label for="labelName" class="text-light">Nombre</label>
-    <div class="input-group">
+    <div class="input-group-lg mb-3">
       <input type="text" class="form-control-lg text-white bg-dark"
         placeholder="Nombre" required
         {{#if item}}
@@ -27,7 +27,7 @@
 <div class="form-row">
   <div class="col">
     <label for="labelDescription" class="text-light">Descripción</label>
-    <div class="input-group">
+    <div class="input-group-lg mb-3">
         <textarea class="form-control-lg text-white bg-dark"
           {{#if isEdit}}
           id="itemDescription"
@@ -56,7 +56,7 @@
 <div class="form-row">
   <div class="col">
     <label for="labelPriceDefault" class="text-light">Precio predeterminado</label>
-    <div class="input-group">
+    <div class="input-group-lg mb-3">
       <input type="text" class="form-control-lg text-white bg-dark"
         placeholder="Precio predeterminado"
         onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
@@ -82,7 +82,7 @@
 <div class="form-row">
   <div class="col">
     <label for="labeImage" class="text-light">Imagen</label>
-    <div class="input-group">
+    <div class="input-group-lg mb-3">
         {{#if isEdit}}
         <input type="file" class="form-control-lg text-white bg-dark" id="image"
         name="image" onchange="updateImage(this, '#imageUploadedItem');" accept="image/">
