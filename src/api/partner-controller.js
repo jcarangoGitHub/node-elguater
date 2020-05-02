@@ -17,6 +17,19 @@ const commonUtils = require('./../utils/common-utils');
 const indexController = require('./index-controller');
 const validator = require('./../validator/partner-validator');
 
+
+const handlerSuccess = (req, res, contact, partner, servicePlace, items, msg) => {
+  res.render(dirViews + 'formPartner', {
+    contactSession: req.session.contact,
+    userSession: req.session.user,
+    successMsg: msg,
+    contact: contact,
+    partner: partner,
+    servicePlace: servicePlace,
+    items: items
+  });
+}
+
 //private functions
 async function updatePartnerAndServicePlacesById(req, res) {
   try {
@@ -30,12 +43,7 @@ async function updatePartnerAndServicePlacesById(req, res) {
       if (resServicePlace) {
         let resContact = await Contact.findById(req.body._contactId);
         if (resContact) {
-          res.render('formPartner', {
-            successMsg: 'Datos actualizados!',
-            partner: resPartner,
-            contact: resContact,
-            servicePlace: resServicePlace
-          });
+          handlerSuccess(req, res, resContact, resPartner, resServicePlace, null, 'Datos actualizados!');
           return;
         }//if resContact
       }//if resServicePlace
@@ -53,7 +61,7 @@ async function createPartnerAndServicePlaces(req, res) {
   try {
     let image = req.file ? req.file.buffer : req.body.imageUploaded;
     let contactId = req.body._contactId;
-    let servicePlace = servicePlaceUtils.getInstanceOfServicePlace(req, image)
+    let servicePlace = servicePlaceUtils.getInstanceOfServicePlace(req, image);
     let partner = partnerUtils.getInstanceOfPartnerAccordingToImage(req.body._contactId, servicePlace, image);
     let resPartner = await partner.save();
     if (resPartner && resPartner._id) {
@@ -61,12 +69,7 @@ async function createPartnerAndServicePlaces(req, res) {
       let resServicePlace = await servicePlace.save();
       let resContact = await Contact.findByIdAndUpdate(contactId, {_partnerId: resPartner._id}, {new: true});
 
-      res.render(dirViews + 'formPartner', {
-        successMsg: 'Ahora somos socios!',
-        partner: resPartner,
-        contact: resContact,
-        servicePlace: resServicePlace
-      });
+    handlerSuccess(req, res, resContact, resPartner, resServicePlace, null, 'Ahora somos socios!');
     } else {
       commonUtils.handlerError(req, 'Error inesperado, partner._id no encontado', res, 'formPartner');
     }
@@ -93,22 +96,13 @@ async function handlerPost(req, res) {
 }
 
 
-const handlerSuccess = (req, res, contact, partner, servicePlace, items) => {
-  res.render(dirViews + 'formPartner', {
-    contactSession: req.session.contact,
-    userSession: req.session.user,
-    contact: contact,
-    partner: partner,
-    servicePlace:servicePlace,
-    items: items
-  });
-}
+
 /**
 ** used partner-routes.app.get('/partner', (req, res)
 **/
 async function getFormPartner(req, res) {
   if (! req.session.user) {
-    handlerSuccess(req, res, null, null, null, null);
+    handlerSuccess(req, res, null, null, null, null, null);
     return;
   }
 
@@ -124,13 +118,13 @@ async function getFormPartner(req, res) {
       if (partner.servicePlaces[0]) {
         let servicePlace = await ServicePlace.findById(partner.servicePlaces[0]);
         let items = await Item.find({_partnerId: partner._id});
-        handlerSuccess(req, res, contact, partner, servicePlace, items)
+        handlerSuccess(req, res, contact, partner, servicePlace, items, null)
         return;
       } else {
-        handlerSuccess(req, res, contact, partner, null, null);
+        handlerSuccess(req, res, contact, partner, null, null, null);
       }
     }
-    handlerSuccess(req, res, contact, null, null, null);
+    handlerSuccess(req, res, contact, null, null, null, null);
     return;
   } catch(e) {
     commonUtils.handlerError(req, e, res, 'formPartner');

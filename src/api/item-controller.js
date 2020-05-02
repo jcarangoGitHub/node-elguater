@@ -37,6 +37,8 @@ async function handlerSuccess(req, res, item, msg) {
     let resContact = await Contact.findById(resPartner._contactId);
     let resItems = await Item.find({_partnerId: resPartner._id});
     res.render(dirViews + 'formPartner', {
+      contactSession: req.session.contact,
+      userSession: req.session.user,
       successMsg: msg,
       contact: resContact,
       partner: resPartner,
