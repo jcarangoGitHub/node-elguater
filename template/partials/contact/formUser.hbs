@@ -26,19 +26,17 @@
     <div class="col">
       <label for="labelPassword" class="text-light">Rol</label>
       <div class="input-group-lg">
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary">
-            <input type="radio" name="userRol" id="admin" autocomplete="off" value="admin"> Administrador
-          </label>
-          &nbsp;
-          <label class="btn btn-secondary">
-            <input type="radio" name="userRol" id="partner" autocomplete="off" value="partner"> Socio
-          </label>
-          &nbsp;
-          <label class="btn btn-secondary active">
-            <input type="radio" name="userRol" id="customer" autocomplete="off" value="user" checked> Usuario
-          </label>
-        </div>
+        <select class="custom-select-lg text-white bg-dark" id="userRol" name="userRol">
+          {{#if userSession}}
+            <option value="admin" {{{getUserRolSelected userSession 'admin'}}}>Administrador</option>
+            <option value="partner" {{{getUserRolSelected userSession 'partner'}}}>Socio</option>
+            <option value="user" {{{getUserRolSelected userSession 'user'}}}>Usuario</option>
+          {{else}}
+            <option value="admin">Administrador</option>
+            <option value="partner">Socio</option>
+            <option selected value="user">Usuario</option>
+          {{/if}}
+        </select>
       </div>
     </div>
   </div><!--ROW 4-->

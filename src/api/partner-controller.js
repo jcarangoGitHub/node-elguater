@@ -2,6 +2,9 @@ const Partner = require('./../models/partner');
 const ServicePlace = require('./../models/servicePlace');
 const Contact = require('./../models/contact');
 const Item = require('./../models/item');
+const User = require('./../models/user');
+
+const bcrypt = require('bcrypt');
 
 const path = require('path');
 
@@ -11,6 +14,7 @@ const partnerUtils = require('./../utils/partner-utils');
 const servicePlaceUtils = require('./../utils/service-place-utils');
 const commonUtils = require('./../utils/common-utils');
 
+const indexController = require('./index-controller');
 const validator = require('./../validator/partner-validator');
 
 //private functions
@@ -103,11 +107,13 @@ const handlerSuccess = (req, res, contact, partner, servicePlace, items) => {
 ** used partner-routes.app.get('/partner', (req, res)
 **/
 async function getFormPartner(req, res) {
-  if (! validator.canShowPartnerForm(req)) {
-    return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+  if (! req.session.user) {
+    handlerSuccess(req, res, null, null, null, null);
+    return;
   }
 
-  let cellPhone = req.query.cell;
+  let cellPhone = req.query.cell ? req.query.cell : req.session.contact.cellPhoneNumber;
+
   try {
     let contact = await Contact.findByCellPhone(cellPhone);
     if (contact === null) {
@@ -131,8 +137,33 @@ async function getFormPartner(req, res) {
   }
 }
 
+async function handlerPostLogin(req, res) {
+  try {
+    let cellPhone = req.body.cellPhoneToSearch;
+    if (cellPhone) {
+      let contact = await Contact.findByCellPhone(cellPhone);
+      if (contact && contact._userId) {
+        let user = await User.findById(contact._userId);
+        if (bcrypt.compareSync(req.body.userPassword, user.password)) {
+          req.session.contact = contact;
+          req.session.user = user;
+          res.redirect('/partner');
+        } else {
+            commonUtils.handlerError(req, 'Usuario o contraseña inválido', res, 'formPartner');
+        }
+      } else {
+        commonUtils.handlerError(req, 'Usuario o contraseña inválido', res, 'formPartner');
+      }
+    }
+
+  } catch (e) {
+    commonUtils.handlerError(req, e, res, 'formPartner');
+  }
+}
+
 //*****************************************************************/
 module.exports = {
   getFormPartner,
-  handlerPost
+  handlerPost,
+  handlerPostLogin
 }

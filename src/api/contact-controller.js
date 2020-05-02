@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 //Model objects
 const Contact = require('./../models/contact');
 const User = require('./../models/user');
@@ -24,6 +26,7 @@ const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
 
 /**
 ** used
+** update and create
 **/
 async function updateContact(req, res) {
   try {
@@ -42,8 +45,17 @@ async function updateContact(req, res) {
       if (resContact) {
         let userPassword = req.body.userPassword;
         if (typeof userPassword !== 'undefined' && userPassword) {
-          let user = await userUtils.getInstanceOfUser(req, resContact._id);
-          let resUser = await user.save();
+          let userId = resContact._userId;
+          let resUser;
+          if (userId) {
+            resUser = await User.findByIdAndUpdate(userId, {
+              password: bcrypt.hashSync(req.body.userPassword, 10),
+              rol: req.body.userRol}, {new: true});
+          } else {
+            let user = await userUtils.getInstanceOfUser(req, resContact._id);
+            resUser = await user.save();
+          }
+          req.session.user = resUser;
           resContact = await Contact.findByIdAndUpdate(resContact._id, {_userId: resUser}, {new: true});
         }
       }

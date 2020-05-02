@@ -16,6 +16,7 @@ const dirViews = path.join(__dirname, '../../template/views/');
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
+hbs.registerPartials(dirPartialsItems);
 
 var upload = multer({
   limits: {

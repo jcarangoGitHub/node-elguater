@@ -34,26 +34,18 @@
     <div class="col">
       <label for="labelTypeID" class="text-light">Tipo documento</label>
       <div class="input-group-lg mb-3">
-          <div class="btn-group btn-group-toggle" data-toggle="buttons" id="contactTipeId_div">
-            <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'cc'}}} {{/if}} text-white">
-              <input type="radio" name="contactTypeId" id="cc"
-              autocomplete="off" value="cc"
-              > Cédula</input>
-            </label>
-            &nbsp;
-            <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'ti'}}} {{/if}} text-white">
-              <input type="radio" name="contactTypeId" id="ti"
-              autocomplete="off" value="ti"
-              > Tarjeta de identidad</input>
-            </label>
-            &nbsp;
-            <label class="btn btn-secondary {{#if contact}} {{{getContactTypeIdActive contact 'pasaporte'}}} {{/if}} text-white">
-              <input type="radio" name="contactTypeId" id="pasaporte"
-              autocomplete="off" value="pasaporte"
-              checked> Pasaporte
-              </input>
-            </label>
-          </div>
+          <select class="custom-select-lg text-white bg-dark" id="contactTypeId" name="contactTypeId">
+            {{#if contact}}
+              <option value="cc" {{{getContactTypeIdSelected contact 'cc'}}}>Cédula</option>
+              <option value="ti" {{{getContactTypeIdSelected contact 'ti'}}}>Tarjeta identidad</option>
+              <option value="passport" {{{getContactTypeIdSelected contact 'passport'}}}>Pasaporte</option>
+            {{else}}
+              <option selected>Seleccione...</option>
+              <option value="cc">Cédula</option>
+              <option value="ti">Tarjeta identidad</option>
+              <option value="passport">Pasaporte</option>
+            {{/if}}
+          </select>
       </div>
     </div>
   </div><!--ROW 3-->

@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const hbs = require('hbs');
 
-require('../helpers/helpers');
+require('../helpers/contact-helpers');
 
 
 const contactController = require('../api/contact-controller');

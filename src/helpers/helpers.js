@@ -6,15 +6,6 @@ hbs.registerHelper('getUserSession', (req) => {
   return req.session.user
 });
 
-//used contactAdditionalInfo.hbs
-hbs.registerHelper('getContactTypeIdActive', (contact, option) => {
-  let typeId = contact.typeId;
-  if (typeId === option) {
-    return 'active';
-  } else {
-    return '';
-  }
-});
 
 //used itemFields.hbs
 hbs.registerHelper('getImageFromItem', (item) => {

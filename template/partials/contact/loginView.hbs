@@ -1,0 +1,45 @@
+<div class="card-header bg-secondary h">
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <span class="input-group-addon"><i class="fa fa-sign-in fa-1x fa-fw" style="color:white"></i></span>
+      <h class="card-title">Iniciar sesión.</h>
+
+    </div>
+  </div>
+</div><!--card header-->
+
+<div class="card text-center text-white bg-dark mb-3">
+  <div class="card-body bg-dark">
+    <!--ROW 1-->
+    <div class="form-row">
+      <div class="col">
+        {{>cellPhoneView}}
+      </div>
+    </div><!--ROw 1-->
+    {{#if loginPartner}}
+      <!--ROW 2-->
+      <div class="form-row">
+        <div class="col">
+          <label for="labelPassword" class="text-light">Contraseña</label>
+          <div class="input-group-lg mb-3">
+              <input type="password" class="form-control-lg text-white bg-dark" required
+                id="userPassword" name="userPassword" placeholder="Contraseña">
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    </br>
+    <!--ROW 2-->
+    <div class="form-row">
+      <div class="col">
+        <div class="input-group-lg mb-3">
+          <button class="btn btn-success btn-lg searchContact" type="submit">
+          <span class="input-group-addon"><i class="fa fa-sign-in fa-1x fa-fw" style="color:white"></i></span>
+          Iniciar
+          </button>
+        </div>
+      </div>
+    </div><!--ROW 2-->
+  </div> <!--card body-->
+</div>

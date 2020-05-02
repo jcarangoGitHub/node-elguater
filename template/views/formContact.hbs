@@ -54,32 +54,36 @@
     </div><!--card-->
     </br>
 
-    <div class="accordion bg-dark h" id="accordionUser">
-      <div class="card-header" id="headingUser">
-        <h class="mb-0">
-          <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                  data-target="#collapseUser" aria-expanded="true"
-                  aria-controls="collapseUser" style="font-size: 25px">
-            Usuario
-          </button>
-        </h>
-      </div><!--card header-->
-      <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
-        data-parent="#accordionUser">
-        {{>newUserView}}
+    {{#if userSession}}
+      <!--USER VIEW-->
+      <div class="accordion bg-dark h" id="accordionUser">
+        <div class="card-header" id="headingUser">
+          <h class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapseUser" aria-expanded="true"
+                    aria-controls="collapseUser" style="font-size: 25px">
+              Usuario
+            </button>
+          </h>
+        </div><!--card header-->
+
+        <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
+          data-parent="#accordionUser">
+          {{>newUserView}}
+        </div>
+
       </div>
-    </div>
 
-
-    </br>
-    </br>
-      <div class="form-row">
-        <div class="col">
-          <div class="input-group mb-3">
-            <button class="btn btn-success btn-lg btn-block" type="submit">Actualizar</button>
+      </br>
+      </br>
+        <div class="form-row">
+          <div class="col">
+            <div class="input-group mb-3">
+              <button class="btn btn-success btn-lg btn-block" type="submit">Actualizar</button>
+            </div>
           </div>
         </div>
-      </div>
+      {{/if}}  
     </form>
 </div><!--CONTAINER-->
 {{>footer}}

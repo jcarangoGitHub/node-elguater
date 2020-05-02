@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   cellPhoneNumber: {
-    type: String,    
+    type: String,
     unique: [true, 'Sorry, the cell phone number has been already registered'],
     index: true
   },
@@ -24,7 +24,7 @@ const userSchema = new Schema({
   },
   rol: {
     type: String,
-    enum: ['admin', 'partner', 'customer'],
+    enum: ['admin', 'partner', 'user'],
     require: [true, 'Please select a Rol']
   },
   telephone: {

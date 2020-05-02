@@ -9,12 +9,11 @@ const commonUtils = require('./../utils/common-utils');
 
 async function getIndexForm(req, res) {
   try {
-    let resAllServicePlaces = await ServicePlace.find();
     let messageWarning;
-    if (!req.session.contact) {
+    if (! req.session.contact) {
       messageWarning = 'Debes iniciar sesión para hacer pedidos.';
     }
-    return commonUtils.handerSuccesIndex(req, res, resAllServicePlaces, messageWarning);
+    return await commonUtils.handerSuccesIndex(req, res, messageWarning);
   }catch (e) {
     commonUtils.handlerError(req, 'Error cargando index. Consulte con el administrador del sistema: ' + e,
                              res, 'index');
@@ -24,16 +23,15 @@ async function getIndexForm(req, res) {
 async function initSession(req, cellPhoneToSearch) {
   let resContact = await Contact.findByCellPhone(cellPhoneToSearch);
   req.session.contact = resContact ? resContact : new Contact({cellPhoneNumber: req.body.cellPhoneToSearch});
-  req.session.user = resContact && resContact._userId ? await User.findById(resContact._userId) : null;
+  //req.session.user = resContact && resContact._userId ? await User.findById(resContact._userId) : null;
 }
 
 async function handlerLoginPost(req, res) {
   try {
     let cellPhoneToSearch = req.body.cellPhoneToSearch;
-    let resAllServicePlaces = await ServicePlace.find();
     if (cellPhoneToSearch) {
       await initSession(req, cellPhoneToSearch);
-      commonUtils.handerSuccesIndexWithSession(req, res, resAllServicePlaces);
+      commonUtils.handerSuccesIndexWithSession(req, res);
     }
   } catch (e) {
     commonUtils.handlerError(req, 'Error cargando index. Consulte con el administrador del sistema: ' + e,

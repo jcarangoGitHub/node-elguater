@@ -11,6 +11,7 @@ const partnerController = require('../api/partner-controller');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
+const dirPartialsServicePlace = path.join(__dirname, '../../template/partials/servicePlace');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
@@ -18,6 +19,7 @@ const dirViews = path.join(__dirname, '../../template/views/');
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
+hbs.registerPartials(dirPartialsServicePlace);
 
 var upload = multer({
   limits: {
@@ -50,6 +52,10 @@ app.get('/partner', (req, res) => {
 //used
 app.post('/partner', upload.single('image'), (req, res) => {
   partnerController.handlerPost(req, res);
+});
+
+app.post('/login-partner', (req, res) => {
+  partnerController.handlerPostLogin(req, res);
 });
 
 module.exports = app;

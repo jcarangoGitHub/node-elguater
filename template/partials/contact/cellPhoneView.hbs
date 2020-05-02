@@ -10,7 +10,12 @@
           onkeypress="onkeypressCellPhoneField(event, 'cellPhoneToSearch');"
           {{#if contact}}
           value="{{contact.cellPhoneNumber}}"
+          {{else}}
+            {{#if contactSession.cellPhoneNumber}}
+            value="{{contactSession.cellPhoneNumber}}"
+            {{/if}}
           {{/if}}
+
           >
     </div>
     <small class="form-text text-light">
