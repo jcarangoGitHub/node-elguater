@@ -1,0 +1,50 @@
+</br>
+<form action="/sticker" method="post">
+  <input type="hidden" name="servicePlace_Id" id="servicePlace_Id" value="{{servicePlace._id}}">
+  <div class="accordion bg-dark h" id="accordionNewSticker">
+    <div class="card-header" id="headingNewSticker">
+      <h class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                data-target="#collapseNewSticker" aria-expanded="true"
+                aria-controls="collapseNewSticker" style="font-size: 25px">
+          <span class="input-group-addon"><i class="fa fa-file-o fa-1x fa-fw" aria-hidden="true"></i></span>
+          &nbsp;Nuevo
+        </button>
+      </h>
+    </div><!--card header-->
+    <div id="collapseNewSticker" class="collapse" aria-labelledby="headingNewSticker"
+      data-parent="#accordionNewSticker">
+      <div class="card border-light text-center text-white bg-dark mb-3">
+        <div class="card-header border-light text-info bg-dark">
+          <input type="text" class="form-control-lg text-white bg-dark" id="cardHeader"
+            name="cardHeader" placeholder="Encabezado" required>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-info">
+            <input type="text" class="form-control-lg text-white bg-dark" id="cardTitle"
+              name="cardTitle" placeholder="Titulo">
+          </h5>
+          <p class="card-text">
+            <input type="text" class="form-control-lg text-white bg-dark" id="cardText"
+              name="cardText" placeholder="Texto">
+          </p>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label" for="showSticker">
+            Mostrar
+          </label>
+          <input class="form-control-lg check-input" type="checkbox" id="showSticker" name="showSticker" checked>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="input-group mb-3">
+              <button class="btn btn-success btn-lg btn-block" type="submit">
+                Crear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

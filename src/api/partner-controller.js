@@ -81,6 +81,9 @@ async function createPartnerAndServicePlaces(req, res) {
 //used index.app.post('/partner', upload.single('image'), (req, res)
 async function handlerPost(req, res) {
   try {
+    if (! req.session.user) {
+      return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+    }
     let partnerId = req.body._partnerId;
     //update
     if (partnerId) {

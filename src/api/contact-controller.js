@@ -60,7 +60,6 @@ async function updateContact(req, res) {
         }
       }
 
-      req.session.contact = resContact;
       handlerSuccess(req, res, 'formContact', resContact, 'Contacto con ID ' + resContact.cellPhoneNumber + ' actualizado exitósamente!');
   } catch (e) {
       commonUtils.handlerError(req, e, res, 'formContact');

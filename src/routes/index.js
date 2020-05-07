@@ -8,10 +8,6 @@ const hbs = require('hbs');
 require('../helpers/helpers');
 
 const indexController = require('../api/index-controller');
-const storeController = require('../api/store-controller');
-
-
-
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
@@ -27,10 +23,7 @@ app.get('/', (req, res) => {
   indexController.getIndexForm(req, res);
 });
 
-//used
-app.get('/formStore', (req, res) => {
-  storeController.getFormPartner(req, res);
-});
+
 
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {

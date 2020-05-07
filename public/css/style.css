@@ -4,17 +4,17 @@
 
 .h {
   color: white;
-  font-family: "Candara", monospace;
+  font-family: "Arial Narrow", monospace;
   font-size: 25px;
 }
 
 label {
-  font-family: "Candara", monospace;
+  font-family: "Arial Narrow", monospace;
   font-size: 25px;
 }
 
 input {
-  font-family: "Candara", monospace;
+  font-family: "Arial Narrow", monospace;
   font-size: 50px;
   width: 300px;
 }

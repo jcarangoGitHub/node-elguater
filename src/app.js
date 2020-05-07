@@ -60,6 +60,8 @@ app.use(require('./routes/index'));
 app.use(require('./routes/partner-routes'));
 app.use(require('./routes/contact-routes'));
 app.use(require('./routes/item-routes'));
+app.use(require('./routes/store-routes'));
+app.use(require('./routes/sticker-routes'));
 
 
 
