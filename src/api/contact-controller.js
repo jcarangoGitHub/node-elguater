@@ -14,11 +14,20 @@ const userUtils = require('./../utils/user-utils');
 
 
 const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
+  let showUserView = false;
+  let user = req.session.user;
+  if (user && user.rol == 'admin') {
+    showUserView = true;
+  } else if (req.session.contact.cellPhoneNumber == '304-645-6220') {
+    showUserView = true;
+  }
+
   res.render(dirViews + formToRender, {
     contactSession: req.session.contact,
     userSession: req.session.user,
     contact: contact,
-    successMsg: successMsg
+    successMsg: successMsg,
+    showUserView: showUserView
   });
 }
 
@@ -30,12 +39,7 @@ const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
 **/
 async function updateContact(req, res) {
   try {
-      if (! req.session.contact) {
-        commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
-        return;
-      }
-
-      let resContact = await Contact.findByIdAndUpdate(req.session.contact._id, {
+      let resContact = await Contact.findByIdAndUpdate(req.body._contactId, {
           cellPhoneNumber: req.body.cellPhoneToSearch,
           name: req.body.contactFirstName,
           lastName: req.body.contactLastName,
@@ -52,7 +56,7 @@ async function updateContact(req, res) {
               password: bcrypt.hashSync(req.body.userPassword, 10),
               rol: req.body.userRol}, {new: true});
           } else {
-            let user = await userUtils.getInstanceOfUser(req, resContact._id);
+            let user = await userUtils.getInstanceOfUser(req, resContact);
             resUser = await user.save();
           }
           req.session.user = resUser;
@@ -71,19 +75,18 @@ async function updateContact(req, res) {
 //GETS
 //used contact-route.get('/formNewContact', (req, res)
 const getNewContactForm = (req, res) => {
-  if (! req.session.contact || ! req.session.user) {
-    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
-    return;
-  }
   handlerSuccess(req, res, 'formContact', null, null);
 }
 
-const getEditContactForm = (req, res) => {
-  if (! req.session.contact) {
-    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
-    return;
+async function getEditContactForm(req, res) {
+  let cellPhoneNumber = req.query.cell ? req.query.cell: req.session.contact.cellPhoneNumber;
+  if (cellPhoneNumber) {
+    let resContact = await Contact.findByCellPhone(cellPhoneNumber);
+    if (resContact) {
+      return handlerSuccess(req, res, 'formContact', resContact, null);
+    }
   }
-  handlerSuccess(req, res, 'formContact', req.session.contact, null);
+  return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
 }
 
 //used

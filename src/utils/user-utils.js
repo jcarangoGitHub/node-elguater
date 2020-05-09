@@ -2,12 +2,12 @@ const bcrypt = require('bcrypt');
 
 const User = require('./../models/user');
 
-const getInstanceOfUser = (req, contactId) => {
+const getInstanceOfUser = (req, contact) => {
   return new User({
-    cellPhoneNumber: req.session.contact.cellPhoneNumber,
+    cellPhoneNumber: contact.cellPhoneNumber,
     password: bcrypt.hashSync(req.body.userPassword, 10),
     rol: req.body.userRol,
-    _contactId: contactId
+    _contactId: contact._id
   });
 }
 

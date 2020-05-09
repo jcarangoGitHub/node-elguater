@@ -44,10 +44,9 @@ app.use(session({
 //MIDDLEWARE
 app.use((req, res, next) => {
   console.log('MIDDLEWARE...');
-  console.log(req.session.contact);
   if (req.session.contact) {
     res.locals.session = true
-    res.locals.contact = req.session.contact
+    res.locals.sessionContact = req.session.contact
   }
   next()
 });

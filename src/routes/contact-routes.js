@@ -21,10 +21,15 @@ app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
 hbs.registerPartials(dirPartialsContact);
 
+const commonUtils = require('./../utils/common-utils');
 
 //GET METHODS
 //used header
 app.get('/formEditContact', (req, res) => {
+  let user = req.session.user;
+  if (user && user.rol == 'admin') {//consttante
+
+  }
   contactController.getEditContactForm(req, res);
 });
 
@@ -36,6 +41,10 @@ app.get('/contact', (req, res) => {
 
 //used header
 app.get('/formNewContact', (req, res) => {
+  if (! req.session.contact || ! req.session.user) {
+    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+    return;
+  }
   contactController.getNewContactForm(req, res);
 });
 
@@ -44,7 +53,14 @@ app.get('/formNewContact', (req, res) => {
 
 //used formContact
 app.post('/contact', (req, res) => {
+  let user = req.session.user;
+  let canPost = user && user.rol == 'admin' ? true : req.session.contact.cellPhoneNumber == '304-645-6220' ? true : false;
+  if (! canPost) {
+    return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+  }
+
   contactController.updateContact(req, res);
+
 });
 
 //used

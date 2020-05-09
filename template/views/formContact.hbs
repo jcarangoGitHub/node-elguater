@@ -9,6 +9,10 @@
     {{>messageSuccess}}
   {{/if}}
   <form action="/contact" method="post">
+    <input type="hidden" name="_contactId" id="_contactId"
+      {{#if contact}}
+      value="{{contact._id}}"
+      {{/if}} >
     <div class="card">
       <div class="card-header bg-secondary h">
         <!--ROW 1-->
@@ -54,7 +58,7 @@
     </div><!--card-->
     </br>
 
-    {{#if userSession}}
+    {{#if showUserView}}
       <!--USER VIEW-->
       <div class="accordion bg-dark h" id="accordionUser">
         <div class="card-header" id="headingUser">
@@ -83,7 +87,7 @@
             </div>
           </div>
         </div>
-      {{/if}}  
+      {{/if}}
     </form>
 </div><!--CONTAINER-->
 {{>footer}}
