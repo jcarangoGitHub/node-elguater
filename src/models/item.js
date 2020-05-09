@@ -21,8 +21,7 @@ const itemSchema = new Schema({
 });
 
 //static functions
-itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) {
-  console.log('findByIdAndUpdateAccordingToImage...' + id);
+itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) {  
   if (image) {
     return this.findByIdAndUpdate({_id: id},
                                   {name: req.body.itemName,

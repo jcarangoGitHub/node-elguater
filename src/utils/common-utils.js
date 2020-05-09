@@ -24,13 +24,12 @@ async function handerSuccesIndexWithSession(req, res, allServicePlaces) {
 }
 
 async function handerSuccesIndex(req, res, warningMsg) {
-  console.log(warningMsg);
   let resAllServicePlaces = await ServicePlace.find();
   res.render('index', {
-    allServicePlaces: resAllServicePlaces,
-    warningMsg: warningMsg,
     contactSession: req.session.contact ? req.session.contact : null,
-    userSession: req.session.user ? req.session.user : null
+    userSession: req.session.user ? req.session.user : null,
+    allServicePlaces: resAllServicePlaces,
+    warningMsg: warningMsg
   });
 }
 

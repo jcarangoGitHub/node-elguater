@@ -2,6 +2,7 @@ const Item = require('./../models/item');
 const Contact = require('./../models/contact');
 const Partner = require('./../models/partner');
 const ServicePlace = require('./../models/servicePlace');
+const Sticker = require('./../models/sticker');
 
 const path = require('path');
 
@@ -36,6 +37,7 @@ async function handlerSuccess(req, res, item, msg) {
     let resServicePlace = await ServicePlace.findById(resPartner.servicePlaces[0]);
     let resContact = await Contact.findById(resPartner._contactId);
     let resItems = await Item.find({_partnerId: resPartner._id});
+    let resStickers = await Sticker.find({_servicePlaceId: resServicePlace._id});
     res.render(dirViews + 'formPartner', {
       contactSession: req.session.contact,
       userSession: req.session.user,
@@ -43,7 +45,8 @@ async function handlerSuccess(req, res, item, msg) {
       contact: resContact,
       partner: resPartner,
       servicePlace: resServicePlace,
-      items: resItems
+      items: resItems,
+      stickers: resStickers
     });
   } else {
     handlerError('', res);
@@ -81,7 +84,6 @@ async function handlerPost(req, res) {
 
 async function removeItem(req, res) {
   let resDelete = await Item.deleteOne({_id: req.body._itemId});
-  console.log(resDelete);
   if (resDelete && resDelete.ok == 1) {
     let item = new Item({_partnerId: req.body._partnerId});
     handlerSuccess(req, res, item, 'Producto eliminado exitósamente!');
@@ -94,7 +96,6 @@ async function removeItem(req, res) {
 async function updateItem(req, res, itemId) {
   let image = req.file ? req.file.buffer : null;
   let resItem = await Item.findByIdAndUpdateAccordingToImage(req, itemId, image);
-  console.log(resItem);
   if (resItem) {
     handlerSuccess(req, res, resItem, 'Producto actualizado exitósamente!');
     return;
@@ -129,6 +130,8 @@ async function getEditItemForm(req, res) {
     let resContactId = await Partner.findById(resItem._partnerId, '_contactId');
     let resCellPhone = await Contact.findById(resContactId._contactId, 'cellPhoneNumber');
     res.render(dirViews + 'formEditItem', {
+      contactSession: req.session.contact,
+      userSession: req.session.user,
       item: resItem,
       isEdit: true,
       cellPhoneNumber: resCellPhone.cellPhoneNumber

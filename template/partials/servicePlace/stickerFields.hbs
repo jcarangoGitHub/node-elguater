@@ -1,0 +1,25 @@
+<div class="card-header border-light text-info bg-dark">
+  <input type="text" class="form-control-lg text-white bg-dark" id="cardHeader"
+    name="cardHeader" placeholder="Encabezado" required
+    {{#if sticker}}value="{{sticker.header}}" {{/if}}>
+</div>
+<div class="card-body">
+  <h5 class="card-title text-info">
+    <input type="text" class="form-control-lg text-white bg-dark" id="cardTitle"
+      name="cardTitle" placeholder="Titulo"
+      {{#if sticker}}value="{{sticker.title}}" {{/if}}>
+  </h5>
+  <p class="card-text">
+    <input type="text" class="form-control-lg text-white bg-dark" id="cardText"
+      name="cardText" placeholder="Texto"
+      {{#if sticker}}value="{{sticker.text}}" {{/if}}>
+  </p>
+</div>
+<div class="form-check">
+  <label class="form-check-label" for="showSticker">
+    Mostrar
+  </label>
+  <input class="form-control-lg check-input" type="checkbox" id="showSticker" name="showSticker"
+  {{#if sticker.showSticker}} checked  {{/if}}>
+  
+</div>

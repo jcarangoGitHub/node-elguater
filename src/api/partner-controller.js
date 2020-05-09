@@ -3,6 +3,7 @@ const ServicePlace = require('./../models/servicePlace');
 const Contact = require('./../models/contact');
 const Item = require('./../models/item');
 const User = require('./../models/user');
+const Sticker = require('./../models/sticker');
 
 const bcrypt = require('bcrypt');
 
@@ -18,7 +19,7 @@ const indexController = require('./index-controller');
 const validator = require('./../validator/partner-validator');
 
 
-const handlerSuccess = (req, res, contact, partner, servicePlace, items, msg) => {
+const handlerSuccess = (req, res, contact, partner, servicePlace, items, stickers, msg) => {  
   res.render(dirViews + 'formPartner', {
     contactSession: req.session.contact,
     userSession: req.session.user,
@@ -26,7 +27,8 @@ const handlerSuccess = (req, res, contact, partner, servicePlace, items, msg) =>
     contact: contact,
     partner: partner,
     servicePlace: servicePlace,
-    items: items
+    items: items,
+    stickers: stickers
   });
 }
 
@@ -43,7 +45,7 @@ async function updatePartnerAndServicePlacesById(req, res) {
       if (resServicePlace) {
         let resContact = await Contact.findById(req.body._contactId);
         if (resContact) {
-          handlerSuccess(req, res, resContact, resPartner, resServicePlace, null, 'Datos actualizados!');
+          handlerSuccess(req, res, resContact, resPartner, resServicePlace, null, null, 'Datos actualizados!');
           return;
         }//if resContact
       }//if resServicePlace
@@ -69,7 +71,7 @@ async function createPartnerAndServicePlaces(req, res) {
       let resServicePlace = await servicePlace.save();
       let resContact = await Contact.findByIdAndUpdate(contactId, {_partnerId: resPartner._id}, {new: true});
 
-    handlerSuccess(req, res, resContact, resPartner, resServicePlace, null, 'Ahora somos socios!');
+    handlerSuccess(req, res, resContact, resPartner, resServicePlace, null, null, 'Ahora somos socios!');
     } else {
       commonUtils.handlerError(req, 'Error inesperado, partner._id no encontado', res, 'formPartner');
     }
@@ -104,11 +106,6 @@ async function handlerPost(req, res) {
 ** used partner-routes.app.get('/partner', (req, res)
 **/
 async function getFormPartner(req, res) {
-  if (! req.session.user) {
-    handlerSuccess(req, res, null, null, null, null, null);
-    return;
-  }
-
   let cellPhone = req.query.cell ? req.query.cell : req.session.contact.cellPhoneNumber;
 
   try {
@@ -121,13 +118,14 @@ async function getFormPartner(req, res) {
       if (partner.servicePlaces[0]) {
         let servicePlace = await ServicePlace.findById(partner.servicePlaces[0]);
         let items = await Item.find({_partnerId: partner._id});
-        handlerSuccess(req, res, contact, partner, servicePlace, items, null)
+        let stickers = await Sticker.find({_servicePlaceId: servicePlace._id});
+        handlerSuccess(req, res, contact, partner, servicePlace, items, stickers, null)
         return;
       } else {
-        handlerSuccess(req, res, contact, partner, null, null, null);
+        handlerSuccess(req, res, contact, partner, null, null, null, null);
       }
     }
-    handlerSuccess(req, res, contact, null, null, null, null);
+    handlerSuccess(req, res, contact, null, null, null, null, null);
     return;
   } catch(e) {
     commonUtils.handlerError(req, e, res, 'formPartner');

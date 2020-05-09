@@ -18,6 +18,9 @@ const stickerSchema = new Schema({
     type: String,
     trim: true
   },
+  price: {
+    type: String
+  },
   showSticker: Boolean
 });
 

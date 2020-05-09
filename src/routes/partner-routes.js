@@ -46,6 +46,12 @@ var upload = multer({
 
 //used formSearchContact
 app.get('/partner', (req, res) => {
+  if (! req.session.user) {
+    res.render(dirViews + 'formPartner', {
+      contactSession: req.session.contact,
+      userSession: req.session.user
+    });
+  }
   partnerController.getFormPartner(req, res);
 });
 

@@ -1,0 +1,47 @@
+<div class="card-body bg-dark">
+  <ul class="list-group">
+  {{#each stickers}}
+    <div class="accordion bg-dark" id="accordionSticker{{_id}}">
+      <div class="card-header" id="headingSticker{{_id}}">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseSticker{{_id}}" aria-expanded="true"
+                  aria-controls="collapseSticker{{_id}}">
+            {{header}}
+          </button>
+        </h5>
+
+      </div><!--card header-->
+
+      <div id="collapseSticker{{_id}}" class="collapse" aria-labelledby="headingSticker"
+        data-parent="#accordionSticker{{_id}}">
+          <div class="card-header bg-secondary h5">
+            <!--ROW 1-->
+            <div class="form-row">
+              <div class="col">
+                <a class="btn btn-light" href="/editSticker?sticker={{_id}}" role="button"
+                  style="font-size: 25px">
+                  <span class="input-group-addon"><i class="fa fa-pencil-square-o fa-1x fa-fw" aria-hidden="true"></i></span>
+                  Editar
+                </a>
+              </div>
+            </div><!--ROW 1-->
+          </div>
+          <div class="card-body bg-dark">
+            {{>cardView header=header title=title text=text}}
+          </div>
+          <form action="/sticker?isRemove=true" method="post">
+              <input type="hidden" name="_stickerId" id="_stickerId" value="{{_id}}">
+              <input type="hidden" name="_partnerId" id="_partnerId" value="{{_partnerId}}">
+              <input type="hidden" name="servicePlace_Id" id="servicePlace_Id" value="{{_servicePlaceId}}"> 
+              <button class="btn btn-danger btn-lg btn-block" type="submit" style="font-size: 25px">
+              <span class="input-group-addon"><i class="fa fa-trash-o fa-1x fa-fw" aria-hidden="true"></i></span>
+              Eliminar
+              </button>
+          </form>
+          </br>
+      </div> <!--collapse item-->
+    </div> <!--accordion-->
+  {{/each}}
+  </ul>
+</div> <!--card body-->
