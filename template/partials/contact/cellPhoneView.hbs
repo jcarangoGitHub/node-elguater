@@ -15,7 +15,9 @@
             value="{{contactSession.cellPhoneNumber}}"
             {{/if}}
           {{/if}}
-
+          {{#if isEdit}}
+          readonly
+          {{/if}}
           >
     </div>
     <small class="form-text text-light">

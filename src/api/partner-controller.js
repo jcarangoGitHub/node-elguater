@@ -19,7 +19,7 @@ const indexController = require('./index-controller');
 const validator = require('./../validator/partner-validator');
 
 
-const handlerSuccess = (req, res, contact, partner, servicePlace, items, stickers, msg) => {  
+const handlerSuccess = (req, res, contact, partner, servicePlace, items, stickers, msg) => {
   res.render(dirViews + 'formPartner', {
     contactSession: req.session.contact,
     userSession: req.session.user,
@@ -106,7 +106,7 @@ async function handlerPost(req, res) {
 ** used partner-routes.app.get('/partner', (req, res)
 **/
 async function getFormPartner(req, res) {
-  let cellPhone = req.query.cell ? req.query.cell : req.session.contact.cellPhoneNumber;
+  let cellPhone = req.query.cell ? req.query.cell : req.session.contact ? req.session.contact.cellPhoneNumber : null;
 
   try {
     let contact = await Contact.findByCellPhone(cellPhone);

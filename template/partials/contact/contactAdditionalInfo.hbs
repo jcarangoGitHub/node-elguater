@@ -32,36 +32,16 @@
   <!--ROW 3-->
   <div class="form-row">
     <div class="col">
-      <label for="labelTypeID" class="text-light">Tipo documento</label>
-      <div class="input-group-lg mb-3">
-          <select class="custom-select-lg text-white bg-dark" id="contactTypeId" name="contactTypeId">
-            {{#if contact}}
-              <option value="cc" {{{getContactTypeIdSelected contact 'cc'}}}>Cédula</option>
-              <option value="ti" {{{getContactTypeIdSelected contact 'ti'}}}>Tarjeta identidad</option>
-              <option value="passport" {{{getContactTypeIdSelected contact 'passport'}}}>Pasaporte</option>
-            {{else}}
-              <option selected>Seleccione...</option>
-              <option value="cc">Cédula</option>
-              <option value="ti">Tarjeta identidad</option>
-              <option value="passport">Pasaporte</option>
-            {{/if}}
-          </select>
-      </div>
+      <label for="labelNumberID" class="text-light">Dirección</label>
+      <div class="input-group-lg mb-4">
+        <input type="text" class="form-control-lg text-white bg-dark custom-text" id="contactAddress"
+          name="contactAddress" placeholder="Donde desea recibir el producto"
+          {{#if contact}}
+          value="{{contact.address}}"
+          {{/if}}
+          required>
+      </div>      
     </div>
   </div><!--ROW 3-->
-  &nbsp;
-  <!--ROW 4-->
-  <div class="form-row">
-    <div class="col">
-        <label for="labelNumberID" class="text-light">Número identificación</label>
-          <div class="input-group-lg mb-3">
-            <input type="text" class="form-control-lg bg-dar text-white bg-dark" id="contactNumberID"
-              name="contactNumberID" placeholder="Número identificación"
-              {{#if contact}}
-              value="{{contact.contactId}}"
-              {{/if}}
-              >
-          </div>
-      </div>
-    </div><!--ROW 4-->
+
 </div><!--CARD BODY-->

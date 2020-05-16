@@ -9,10 +9,7 @@ const commonUtils = require('./../utils/common-utils');
 
 async function getIndexForm(req, res) {
   try {
-    let messageWarning;
-    if (! req.session.contact) {
-      messageWarning = 'Debes iniciar sesión para hacer pedidos.';
-    }
+    let messageWarning = await commonUtils.getMsgWhenSessionDoesntExist(req);
     return await commonUtils.handerSuccesIndex(req, res, messageWarning);
   }catch (e) {
     commonUtils.handlerError(req, 'Error cargando index. Consulte con el administrador del sistema: ' + e,

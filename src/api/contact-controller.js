@@ -43,8 +43,7 @@ async function updateContact(req, res) {
           cellPhoneNumber: req.body.cellPhoneToSearch,
           name: req.body.contactFirstName,
           lastName: req.body.contactLastName,
-          typeId: req.body.contactTypeId,
-          contactId: req.body.contactNumberID}, {new: true, upsert: true});
+          address: req.body.contactAddress}, {new: true, upsert: true});
 
       if (resContact) {
         let userPassword = req.body.userPassword;
@@ -79,11 +78,13 @@ const getNewContactForm = (req, res) => {
 }
 
 async function getEditContactForm(req, res) {
-  let cellPhoneNumber = req.query.cell ? req.query.cell: req.session.contact.cellPhoneNumber;
+  let cellPhoneNumber = req.query.cell ? req.query.cell: req.session.contact ? req.session.contact.cellPhoneNumber : null;
   if (cellPhoneNumber) {
     let resContact = await Contact.findByCellPhone(cellPhoneNumber);
     if (resContact) {
       return handlerSuccess(req, res, 'formContact', resContact, null);
+    } else if (req.session.contact) {
+      return handlerSuccess(req, res, 'formContact', req.session.contact);
     }
   }
   return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
@@ -91,10 +92,6 @@ async function getEditContactForm(req, res) {
 
 //used
 async function getSearchContactForm(req, res) {
-  if (! req.session.contact || ! req.session.user) {
-    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
-    return;
-  }
   try {
     let bodyCellPhone = req.body.cellPhoneToSearch;
     let queryCellPhone = req.query.cellPhoneToSearch;

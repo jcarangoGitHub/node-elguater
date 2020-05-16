@@ -53,9 +53,7 @@ app.get('/formNewContact', (req, res) => {
 
 //used formContact
 app.post('/contact', (req, res) => {
-  let user = req.session.user;
-  let canPost = user && user.rol == 'admin' ? true : req.session.contact.cellPhoneNumber == '304-645-6220' ? true : false;
-  if (! canPost) {
+  if (! req.session.contact) {
     return commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
   }
 
@@ -65,6 +63,10 @@ app.post('/contact', (req, res) => {
 
 //used
 app.post('/search-contact', (req, res) => {
+  if (! req.session.contact || ! req.session.user) {
+    commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
+    return;
+  }
   contactController.getSearchContactForm(req, res);
 });
 

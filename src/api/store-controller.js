@@ -3,6 +3,23 @@ const dirViews = path.join(__dirname, '../../template/views/');
 
 const ServicePlace = require('./../models/servicePlace');
 const Item = require('./../models/item');
+const Sticker = require('./../models/sticker');
+
+const commonUtils = require('./../utils/common-utils');
+
+async function handlerSuccess(req, res, servicePlace) {
+  let items = await Item.find({_partnerId: servicePlace._partnerId});
+  let resStickers = await Sticker.find({_servicePlaceId: servicePlace._id});
+  let warningMsg = await commonUtils.getMsgWhenSessionDoesntExist(req);
+  res.render('formStore', {
+    contactSession: req.session.contact,
+    userSession: req.session.user,
+    items: items,
+    servicePlace: servicePlace,
+    stickersByServicePlace: resStickers,
+    warningMsg: warningMsg    
+  });
+}
 
 /**
 ** used index.app.get('/formStore', (req, res)
@@ -10,11 +27,10 @@ const Item = require('./../models/item');
 async function getFormPartner(req, res) {
   let servicePlaceId = req.query.servicePlaceId;
   let servicePlace = await ServicePlace.findById(servicePlaceId);
-  let items = await Item.find({_partnerId: servicePlace._partnerId});
-  res.render('formStore', {
-    items: items,
-    servicePlace: servicePlace
-  });
+  if (servicePlace) {
+    return handlerSuccess(req, res, servicePlace);
+  }
+  return commonUtils.handlerErrorIndex(req, res, 'ServicePlace: ' + servicePlaceId + ' no existe');
 }
 
 

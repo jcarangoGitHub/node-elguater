@@ -5,20 +5,20 @@ const hbs = require('hbs');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
-const dirPartialsStore = path.join(__dirname, '../../template/partials/store');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
-const storeController = require('../api/store-controller');
+const purchaseController = require('../api/purchase-controller');
 
 //Hbs
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
-hbs.registerPartials(dirPartialsStore);
+hbs.registerPartials(dirPartials);
 
 //used
-app.get('/formStore', (req, res) => {
-  storeController.getFormPartner(req, res);
+app.get('/formPurchase', (req, res) => {
+
+  purchaseController.getFormPurchase(req, res);
 });
 
 module.exports = app;

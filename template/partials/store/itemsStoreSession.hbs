@@ -1,0 +1,23 @@
+{{#each items}}
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <div class="card text-center text-white bg-dark mb-3">
+        </br>
+        {{{getImageFromItem this}}}
+        <div class="card-body">
+          <h5 class="card-title text-white-50">$ {{price_default}}</h5>
+          <h5 class="card-title">{{name}}</h5>
+          <p class="card-text">{{description}}</p>
+        </div>
+
+        <div class="input-group-lg mb-3">
+          <button class="btn btn-success btn-lg searchContact" type="submit">
+          <span class="input-group-addon"><i class="fa fa-shopping-cart fa-1x fa-fw" style="color:white"></i></span>
+          Añadir
+          </button>
+        </div>
+      </div><!--center-->
+    </div><!--col-->
+  </div><!--row-->
+{{/each}}

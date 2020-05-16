@@ -12,6 +12,16 @@ const handlerError = (req, msj, res, form) => {
   });
 }
 
+async function handlerErrorIndex(req, res, msg) {
+  let resAllServicePlaces = await ServicePlace.find();
+  res.render('index', {
+    contactSession: req.session.contact ? req.session.contact : null,
+    userSession: req.session.user ? req.session.user : null,
+    allServicePlaces: resAllServicePlaces,
+    errorMsg: msg,
+  });
+}
+
 async function handerSuccesIndexWithSession(req, res, allServicePlaces) {
   let resAllServicePlaces = await ServicePlace.find();
 
@@ -33,8 +43,17 @@ async function handerSuccesIndex(req, res, warningMsg) {
   });
 }
 
+async function getMsgWhenSessionDoesntExist(req) {
+  if (! req.session.contact) {
+    return 'Debes iniciar sesión para hacer pedidos. Ingresa tu número celular';
+  }
+  return null;
+}
+
 module.exports = {
   handlerError,
   handerSuccesIndexWithSession,
-  handerSuccesIndex
+  handerSuccesIndex,
+  handlerErrorIndex,
+  getMsgWhenSessionDoesntExist
 }

@@ -2,35 +2,70 @@
 </br>
 
 <div class="container">
-  {{>cardView header=servicePlace.name title='Estamos en servicio' text='Hoy domingo 19 de abril hasta las 12:00 del medio día recibimos pedidos'}}
-  </br>
-  {{>cardView header='Plato del día - $11.000' title='Delicioso mondongo' text='Acompañado de arroz, ensalada, banano, aguacate y jugo'}}
-  </br>
-  {{>cardView header='Promoción del día' title='Si compras 3 platos del día' text='Cada uno te cuesta $10.000, es decir, pagas en total $30.000'}}
-  
-  {{#if items}}
-  <div class="card-header bg-secondary h">
-    <span class="input-group-addon"><i class="fa fa-cutlery fa-1x fa-fw" style="color:white"></i></span>
-    <h class="card-title">Nuestros platos</h>
-  </div>
-  {{#each items}}
-    <!--ROW 1-->
-    <div class="form-row">
-      <div class="col">
-        <div class="card text-center text-white bg-dark mb-3">
-        </br>
-        {{{getImageFromItem this}}}
-        <div class="card-body">
-          <h5 class="card-title">$ {{price_default}}</h5>
-          <h5 class="card-title">{{name}}</h5>
-          <p class="card-text">{{description}}</p>
-        </div>
-        </div>
-      </div>
-    </div>
+  {{#unless session}}
+    <form method="post" action="/login" class="searchContact">
+        {{>loginView}}
+    </form>
+    </br>
+    {{#if warningMsg}}
+      {{>messageWarning}}
+    {{/if}}
+  {{/unless}}
 
-  {{/each}}
+  <div class="card-header">
+    <a href="/formStore?servicePlaceId={{servicePlace._id}}">
+      <h5 class="card-title text-center">{{servicePlace.name}}</h5>
+    </a>
+  </div>
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <a class="btn btn-link text-muted" style="font-size: 25px"
+        href="/"
+        role="button">Volver
+      </a>
+    </div>
+  </div><!--ROW 1-->
+
+  {{#if stickersByServicePlace}}
+    <div class="card-header bg-secondary h">
+      <span class="input-group-addon"><i class="fa fa-comments-o fa-1x fa-fw" style="color:white"></i></span>
+      <h class="card-title">Anuncios</h>
+    </div>
   {{/if}}
+  {{#each stickersByServicePlace}}
+    {{>cardView header=header title=title text=text}}
+    </br>
+  {{/each}}
+
+  {{#if session}}
+  <p class="text-white">session</p>
+  {{else}}
+  <p class="text-white">no session</p>
+  {{/if}}
+
+  {{#if items}}
+    <div class="card-header bg-secondary h">
+      <span class="input-group-addon"><i class="fa fa-cutlery fa-1x fa-fw" style="color:white"></i></span>
+      <h class="card-title">Nuestros platos</h>
+    </div>
+  {{/if}}
+
+  {{#if session}}
+    {{>itemsStoreSession}}
+  {{else}}
+    {{>itemsStore}}
+  {{/if}}
+
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <a class="btn btn-link text-muted" style="font-size: 25px"
+        href="/"
+        role="button">Volver
+      </a>
+    </div>
+  </div><!--ROW 1-->
 </div>
 
 {{>footer}}

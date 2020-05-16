@@ -44,11 +44,11 @@ app.use(session({
 //MIDDLEWARE
 app.use((req, res, next) => {
   console.log('MIDDLEWARE...');
-  if (req.session.contact) {
-    res.locals.session = true
-    res.locals.sessionContact = req.session.contact
-  }
-  next()
+  res.locals.session = req.session.contact ? true : false;
+  res.locals.sessionContact = req.session.contact ? req.session.contact : null;
+  res.locals.sessionUser = req.session.user ? req.session.user : null;
+  console.log(res.locals.session);
+  next();
 });
 
 //Body parser
@@ -61,7 +61,7 @@ app.use(require('./routes/contact-routes'));
 app.use(require('./routes/item-routes'));
 app.use(require('./routes/store-routes'));
 app.use(require('./routes/sticker-routes'));
-
+app.use(require('./routes/purchase-routes'));
 
 
 

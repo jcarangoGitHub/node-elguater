@@ -32,21 +32,30 @@
               <li class="nav-item active">
                 <a class="nav-link" href="/partner" style="color:white">Aliados</a>
               </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="/formPurchase" style="color:white">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Compras
+                    <span class="badge badge-light">4</span>
+                  </a>
+              </li>
 
               {{#if session}}
                 <li class="nav-item active">
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto">
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" style="color: white"
-                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Contactos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/contact">Buscar</a>
-                          <a class="dropdown-item" href="/formNewContact">Crear contacto</a>
-                        </div>
-                      </li>
+                      {{#if sessionUser}}
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" style="color: white"
+                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Contactos
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/contact">Buscar</a>
+                            <a class="dropdown-item" href="/formNewContact">Crear contacto</a>
+                          </div>
+                        </li>
+                      {{/if}}
                     </ul>
                   </div>
                 </li>
@@ -64,7 +73,7 @@
                          {{#if contactSession.name}}
                          {{contactSession.name}}
                          {{else}}
-                         {{contactSession .cellPhoneNumber}}
+                         {{contactSession.cellPhoneNumber}}
                          {{/if}}
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -86,7 +95,7 @@
                 </div>
 
               {{/if}} <!--if session-->
-            </ul>
+            </ul> <!--navbar-nav-->
           </nav>
         </div>
       </br>

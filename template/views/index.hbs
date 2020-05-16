@@ -10,15 +10,15 @@
   {{#if successMsg}}
     {{>messageSuccess}}
   {{/if}}
-  
+
   {{#unless session}}
-  <form method="post" action="/login" class="searchContact">
-      {{>loginView}}
-  </form>
-  </br>
-  {{#if warningMsg}}
-  {{>messageWarning}}
-  {{/if}}
+    <form method="post" action="/login" class="searchContact">
+        {{>loginView}}
+    </form>
+    </br>
+    {{#if warningMsg}}
+      {{>messageWarning}}
+    {{/if}}
   {{/unless}}
 
 
