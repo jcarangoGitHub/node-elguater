@@ -19,14 +19,16 @@ const instanceOfItemAccordingToImage = (req) => {
       name: req.body.itemName,
       description: req.body.itemDescription,
       price_default: req.body.itemPrice.toString(),
-      images: [image]
+      images: [image],
+      showItem: req.body.showItem == 'on' ? true : false
     });
   } else {
     return item = new Item({
       _partnerId: req.body._partnerId,
       name: req.body.itemName,
       description: req.body.itemDescription,
-      price_default: req.body.itemPrice.toString()
+      price_default: req.body.itemPrice.toString(),
+      showItem: req.body.showItem == 'on' ? true : false
     });
   }
 }

@@ -17,25 +17,32 @@ const itemSchema = new Schema({
   price_default: {
     type: String
   },
-  images: [Buffer]
+  images: [Buffer],
+  showItem: Boolean
 });
 
 //static functions
-itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) {  
+itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) {
   if (image) {
     return this.findByIdAndUpdate({_id: id},
                                   {name: req.body.itemName,
                                   description: req.body.itemDescription,
                                   price_default: req.body.itemPrice.toString(),
-                                  images: [image]},
+                                  images: [image],
+                                  showItem: req.body.showItem == 'on' ? true : false},
                                   {new: true});
   } else {
     return res = this.findByIdAndUpdate({_id: id},
                                   {name: req.body.itemName,
                                   description: req.body.itemDescription,
-                                  price_default: req.body.itemPrice.toString()},
+                                  price_default: req.body.itemPrice.toString(),
+                                  showItem: req.body.showItem == 'on' ? true : false},
                                   {new: true});
   }
+}
+
+itemSchema.statics.findAvailablesByPartner = function(partnerId) {
+  return this.find({_partnerId: partnerId, showItem: true});
 }
 
 const Item = mongoose.model('Item', itemSchema);
