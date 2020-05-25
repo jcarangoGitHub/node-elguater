@@ -1,6 +1,5 @@
 {{>header}}
 </br>
-
 <div class="container">
   {{#unless session}}
     <form method="post" action="/login" class="searchContact">
@@ -22,7 +21,9 @@
     <div class="col">
       <a class="btn btn-link text-muted" style="font-size: 25px"
         href="/"
-        role="button">Volver
+        role="button">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Volver
       </a>
     </div>
   </div><!--ROW 1-->
@@ -46,7 +47,7 @@
   {{/if}}
 
   {{#if session}}
-    {{>itemsStoreSession}}
+    {{>itemsStoreSession servicePlace=servicePlace}}
   {{else}}
     {{>itemsStore}}
   {{/if}}
@@ -56,7 +57,9 @@
     <div class="col">
       <a class="btn btn-link text-muted" style="font-size: 25px"
         href="/"
-        role="button">Volver
+        role="button">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Volver
       </a>
     </div>
   </div><!--ROW 1-->

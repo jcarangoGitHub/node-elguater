@@ -5,13 +5,11 @@ const itemSchema = new Schema({
   _partnerId: Schema.Types.ObjectId,
   name: {
     type: String,
-    required: true,
-    uppercase: true,
+    required: true,    
     tirm: true
   },
   description: {
     type: String,
-    uppercase: true,
     trim: true
   },
   price_default: {

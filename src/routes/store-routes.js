@@ -21,4 +21,9 @@ app.get('/formStore', (req, res) => {
   storeController.getFormPartner(req, res);
 });
 
+//used from itemsStoreSession
+app.post('/cart', (req, res) => {
+  storeController.handlerPost(req,res);
+});
+
 module.exports = app;

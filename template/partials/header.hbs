@@ -17,7 +17,6 @@
         <img src="/images/enpunto.png" class="rounded mx-auto d-block">
         </br>
         <!--<h1 class="elguater">Enpunto.com</h1>-->
-
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
           <button class="navbar-toggler" type="button" data-toggle="collapse"
                   data-target="#navbarNav" aria-controls="navbarNav"
@@ -32,15 +31,26 @@
               <li class="nav-item active">
                 <a class="nav-link" href="/partner" style="color:white">Aliados</a>
               </li>
-              <li class="nav-item active">
-                  <a class="nav-link" href="/formPurchase" style="color:white">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    Compras
-                    <span class="badge badge-light">4</span>
-                  </a>
-              </li>
 
               {{#if session}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="/formPurchase" style="color:white">
+                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                      Compras
+                      {{#if sessionCart}}
+                      <span class="badge badge-light">{{sessionCart.length}}</span>
+                      {{else}}
+                        {{#if req.session.cartShopping}}
+                          <span class="badge badge-light">{{req.session.cartShopping.length}}</span>
+                        {{else}}
+                          <span class="badge badge-light">0</span>
+                        {{/if}}
+                      {{/if}}
+
+                    </a>
+                </li>
+
+
                 <li class="nav-item active">
                   <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mr-auto">

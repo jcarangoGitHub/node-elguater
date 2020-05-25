@@ -4,6 +4,7 @@ const dirViews = path.join(__dirname, '../../template/views/');
 const ServicePlace = require('./../models/servicePlace');
 const Item = require('./../models/item');
 const Sticker = require('./../models/sticker');
+const Partner = require('./../models/partner');
 
 const commonUtils = require('./../utils/common-utils');
 
@@ -17,7 +18,8 @@ async function handlerSuccess(req, res, servicePlace) {
     items: items,
     servicePlace: servicePlace,
     stickersByServicePlace: resStickers,
-    warningMsg: warningMsg
+    warningMsg: warningMsg,
+    req: req
   });
 }
 
@@ -33,8 +35,24 @@ async function getFormPartner(req, res) {
   return commonUtils.handlerErrorIndex(req, res, 'ServicePlace: ' + servicePlaceId + ' no existe');
 }
 
+async function handlerPost(req, res) {
+  let resItem = await Item.findById(req.body._itemId);
+  if (! req.session.cartShopping) {
+    req.session.cartShopping = [];
+    req.session.cartShopping.push(resItem);
+  } else {
+    req.session.cartShopping.push(resItem);
+  }
+  console.log('controller');
+  console.log(req.session.cartShopping);
+  let resPartner = await Partner.findById(resItem._partnerId, 'servicePlaces');
+  let resServicePlace = await ServicePlace.findById(resPartner.servicePlaces[0]);
+  handlerSuccess(req, res, resServicePlace);
+}
+
 
 //*****************************************************************/
 module.exports = {
-  getFormPartner
+  getFormPartner,
+  handlerPost
 }
