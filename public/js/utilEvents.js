@@ -1,3 +1,22 @@
+function addOneButton(element) {
+    var txtNumber = document.getElementById(element);
+    var newNumber = parseInt(txtNumber.value) + 1;
+    if (newNumber < 1) {
+      return;
+    }
+    txtNumber.value = newNumber;
+}
+
+function substractOneButton(element) {
+    var txtNumber = document.getElementById(element);
+    var newNumber = parseInt(txtNumber.value) - 1;
+    if (newNumber < 1) {
+      return;
+    }
+    txtNumber.value = newNumber;
+}
+
+
 function formatMilesSeparetor(input) {
   var num = input.value.replace(/\./g,'');
   if (!isNaN(num)) {

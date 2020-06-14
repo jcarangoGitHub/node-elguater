@@ -37,11 +37,11 @@
                     <a class="nav-link" href="/formPurchase" style="color:white">
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                       Compras
-                      {{#if sessionCart}}
-                      <span class="badge badge-light">{{sessionCart.length}}</span>
+                      {{#if sessionPurchase}}
+                      <span class="badge badge-light">{{sessionPurchase.cartShopping.length}}</span>
                       {{else}}
-                        {{#if req.session.cartShopping}}
-                          <span class="badge badge-light">{{req.session.cartShopping.length}}</span>
+                        {{#if req.session.purchase}}
+                          <span class="badge badge-light">{{req.session.purchase.cartShopping.length}}</span>
                         {{else}}
                           <span class="badge badge-light">0</span>
                         {{/if}}

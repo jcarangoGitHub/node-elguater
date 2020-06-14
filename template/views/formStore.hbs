@@ -11,6 +11,10 @@
     {{/if}}
   {{/unless}}
 
+  {{#if successMsg}}
+    {{>messageSuccess}}
+  {{/if}}
+
   <div class="card-header">
     <a href="/formStore?servicePlaceId={{servicePlace._id}}">
       <h5 class="card-title text-center">{{servicePlace.name}}</h5>
@@ -42,7 +46,7 @@
   {{#if items}}
     <div class="card-header bg-secondary h">
       <span class="input-group-addon"><i class="fa fa-cutlery fa-1x fa-fw" style="color:white"></i></span>
-      <h class="card-title">Nuestros platos</h>
+      <h class="card-title">Te ofrecemos...</h>
     </div>
   {{/if}}
 

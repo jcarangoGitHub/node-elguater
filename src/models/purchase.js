@@ -6,15 +6,13 @@ var Currency = mongoose.Types.Currency;
 
 const purchaseSchema = new Schema({
   _contactId: Schema.Types.ObjectId,
-  _items:[{type: Schema.ObjectId, ref: 'Item'}],
-  quantity: Integer,
+  cartShopping: [Schema.Types.Mixed],
   totalPaid: {
     type: Currency,
     required: true
   },
   requestDate: {
     type: Date,
-    default: Date.now,
     required: true
   },
   dateOfDelivery: {

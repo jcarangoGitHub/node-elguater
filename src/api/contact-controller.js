@@ -15,19 +15,24 @@ const userUtils = require('./../utils/user-utils');
 
 const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
   let showUserView = false;
+  let showEditButton = false;
   let user = req.session.user;
   if (user && user.rol == 'admin') {
     showUserView = true;
+    showEditButton = true;
   } else if (req.session.contact.cellPhoneNumber == '304-645-6220') {
     showUserView = true;
+    showEditButton = true;
   }
+
 
   res.render(dirViews + formToRender, {
     contactSession: req.session.contact,
     userSession: req.session.user,
     contact: contact,
     successMsg: successMsg,
-    showUserView: showUserView
+    showUserView: showUserView,
+    showEditButton: showEditButton
   });
 }
 

@@ -5,10 +5,12 @@ const ServicePlace = require('./../models/servicePlace');
 const Item = require('./../models/item');
 const Sticker = require('./../models/sticker');
 const Partner = require('./../models/partner');
+const CartShopping = require('./../models/cartShopping');
 
 const commonUtils = require('./../utils/common-utils');
+const purchaseUtils = require('./../utils/purchase-utils');
 
-async function handlerSuccess(req, res, servicePlace) {
+async function handlerSuccess(req, res, servicePlace, successMsg) {
   let items = await Item.findAvailablesByPartner(servicePlace._partnerId);
   let resStickers = await Sticker.find({_servicePlaceId: servicePlace._id});
   let warningMsg = await commonUtils.getMsgWhenSessionDoesntExist(req);
@@ -19,6 +21,7 @@ async function handlerSuccess(req, res, servicePlace) {
     servicePlace: servicePlace,
     stickersByServicePlace: resStickers,
     warningMsg: warningMsg,
+    successMsg: successMsg,
     req: req
   });
 }
@@ -30,24 +33,29 @@ async function getFormPartner(req, res) {
   let servicePlaceId = req.query.servicePlaceId;
   let servicePlace = await ServicePlace.findById(servicePlaceId);
   if (servicePlace) {
-    return handlerSuccess(req, res, servicePlace);
+    return handlerSuccess(req, res, servicePlace, null);
   }
   return commonUtils.handlerErrorIndex(req, res, 'ServicePlace: ' + servicePlaceId + ' no existe');
 }
 
 async function handlerPost(req, res) {
   let resItem = await Item.findById(req.body._itemId);
-  if (! req.session.cartShopping) {
-    req.session.cartShopping = [];
-    req.session.cartShopping.push(resItem);
+  let purchase;
+  if (! req.session.purchase) {
+    purchase = purchaseUtils.getInstanceOfPurchase(req, resItem);
   } else {
-    req.session.cartShopping.push(resItem);
+    purchase = req.session.purchase;
+    let kart = new CartShopping({
+      _purchase: purchase._id,
+      item: resItem
+    });    
+    purchase.cartShopping.push(kart);
   }
-  console.log('controller');
-  console.log(req.session.cartShopping);
+  req.session.purchase = purchase;
+
   let resPartner = await Partner.findById(resItem._partnerId, 'servicePlaces');
   let resServicePlace = await ServicePlace.findById(resPartner.servicePlaces[0]);
-  handlerSuccess(req, res, resServicePlace);
+  handlerSuccess(req, res, resServicePlace, resItem.name + ' añadido al carrito corréctamente!');
 }
 
 

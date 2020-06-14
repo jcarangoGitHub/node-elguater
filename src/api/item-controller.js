@@ -8,7 +8,7 @@ const path = require('path');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
-const validator = require('./../validator/partner-validator');
+const validator = require('./../validators/partner-validator');
 const commonUtils = require('./../utils/common-utils');
 
 const instanceOfItemAccordingToImage = (req) => {

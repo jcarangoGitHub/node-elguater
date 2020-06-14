@@ -48,7 +48,8 @@ app.use((req, res, next) => {
   res.locals.sessionContact = req.session.contact ? req.session.contact : null;
   res.locals.sessionUser = req.session.user ? req.session.user : null;
   res.locals.sessionCart = req.session.cartShopping ? req.session.cartShopping : null;
-  console.log(req.session.cartShopping);
+  res.locals.sessionPurchase = req.session.purchase ? req.session.purchase : null;
+  console.log(req.session.purchase);
   next();
 });
 

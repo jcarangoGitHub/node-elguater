@@ -9,6 +9,11 @@ const dirPartials = path.join(__dirname, '../../template/partials');
 const dirViews = path.join(__dirname, '../../template/views/');
 
 const purchaseController = require('../api/purchase-controller');
+const validator = require('../validators/validator');
+
+const commonUtils = require('./../utils/common-utils');
+
+require('../helpers/purchase-helpers');
 
 //Hbs
 app.set ('view engine', 'hbs');
@@ -17,8 +22,19 @@ hbs.registerPartials(dirPartials);
 
 //used
 app.get('/formPurchase', (req, res) => {
-
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
   purchaseController.getFormPurchase(req, res);
+});
+
+app.get('/addQuant', (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  purchaseController.addQuantity(req, res);
 });
 
 module.exports = app;

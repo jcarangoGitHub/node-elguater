@@ -16,7 +16,7 @@ const servicePlaceUtils = require('./../utils/service-place-utils');
 const commonUtils = require('./../utils/common-utils');
 
 const indexController = require('./index-controller');
-const validator = require('./../validator/partner-validator');
+const validator = require('./../validators/partner-validator');
 
 
 const handlerSuccess = (req, res, contact, partner, servicePlace, items, stickers, msg) => {
