@@ -13,12 +13,15 @@ const commonUtils = require('./../utils/common-utils');
 
 const instanceOfItemAccordingToImage = (req) => {
   let image = req.file ? req.file.buffer : req.body.imageUploadedItem;
+  let priceNumber = parseInt(req.body.itemPrice.toString().replace(',', ''));
+  console.log(priceNumber);  
   if (image) {
     return item = new Item({
       _partnerId: req.body._partnerId,
       name: req.body.itemName,
       description: req.body.itemDescription,
-      price_default: req.body.itemPrice.toString(),
+      price_string: req.body.itemPrice.toString(),
+      price_number: priceNumber,
       images: [image],
       showItem: req.body.showItem == 'on' ? true : false
     });
@@ -27,7 +30,8 @@ const instanceOfItemAccordingToImage = (req) => {
       _partnerId: req.body._partnerId,
       name: req.body.itemName,
       description: req.body.itemDescription,
-      price_default: req.body.itemPrice.toString(),
+      price_string: req.body.itemPrice.toString(),
+      price_number: priceNumber,
       showItem: req.body.showItem == 'on' ? true : false
     });
   }

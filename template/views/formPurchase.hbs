@@ -23,7 +23,7 @@
     <ul class="list-group">
     {{#each sessionPurchase.cartShopping}}
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{this.item.name}}</h5>
+      <h5 class="mb-1">{{this.item.name}} - $ {{this.item.price_string}}</h5>
     </div>
     </br>
     <div class="input-group mb-3">
@@ -39,6 +39,9 @@
           </a>
       </div>
     </div><!--input group-->
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Subtotal: $ {{{getSubtotal this.item.price_number this.quantity}}}</h5>
+    </div>
     </br>
     <a href="/remKart?code={{this._id}}" class="btn btn-danger">Quitar</a>
 

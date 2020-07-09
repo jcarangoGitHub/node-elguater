@@ -1,16 +1,9 @@
 const hbs = require('hbs');
+const commonUtils = require('./../utils/common-utils');
 
 //used formPurchase.hbs
-hbs.registerHelper('get-carousel-item', (index, item) => {
-  let carousel = '';
-  if (index === 0) {
-    carousel = '<div class="carousel-item active">';
-  } else {
-    carousel = '<div class="carousel-item">';
-  }
-  carousel = carousel + `${item.name} </br>
-              <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-              $ ${item.price_default}
-            </div>`;
-  return carousel;
+hbs.registerHelper('getSubtotal', (price, quantity) => {
+  let subTotal = price * quantity;
+  let subTotal_string = commonUtils.formatMilesSeparetor(subTotal);
+  return subTotal_string;
 });

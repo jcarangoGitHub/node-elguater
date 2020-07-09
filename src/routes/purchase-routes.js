@@ -37,4 +37,20 @@ app.get('/addQuant', (req, res) => {
   purchaseController.addQuantity(req, res);
 });
 
+app.get('/subQuant', (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  purchaseController.subQuantity(req, res);
+});
+
+app.get('/remKart', (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  purchaseController.removeItemFromPurchase(req, res);
+});
+
 module.exports = app;

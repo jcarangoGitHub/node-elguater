@@ -17,6 +17,15 @@ const cartShoppingSchema = new Schema({
   }
 });
 
+cartShoppingSchema.virtual('getSubTotal').get(function() {
+  console.log('getSubtTotal');
+  return 80;
+  // Item.findById(this.item, 'price_number', function (err, res){
+  //   console.log(Math.imul(res, this.quantity));
+  //   return 80;
+  // });
+});
+
 const CartShopping = mongoose.model('CartShopping', cartShoppingSchema);
 
 module.exports = CartShopping

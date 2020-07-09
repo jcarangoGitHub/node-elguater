@@ -13,8 +13,13 @@ const itemSchema = new Schema({
     type: String,
     trim: true
   },
-  price_default: {
-    type: String
+  price_string: {
+    type: String,
+    required: true
+  },
+  price_number: {
+    type: Number,
+    required: true
   },
   images: [Buffer],
   showItem: Boolean
@@ -22,11 +27,13 @@ const itemSchema = new Schema({
 
 //static functions
 itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) {
+  let priceNumber = parseInt(req.body.itemPrice.toString().replace(',', ''));
   if (image) {
     return this.findByIdAndUpdate({_id: id},
                                   {name: req.body.itemName,
                                   description: req.body.itemDescription,
-                                  price_default: req.body.itemPrice.toString(),
+                                  price_string: req.body.itemPrice.toString(),
+                                  price_number: priceNumber,
                                   images: [image],
                                   showItem: req.body.showItem == 'on' ? true : false},
                                   {new: true});
@@ -34,7 +41,8 @@ itemSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id, image) 
     return res = this.findByIdAndUpdate({_id: id},
                                   {name: req.body.itemName,
                                   description: req.body.itemDescription,
-                                  price_default: req.body.itemPrice.toString(),
+                                  price_string: req.body.itemPrice.toString(),
+                                  price_number: priceNumber,
                                   showItem: req.body.showItem == 'on' ? true : false},
                                   {new: true});
   }

@@ -50,10 +50,22 @@ async function getMsgWhenSessionDoesntExist(req) {
   return null;
 }
 
+const formatMilesSeparetor = (number) => {
+  var num = number.toString().replace(/\,/g,'');
+  if (!isNaN(num)) {
+    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1,');
+    num = num.split('').reverse().join('').replace(/^[\.]/,'');
+    //input.value = num;
+    return num;
+  }
+  return null;
+}
+
 module.exports = {
   handlerError,
   handerSuccesIndexWithSession,
   handerSuccesIndex,
   handlerErrorIndex,
-  getMsgWhenSessionDoesntExist
+  getMsgWhenSessionDoesntExist,
+  formatMilesSeparetor
 }

@@ -61,7 +61,7 @@
         placeholder="Precio predeterminado"
         onkeyup="formatMilesSeparetor(this);" onchange="formatMilesSeparetor(this);"
         {{#if item}}
-        value={{item.price_default}}
+        value={{item.price_string}}
           {{#unless isEdit}}
           readonly
           {{/unless}}

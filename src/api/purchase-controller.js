@@ -20,10 +20,6 @@ async function getFormPurchase(req, res) {
 
 async function addQuantity(req, res) {
   let _kartId = req.query.code;
-  console.log('_kartId');
-  console.log(_kartId);
-  console.log('purchase');
-  console.log(req.session.purchase);
   let purchase = req.session.purchase;
   //purchase.cartShopping.find(elt => {elt == })
 
@@ -32,16 +28,39 @@ async function addQuantity(req, res) {
   kartFound.quantity = kartFound.quantity + 1;
   purchase.cartShopping.splice(index, 1, kartFound);
 
-  console.log('kartFound + 1');
-  console.log(purchase);
   req.session.purchase = purchase;
   handlerSuccess(req, res);
-
-
 }
 
+async function subQuantity(req, res) {
+  let _kartId = req.query.code;
+  let purchase = req.session.purchase;
+  //purchase.cartShopping.find(elt => {elt == })
+
+  let kartFound = purchase.cartShopping.find(elt => elt._id === _kartId);
+  let index = purchase.cartShopping.indexOf(kartFound);
+  kartFound.quantity = kartFound.quantity - 1;
+  purchase.cartShopping.splice(index, 1, kartFound);
+
+  req.session.purchase = purchase;
+  handlerSuccess(req, res);
+}
+
+async function removeItemFromPurchase(req, res) {
+  let purchase = req.session.purchase;
+  let _kartId = req.query.code;
+
+  let kartFound = purchase.cartShopping.find(elt => elt._id === _kartId);
+  let index = purchase.cartShopping.indexOf(kartFound);
+  purchase.cartShopping.splice(index, 1);  
+
+  req.session.purchase = purchase;
+  handlerSuccess(req, res);
+}
 
 module.exports = {
   getFormPurchase,
-  addQuantity
+  addQuantity,
+  subQuantity,
+  removeItemFromPurchase
 }
