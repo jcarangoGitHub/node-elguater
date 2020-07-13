@@ -5,6 +5,7 @@ const hbs = require('hbs');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
+const dirPartialsPurchase = path.join(__dirname, '../../template/partials/purchase');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
@@ -19,6 +20,7 @@ require('../helpers/purchase-helpers');
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
 hbs.registerPartials(dirPartials);
+hbs.registerPartials(dirPartialsPurchase);
 
 //used
 app.get('/formPurchase', (req, res) => {
@@ -34,7 +36,7 @@ app.get('/addQuant', (req, res) => {
     commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
     return;
   }
-  purchaseController.addQuantity(req, res);
+  purchaseController.addSubQuantity(req, res, 1);
 });
 
 app.get('/subQuant', (req, res) => {
@@ -42,7 +44,7 @@ app.get('/subQuant', (req, res) => {
     commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
     return;
   }
-  purchaseController.subQuantity(req, res);
+  purchaseController.addSubQuantity(req, res, 0);
 });
 
 app.get('/remKart', (req, res) => {
@@ -52,5 +54,19 @@ app.get('/remKart', (req, res) => {
   }
   purchaseController.removeItemFromPurchase(req, res);
 });
+
+app.post('/nextStep', (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  switch (req.body.nextStep) {
+    case '1':
+      purchaseController.nextStepOne(req, res);
+      break;
+    default:
+      break;
+  }
+})
 
 module.exports = app;

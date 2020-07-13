@@ -51,6 +51,7 @@ async function updateContact(req, res) {
           address: req.body.contactAddress}, {new: true, upsert: true});
 
       if (resContact) {
+        req.session.contact = resContact;
         let userPassword = req.body.userPassword;
         if (typeof userPassword !== 'undefined' && userPassword) {
           let userId = resContact._userId;

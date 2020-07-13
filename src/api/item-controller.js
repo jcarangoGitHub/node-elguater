@@ -14,10 +14,10 @@ const commonUtils = require('./../utils/common-utils');
 const instanceOfItemAccordingToImage = (req) => {
   let image = req.file ? req.file.buffer : req.body.imageUploadedItem;
   let priceNumber = parseInt(req.body.itemPrice.toString().replace(',', ''));
-  console.log(priceNumber);  
   if (image) {
     return item = new Item({
       _partnerId: req.body._partnerId,
+      _servicePlaceId: req.body._servicePlaceId,
       name: req.body.itemName,
       description: req.body.itemDescription,
       price_string: req.body.itemPrice.toString(),
@@ -28,6 +28,7 @@ const instanceOfItemAccordingToImage = (req) => {
   } else {
     return item = new Item({
       _partnerId: req.body._partnerId,
+      _servicePlaceId: req.body._servicePlaceId,
       name: req.body.itemName,
       description: req.body.itemDescription,
       price_string: req.body.itemPrice.toString(),

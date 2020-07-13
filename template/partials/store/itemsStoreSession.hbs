@@ -10,9 +10,8 @@
           <h5 class="card-title">{{name}}</h5>
           <p class="card-text">{{description}}</p>
         </div>
-        <form method="post" action="/cart">          
+        <form method="post" action="/cart">
           <input type="hidden" name="_itemId" id="_itemId" value="{{_id}}">
-          <input type="hidden" name="_servicePlaceId" id="_servicePlaceId" value="{{servicePlace._id}}">
           <div class="input-group-lg mb-3">
             <button class="btn btn-success btn-lg searchContact" type="submit">
               <span class="input-group-addon"><i class="fa fa-shopping-cart fa-1x fa-fw" style="color:white"></i></span>

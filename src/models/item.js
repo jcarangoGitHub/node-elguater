@@ -4,6 +4,7 @@ const Partner = require('./partner');
 
 const itemSchema = new Schema({
   _partnerId: Schema.Types.ObjectId,
+  _servicePlaceId: Schema.Types.ObjectId,
   name: {
     type: String,
     required: true,

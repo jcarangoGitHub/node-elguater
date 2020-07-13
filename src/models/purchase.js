@@ -6,6 +6,10 @@ var Currency = mongoose.Types.Currency;
 
 const purchaseSchema = new Schema({
   _contactId: Schema.Types.ObjectId,
+  servicePlace: {
+    type: Schema.Types.Mixed,
+    required: true
+  },
   cartShopping: [Schema.Types.Mixed],
   totalPaid: {
     type: Currency,
@@ -29,6 +33,14 @@ const purchaseSchema = new Schema({
     enum: ['on site', 'delivery'],
     required: true
   }
+});
+
+purchaseSchema.virtual('getTotal').get(function() {
+  let total = 0;
+   this.cartShopping.forEach((item, i) => {
+    total = total + item.item.price_number * item.quantity;
+  });
+  return total;
 });
 
 const Purchase = mongoose.model('Purchase', purchaseSchema);

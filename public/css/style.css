@@ -2,6 +2,15 @@
     color: white;
 }
 
+.input-date{
+  margin: .4rem 0;
+  font-size: 30px;
+  font-family: "Arial Narrow", monospace;
+  width: 300px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
 .h {
   color: white;
   font-family: "Arial Narrow", monospace;

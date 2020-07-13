@@ -33,8 +33,7 @@ const contactSchema = new Schema({
     type: Number
   },
   address: {
-    type: String,
-    uppercase: true,
+    type: String,    
     trim: true
   },
   email: {

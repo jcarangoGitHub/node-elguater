@@ -1,3 +1,32 @@
+function wayToDeliveryCheck(radio) {
+  //radio: 1 Delivery; 2 On site
+  switch (radio) {
+    case '1':
+      if (document.getElementById('radioDelivery').checked) {
+            document.getElementById('deliveryFields').style.visibility = 'visible';
+            document.getElementById('onSiteFields').style.visibility = 'hidden';
+
+      } else {
+          document.getElementById('deliveryFields').style.visibility = 'hidden';
+      }
+      break;
+
+    case '2':
+    if (document.getElementById('radioOnSite').checked) {
+          document.getElementById('onSiteFields').style.visibility = 'visible';
+          document.getElementById('deliveryFields').style.visibility = 'hidden';
+
+    } else {
+        document.getElementById('onSiteFields').style.visibility = 'hidden';
+    }
+      break;
+
+
+    default:
+
+  }
+}
+
 function addOneButton(element) {
     var txtNumber = document.getElementById(element);
     var newNumber = parseInt(txtNumber.value) + 1;

@@ -1,0 +1,84 @@
+{{#if sessionPurchase}}
+<div class="card-header bg-secondary h">
+  <!--ROW 1-->
+  <div class="form-row">
+    <div class="col">
+      <h2 class="card-title font-weight-bold">Entrega</h2>
+    </div>
+  </div>
+</div>
+</br>
+{{#if sessionPurchase.cartShopping}}
+  {{>messageInfo infoMsg='Selecciona la forma de entrega'}}
+{{/if}}
+
+<div class="card text-center text-white bg-dark mb-3">
+  <div class="form-check">
+    <input class="form-check-input form-control-lg" type="radio"
+           name="radioWayToDelivery" id="radioDelivery" value="delivery" checked
+           onclick="javascript:wayToDeliveryCheck('1');">
+    <h5 class="card-title form-control-lg">Domicilio</h5>
+  </div>
+
+  <div id="deliveryFields" style="visibility:visible">
+    <!-- <label for="labelAddress" class="text-light">Dirección</label> -->
+    <div class="input-group-lg mb-3">
+      <input type="text" class="form-control-lg text-white bg-dark"
+        placeholder="Donde deseas recibir la compra" required
+        {{#if contactSession.address}}
+        value="{{contactSession.address}}"
+        {{else}}
+        value=""
+        {{/if}}
+        >
+    </div>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input form-control-lg" type="radio"
+           name="radioWayToDelivery" id="radioOnSite" value="on site"
+           onclick="javascript:wayToDeliveryCheck('2');">
+    <h5 class="card-title form-control-lg">Punto de servicio</h5>
+  </div>
+
+  <div id="onSiteFields" style="visibility:hidden">
+    <!-- <label for="labelAddress" class="text-light">Dirección</label> -->
+    <div class="input-group-lg mb-3">
+      <input type="text" class="form-control-lg text-white bg-dark"
+        placeholder="Donde reclamarías la compra" required disabled
+        value="{{sessionPurchase.servicePlace.address}}">
+      </br>
+      <a target="_blank"
+         href="https://www.google.com/maps/place/Urbanizacion+Camino+Real/@6.0845746,-75.636076,17z/data=!4m12!1m6!3m5!1s0x8e468662632ed213:0x78acbce606862de1!2sUrbanizacion+Camino+Real!8m2!3d6.0845746!4d-75.636076!3m4!1s0x8e468662632ed213:0x78acbce606862de1!8m2!3d6.0845746!4d-75.636076">
+        Abrir en maps
+      </a>
+    </div>
+  </div>
+
+  <h5 class="card-title form-control-lg">Fecha y hora de entrega</h5>
+  <input type="datetime-local" class="input-date" id="deliveryDate" name="deliveryDate"
+       value="2020-07-13T19:30"
+       min="2020-07-13" max="2020-12-31">
+
+  <h4 class="text-right">Total: $ {{{getTotal sessionPurchase.cartShopping}}}</h4>
+
+</div>  <!--card center-->
+{{/if}}
+
+{{#if sessionPurchase.cartShopping}}
+
+<div class="row">
+  <div class="col">
+    <form method="post" action="/nextStep">
+      <input type="text" class="form-control" hidden value="1" name="nextStep" id="nextStep">
+      <button type="submit" class="btn btn-success btn-lg btn-block">Anterior</button>
+    </form>
+  </div>
+  <div class="col">
+    <form method="post" action="/nextStep">
+      <input type="text" class="form-control" hidden value="1" name="nextStep" id="nextStep">
+      <button type="submit" class="btn btn-success btn-lg btn-block">Siguiente</button>
+    </form>
+  </div>
+</div>
+{{/if}}

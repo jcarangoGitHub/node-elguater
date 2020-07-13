@@ -9,51 +9,13 @@
     </br>
   {{/unless}}
 
-  {{#if sessionPurchase}}
-  <div class="card-header bg-secondary h">
-    <!--ROW 1-->
-    <div class="form-row">
-      <div class="col">
-        <h class="card-title">Compra</h>
-      </div>
-    </div>
-  </div>
-
-  <div class="card text-center text-white bg-dark mb-3">
-    <ul class="list-group">
-    {{#each sessionPurchase.cartShopping}}
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{this.item.name}} - $ {{this.item.price_string}}</h5>
-    </div>
-    </br>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="" aria-label=""
-        aria-describedby="basic-addon1" value="{{this.quantity}}" disabled
-        id="{{@index}}quantity{{this.id}}" name="{{@index}}quantity{{this.id}}">
-      <div class="input-group-prepend">
-        <a href="/addQuant?code={{this._id}}" class="btn btn-outline-secondary">+
-            <!--onclick="addOneButton('{{@index}}quantity{{this.id}}')">+-->
-        </a>
-        <a href="/subQuant?code={{this._id}}" class="btn btn-outline-secondary">-
-            <!--onclick="substractOneButton('{{@index}}quantity{{this.id}}')">--->
-          </a>
-      </div>
-    </div><!--input group-->
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Subtotal: $ {{{getSubtotal this.item.price_number this.quantity}}}</h5>
-    </div>
-    </br>
-    <a href="/remKart?code={{this._id}}" class="btn btn-danger">Quitar</a>
-
-    </br>
-    {{/each}}
-    </ul>
-
-
-  </div>  <!--card center-->
+  {{#if commit}}
+    {{>commitPurchase}}
   {{/if}}
 
-
+  {{#if delivery}}
+    {{>wayToDelivery}}
+  {{/if}}
 </div> <!--container-->
 
 {{>footer}}

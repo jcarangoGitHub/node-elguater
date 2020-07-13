@@ -40,21 +40,21 @@ async function getFormPartner(req, res) {
 
 async function handlerPost(req, res) {
   let resItem = await Item.findById(req.body._itemId);
+  let resServicePlace = await ServicePlace.findById(resItem._servicePlaceId);
   let purchase;
   if (! req.session.purchase) {
-    purchase = purchaseUtils.getInstanceOfPurchase(req, resItem);
+    purchase = purchaseUtils.getInstanceOfPurchase(req, resItem, resServicePlace);
   } else {
     purchase = req.session.purchase;
     let kart = new CartShopping({
       _purchase: purchase._id,
       item: resItem
-    });    
+    });
     purchase.cartShopping.push(kart);
   }
   req.session.purchase = purchase;
-
   let resPartner = await Partner.findById(resItem._partnerId, 'servicePlaces');
-  let resServicePlace = await ServicePlace.findById(resPartner.servicePlaces[0]);
+  //let resServicePlace = await ServicePlace.findById(resPartner.servicePlaces[0]);
   handlerSuccess(req, res, resServicePlace, resItem.name + ' añadido al carrito corréctamente!');
 }
 
