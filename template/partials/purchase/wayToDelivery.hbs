@@ -62,7 +62,9 @@
           </div>
         </div>
       </div>
+
       </br>
+
       <div id="onSiteFields" style="{{{wayToDeliveryVisivility sessionPurchase.wayToDelivery 'on site'}}}">
         <!-- <label for="labelAddress" class="text-light">Dirección</label> -->
         <div class="input-group-lg mb-3">
@@ -77,7 +79,7 @@
         </div>
       </div>
 
-      <h5 class="card-title form-control-lg">Fecha y hora de entrega</h5>
+      <h5 class="card-title form-control-lg">Fecha y hora de entrega {{{getDefaultDeliveryDate}}}</h5>
       <input type="datetime-local" class="input-date" id="deliveryDate" name="deliveryDate"
            min="{{getMinDeliveryDate}}" max="2020-12-31"
            value="{{{getDefaultDeliveryDate}}}">

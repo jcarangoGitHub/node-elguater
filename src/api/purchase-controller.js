@@ -80,6 +80,7 @@ async function stepOne(req, res) {
 }
 
 async function stepThree(req, res) {
+  console.log('start controller-stepThree');
   let purchase = req.session.purchase;
   purchase.wayToDelivery = req.body.radioWayToDelivery;
   purchase.dateOfDelivery = req.body.deliveryDate;
@@ -87,6 +88,7 @@ async function stepThree(req, res) {
   req.session.purchase = purchase;
   console.log(req.session.purchase);
   handlerSuccess(req, res, 'payment');
+  console.log('end stepThree');
 }
 
 module.exports = {
