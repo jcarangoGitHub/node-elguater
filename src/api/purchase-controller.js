@@ -12,13 +12,33 @@ async function handlerSuccess(req, res, step) {
     contactSession: req.session.contact,
     userSession: req.session.user,
     commit: step == 'commit' ? true : false,
-    delivery: step == 'delivery' ? true : false
+    delivery: step == 'delivery' ? true : false,
+    payment: step == 'payment' ? true : false
   });
 }
 
 //***********GETS*****************************/
 async function getFormPurchase(req, res) {
-  handlerSuccess(req, res, 'commit');
+  if (req.query.step) {
+    switch (req.query.step) {
+      case '1':
+        handlerSuccess(req, res, 'commit');
+        break;
+
+      case '2':
+        handlerSuccess(req, res, 'delivery');
+        break;
+
+      case '3':
+        handlerSuccess(req, res, 'payment');
+        break;
+
+      default:
+        break;
+    }
+  } else {
+    handlerSuccess(req, res, 'commit');
+  }
 }
 
 /**
@@ -51,18 +71,29 @@ async function removeItemFromPurchase(req, res) {
 }
 
 //***********POST*****************************/
-async function nextStepOne(req, res) {
+async function stepTwo(req, res) {
   handlerSuccess(req, res, 'delivery');
-  // let sessionPurchase = req.session.purchase;
-  // let purchase = purchaseUtils.getInstanceOfPurchaseFromObject(sessionPurchase)
-  // console.log(purchase);
-  // console.log(purchase.getTotal);
+}
 
+async function stepOne(req, res) {
+  handlerSuccess(req, res, 'commit');
+}
+
+async function stepThree(req, res) {
+  let purchase = req.session.purchase;
+  purchase.wayToDelivery = req.body.radioWayToDelivery;
+  purchase.dateOfDelivery = req.body.deliveryDate;
+
+  req.session.purchase = purchase;
+  console.log(req.session.purchase);
+  handlerSuccess(req, res, 'payment');
 }
 
 module.exports = {
   getFormPurchase,
   addSubQuantity,
   removeItemFromPurchase,
-  nextStepOne
+  stepOne,
+  stepTwo,
+  stepThree
 }

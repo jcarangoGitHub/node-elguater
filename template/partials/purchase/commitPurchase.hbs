@@ -8,6 +8,8 @@
   </div>
 </div>
 </br>
+{{>steps commit=true}}
+</br>
 {{#if sessionPurchase.cartShopping}}
   {{>messageInfo infoMsg='Confirma o descarta la compra'}}
 {{/if}}
@@ -47,8 +49,8 @@
 {{/if}}
 
 {{#if sessionPurchase.cartShopping}}
-  <form method="post" action="/nextStep">
-    <input type="text" class="form-control" hidden value="1" name="nextStep" id="nextStep">
+  <form method="post" action="/step">
+    <input type="text" class="form-control" hidden value="2" name="step" id="step">
     <button type="submit" class="btn btn-success btn-lg btn-block">Siguiente</button>
   </form>
 {{/if}}

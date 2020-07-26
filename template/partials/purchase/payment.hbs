@@ -1,0 +1,37 @@
+{{#if sessionPurchase}}
+  <div class="card-header bg-secondary h">
+    <!--ROW 1-->
+    <div class="form-row">
+      <div class="col">
+        <h2 class="card-title font-weight-bold">Pago</h2>
+      </div>
+    </div>
+  </div>
+
+  </br>
+
+  {{>steps payment=true}}
+
+  </br>
+
+  {{#if sessionPurchase.cartShopping}}
+    {{>messageInfo infoMsg='Selecciona la forma en que deseas pagar'}}
+  {{/if}}
+
+  <form method="post" action="/step">
+    <div class="card text-center text-white bg-dark mb-3">
+      
+      <h4 class="text-right">Total: $ {{{getTotal sessionPurchase.cartShopping}}}</h4>
+
+    </div>  <!--card center-->
+
+    {{#if sessionPurchase.cartShopping}}
+      <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" hidden value="3" name="step" id="step">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Siguiente</button>
+        </div>
+      </div>
+    {{/if}}
+  </form>
+{{/if}} <!--sessionPurchase-->

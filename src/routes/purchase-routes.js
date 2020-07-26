@@ -55,18 +55,28 @@ app.get('/remKart', (req, res) => {
   purchaseController.removeItemFromPurchase(req, res);
 });
 
-app.post('/nextStep', (req, res) => {
+app.post('/step', (req, res) => {
   if (! validator.contactSessionCreated(req)) {
     commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
     return;
   }
-  switch (req.body.nextStep) {
+
+  switch (req.body.step) {
     case '1':
-      purchaseController.nextStepOne(req, res);
+      purchaseController.stepOne(req, res);
       break;
+
+    case '2':
+      purchaseController.stepTwo(req, res);
+      break;
+
+    case '3':
+    purchaseController.stepThree(req, res);
+    break;
+
     default:
       break;
   }
-})
+});
 
 module.exports = app;

@@ -1,0 +1,29 @@
+<div class="form-row">
+  <div class="col">
+    <ul class="progressbar">
+      <a href="/formPurchase?step=1">
+      {{#if commit}}
+        <li class="active">Compra</li>
+      {{else}}
+       <li>Compra</li>
+      {{/if}}
+      </a>
+      <a href="/formPurchase?step=2">
+      {{#if wayToDelivery}}
+       <li class="active">Entrega</li>
+      {{else}}
+       <li>Entrega</li>
+      {{/if}}
+      </a>
+      <a href="/formPurchase?step=3">
+        {{#if payment}}
+          <li class="active">Pago</li>
+        {{else}}
+          <li>Pago</li>
+        {{/if}}
+      </a>
+       <li>Confirmación</li>
+       <li>Entregado</li>
+    </ul>
+  </div>
+</div>
