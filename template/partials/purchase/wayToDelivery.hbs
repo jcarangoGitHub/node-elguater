@@ -83,8 +83,12 @@
 
       <h5 class="card-title form-control-lg">Fecha y hora de entrega {{{getDefaultDeliveryDate}}}</h5>
       <input type="datetime-local" class="input-date" id="deliveryDate" name="deliveryDate"
-           min="{{getMinDeliveryDate}}" max="2020-12-31"
-           value="{{{getDefaultDeliveryDate}}}">
+           min="{{{getMinDeliveryDate}}}"
+           {{#if sessionPurchase.dateOfDelivery}}
+            value="{{sessionPurchase.dateOfDelivery}}"
+           {{else}}
+            value="{{{getDefaultDeliveryDate}}}">
+           {{/if}}
 
       <h4 class="text-right">Total: $ {{{getTotal sessionPurchase.cartShopping}}}</h4>
 

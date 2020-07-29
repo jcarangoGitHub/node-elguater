@@ -24,24 +24,22 @@ hbs.registerHelper('radioWayToDeliveryChecked', (wayToDelivery, radio) => {
   return wayToDelivery == radio ? 'checked' : '';
 });
 
+// return one hour after now COL
 hbs.registerHelper('getDefaultDeliveryDate', () => {
-  var milliseconds = Date.now();
-  var today = new Date(milliseconds);
-  console.log(today);
+  var COL_UTC = 5;
+  var today = new Date();
+  today.setHours(today.getHours() - COL_UTC);
   today.setHours(today.getHours() + 1);
-  console.log(today);
-  var formated = dateFormat(today, "yyyy-mm-dd HH:MM").replace(' ', 'T');
-  console.log(formated);
-  return formated;
+  return today.toISOString().substring(0, 16);
 });
 
+//return one minute before now COL
 hbs.registerHelper('getMinDeliveryDate', () => {
-  var milliseconds = Date.now();
-  var today = new Date(milliseconds);
+  var COL_UTC = 5;
+  var today = new Date();
+  today.setHours(today.getHours() - COL_UTC);
   today.setMinutes(today.getMinutes() - 1);
-  var formated = dateFormat(today, "yyyy-mm-dd HH:MM").replace(' ', 'T');
-
-  return formated;
+  return today.toISOString().substring(0, 16);
 });
 
 hbs.registerHelper('wayToDeliveryVisivility', (wayToDelivery, div) => {
