@@ -17,6 +17,17 @@ async function handlerSuccess(req, res, step) {
   });
 }
 
+async function handlerError(req, res, step, error) {
+  res.render(dirViews + 'formPurchase', {
+    contactSession: req.session.contact,
+    userSession: req.session.user,
+    commit: step == 'commit' ? true : false,
+    delivery: step == 'delivery' ? true : false,
+    payment: step == 'payment' ? true : false,
+    errorMsg: error
+  });
+}
+
 //***********GETS*****************************/
 async function getFormPurchase(req, res) {
   if (req.query.step) {
@@ -80,15 +91,21 @@ async function stepOne(req, res) {
 }
 
 async function stepThree(req, res) {
-  console.log('start controller-stepThree');
   let purchase = req.session.purchase;
-  purchase.wayToDelivery = req.body.radioWayToDelivery;
+  let contact = req.session.contact;
+
+  let wayToDelivery = req.body.radioWayToDelivery;
+  if (wayToDelivery == 'delivery' && !req.body.addressToDelevery) {
+    handlerError(req, res, 'delivery', 'Si la entrega es a domicilio, debes ingresar una dirección');
+    return;
+  }
+
+  purchase.wayToDelivery = wayToDelivery;
   purchase.dateOfDelivery = req.body.deliveryDate;
 
   req.session.purchase = purchase;
-  console.log(req.session.purchase);
+
   handlerSuccess(req, res, 'payment');
-  console.log('end stepThree');
 }
 
 module.exports = {

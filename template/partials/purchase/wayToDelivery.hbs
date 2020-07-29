@@ -39,7 +39,9 @@
         <!-- <label for="labelAddress" class="text-light">Dirección</label> -->
         <div class="input-group-lg mb-3">
           <input type="text" class="form-control-lg text-white bg-dark"
-            placeholder="Donde deseas recibir la compra" required
+            placeholder="Donde deseas recibir la compra"
+            id="addressToDelevery"
+            name="addressToDelevery"
             {{#if contactSession.address}}
             value="{{contactSession.address}}"
             {{else}}
