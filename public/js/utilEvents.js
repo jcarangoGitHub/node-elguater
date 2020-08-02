@@ -1,3 +1,39 @@
+function wayToPaymentCheck(radio) {
+  switch (radio) {
+    //radio: 1 Transfer; 2 Cash
+    case '1':
+      if (document.getElementById('radioTransfer').checked) {
+        document.getElementById('transferFields').style.visibility = 'visible';
+        document.getElementById('cashFields').style.visibility = 'hidden';
+        document.getElementById('nequiFields').style.visibility = 'hidden';
+      } else {
+        document.getElementById('transferFields').style.visibility = 'hidden';
+      }
+      break;
+    case '2':
+      if (document.getElementById('radioNequi').checked) {
+        document.getElementById('nequiFields').style.visibility = 'visible';
+        document.getElementById('transferFields').style.visibility = 'hidden';
+        document.getElementById('cashFields').style.visibility = 'hidden';
+      } else {
+        document.getElementById('nequiFields').style.visibility = 'hidden';
+      }
+
+      break;
+
+    case '3':
+      if (document.getElementById('radioCash').checked) {
+        document.getElementById('cashFields').style.visibility = 'visible';
+        document.getElementById('transferFields').style.visibility = 'hidden';
+        document.getElementById('nequiFields').style.visibility = 'hidden';
+      } else {
+        document.getElementById('cashFields').style.visibility = 'hidden';
+      }
+    default:
+
+  }
+}
+
 function wayToDeliveryCheck(radio) {
   //radio: 1 Delivery; 2 On site
   switch (radio) {
@@ -12,13 +48,13 @@ function wayToDeliveryCheck(radio) {
       break;
 
     case '2':
-    if (document.getElementById('radioOnSite').checked) {
-          document.getElementById('onSiteFields').style.visibility = 'visible';
-          document.getElementById('deliveryFields').style.visibility = 'hidden';
+      if (document.getElementById('radioOnSite').checked) {
+            document.getElementById('onSiteFields').style.visibility = 'visible';
+            document.getElementById('deliveryFields').style.visibility = 'hidden';
 
-    } else {
-        document.getElementById('onSiteFields').style.visibility = 'hidden';
-    }
+      } else {
+          document.getElementById('onSiteFields').style.visibility = 'hidden';
+      }
       break;
 
 
@@ -59,6 +95,8 @@ function formatMilesSeparetor(input) {
 }
 
 function updateImage(input, fieldImage) {
+  console.log(input.files);
+  console.log(input.files[0]);
   if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {

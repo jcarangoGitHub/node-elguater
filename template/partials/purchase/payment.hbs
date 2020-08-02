@@ -20,7 +20,72 @@
 
   <form method="post" action="/step">
     <div class="card text-center text-white bg-dark mb-3">
-      
+      <div class="form-row">
+        <div class="col">
+          <h5 class="card-title form-control-lg">Transferencia</h5>
+        </div>
+        <div class="col">
+          <div class="form-check">
+            <input class="form-check-input form-control" type="radio"
+                   name="radioWayToPayment" id="radioTransfer" value="transfer"
+                   {{{radioWayToPaymentChecked sessionPurchase.wayToPayment 'transfer'}}}
+                   onclick="javascript:wayToPaymentCheck('1');">
+          </div>
+        </div>
+      </div>
+
+      </br>
+
+      <div id="transferFields" style="{{{wayToPaymentVisivility sessionPurchase.wayToPayment 'transfer'}}}">
+        <div class="input-group-lg mb-3">
+          transfer
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <h5 class="card-title form-control-lg">Nequi</h5>
+        </div>
+        <div class="col">
+          <div class="form-check">
+            <input class="form-check-input form-control" type="radio"
+                   name="radioWayToPayment" id="radioNequi" value="nequi"
+                   {{{radioWayToPaymentChecked sessionPurchase.wayToPayment 'nequi'}}}
+                   onclick="javascript:wayToPaymentCheck('2');">
+          </div>
+        </div>
+      </div>
+
+      </br>
+
+      <div id="nequiFields" style="{{{wayToPaymentVisivility sessionPurchase.wayToPayment 'nequi'}}}">
+        <div class="input-group-lg mb-3">
+          nequi
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <h5 class="card-title form-control-lg">Efectivo</h5>
+        </div>
+        <div class="col">
+          <div class="form-check">
+            <input class="form-check-input form-control" type="radio"
+                   name="radioWayToPayment" id="radioCash" value="cash"
+                   {{{radioWayToPaymentChecked sessionPurchase.wayToPayment 'cash'}}}
+                   onclick="javascript:wayToPaymentCheck('3');">
+          </div>
+        </div>
+      </div>
+
+      </br>
+
+      <div id="cashFields" style="{{{wayToPaymentVisivility sessionPurchase.wayToPayment 'cash'}}}">
+        <div class="input-group-lg mb-3">
+          cash
+        </div>
+      </div>
+
       <h4 class="text-right">Total: $ {{{getTotal sessionPurchase.cartShopping}}}</h4>
 
     </div>  <!--card center-->

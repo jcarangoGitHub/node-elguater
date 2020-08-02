@@ -10,7 +10,8 @@ const userSchema = new Schema({
   rol: {
     type: String,
     enum: ['admin', 'partner', 'user'],
-    require: [true, 'Please select a Rol']
+    require: [true, 'Please select a Rol'],
+    trim: true
   },
   email: {
     type: String,

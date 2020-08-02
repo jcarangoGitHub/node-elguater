@@ -5,20 +5,18 @@ const servicePlaceSchema = new Schema({
   _partnerId: Schema.Types.ObjectId,
   name: {
     type: String,
-    trim: true,
-    uppercase: true
+    trim: true
   },
   address: {
     type: String,
-    trim: true,
-    uppercase: true
+    trim: true
   },
   description: {
     type: String,
-    trim: true,
-    uppercase: true
+    trim: true
   },
-  images: [Buffer]
+  images: [Buffer],
+  bankAccounts: [{type: Schema.ObjectId, ref: 'BankAccount'}]
 });
 
 //static functions

@@ -71,9 +71,8 @@ app.post('/step', (req, res) => {
       break;
 
     case '3':
-    console.log('case 3');
-    purchaseController.stepThree(req, res);
-    break;
+      purchaseController.stepThree(req, res);
+      break;
 
     default:
       break;

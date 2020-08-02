@@ -4,6 +4,7 @@ const Contact = require('./../models/contact');
 const Item = require('./../models/item');
 const User = require('./../models/user');
 const Sticker = require('./../models/sticker');
+const BankAccount = require('./../models/bankAccount');
 
 const bcrypt = require('bcrypt');
 
@@ -53,7 +54,7 @@ async function updatePartnerAndServicePlacesById(req, res) {
     res.render('formPartner');
   } catch(e) {
     res.render(dirViews + 'formPartner', {
-      errorMsg: errPartner
+      errorMsg: e
     });
     return;
   }
@@ -100,7 +101,14 @@ async function handlerPost(req, res) {
   }
 }
 
-
+async function handlerPostAccount(req, res) {
+  try {
+    let servicePlaceId = req.body._servicePlaceId;
+    
+  } catch (e) {
+    commonUtils.handlerError(req, e, res, 'formPartner');
+  }
+}
 
 /**
 ** used partner-routes.app.get('/partner', (req, res)
@@ -160,5 +168,6 @@ async function handlerPostLogin(req, res) {
 module.exports = {
   getFormPartner,
   handlerPost,
-  handlerPostLogin
+  handlerPostLogin,
+  handlerPostAccount
 }

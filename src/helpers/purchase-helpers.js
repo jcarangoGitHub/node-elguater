@@ -24,6 +24,10 @@ hbs.registerHelper('radioWayToDeliveryChecked', (wayToDelivery, radio) => {
   return wayToDelivery == radio ? 'checked' : '';
 });
 
+hbs.registerHelper('radioWayToPaymentChecked', (wayToPayment, radio) => {
+  return wayToPayment == radio ? 'checked' : '';
+});
+
 // return one hour after now COL
 hbs.registerHelper('getDefaultDeliveryDate', () => {
   var COL_UTC = 5;
@@ -44,4 +48,8 @@ hbs.registerHelper('getMinDeliveryDate', () => {
 
 hbs.registerHelper('wayToDeliveryVisivility', (wayToDelivery, div) => {
   return wayToDelivery == div ? 'visibility:visible' : 'visibility:hidden'
+});
+
+hbs.registerHelper('wayToPaymentVisivility', (wayToPayment, div) => {
+  return wayToPayment == div ? 'visibility:visible' : 'visibility:hidden'
 });

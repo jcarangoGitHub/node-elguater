@@ -13,6 +13,14 @@ const partnerSchema = new Schema({
     trim: true,
     default: 'Primera generación de socios'
   },
+  bank: {
+    type: String,
+    trim: true
+  },
+  accountNumber: {
+    type: String,
+    trim: true
+  }
 });
 
 const Partner = mongoose.model('Partner', partnerSchema);

@@ -91,19 +91,19 @@ async function stepOne(req, res) {
 }
 
 async function stepThree(req, res) {
-  let purchase = req.session.purchase;
-  let contact = req.session.contact;
-
   let wayToDelivery = req.body.radioWayToDelivery;
   if (wayToDelivery == 'delivery' && !req.body.addressToDelevery) {
     handlerError(req, res, 'delivery', 'Si la entrega es a domicilio, debes ingresar una dirección');
     return;
   }
 
+  let purchase = req.session.purchase;
+
   purchase.wayToDelivery = wayToDelivery;
   purchase.dateOfDelivery = req.body.deliveryDate;
 
   req.session.purchase = purchase;
+  req.session.contact.address = req.body.addressToDelevery;
 
   handlerSuccess(req, res, 'payment');
 }

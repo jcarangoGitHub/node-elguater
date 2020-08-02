@@ -1,0 +1,42 @@
+<!--ROW 1-->
+<div class="form-row">
+  <div class="col">
+    <label for="labelName" class="text-light">Nombre de la cuenta bancaria</label>
+    <div class="input-group-lg mb-3">
+      <input type="text" class="form-control-lg text-white bg-dark" id="accountName"
+        name="accountName" placeholder="ejm: Bancolombia - Ahorros" required
+        {{#if bankAccount}}value="{{bankAccount.accountName}}" {{/if}}>
+    </div><!--input-group-->
+  </div>
+</div>
+
+<!--ROW 2-->
+<div class="form-row">
+  <div class="col">
+    <label for="labelName" class="text-light">Número de la cuenta bancaria</label>
+    <div class="input-group-lg mb-3">
+      <input type="text" class="form-control-lg text-white bg-dark" id="accountNumber"
+        name="accountNumber" placeholder="000-000000-00" required
+        {{#if bankAccount}}value="{{bankAccount.accountName}}" {{/if}}>
+    </div><!--input-group-->
+  </div>
+</div>
+
+<!--ROW 3-->
+<div class="form-row">
+  <div class="col">
+    <label for="labelName" class="text-light">Imagen QR</label>
+    </br>
+    <a href="http://bit.ly/CompraConQR" target="_blank" class="text-info">Generar QR en Bancolombia
+      <span class="input-group-addon"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+    </a>
+    <div class="input-group-lg mb-3">
+        <input type="file" class="form-control-lg text-white bg-dark" id="imageQR"
+          name="imageQR" onchange="updateImage(this, '#imageQRUploaded');" accept="image/">
+        </input>
+    </div>
+    </br>
+    {{{getImageQRFromServicePlace servicePlace}}}
+    </br>
+  </div> <!--col-->
+</div><!--ROW 3-->

@@ -15,6 +15,8 @@ const dirPartialsServicePlace = path.join(__dirname, '../../template/partials/se
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
+const validator = require('../validators/validator');
+
 //Hbs
 app.set ('view engine', 'hbs');
 app.set ('views', dirViews);
@@ -52,12 +54,20 @@ app.get('/partner', (req, res) => {
 });
 
 //used
-app.post('/partner', upload.single('image'), (req, res) => {
+app.post('/partner', upload.fields([{name: 'image'}, {name: 'imageQR'}]), (req, res) => {
   partnerController.handlerPost(req, res);
 });
 
 app.post('/login-partner', (req, res) => {
   partnerController.handlerPostLogin(req, res);
+});
+
+app.post('/account', upload.single('imageQR'), (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  partnerController.handlerPostAccount(req, res);
 });
 
 module.exports = app;

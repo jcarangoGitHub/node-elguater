@@ -6,6 +6,7 @@ var Currency = mongoose.Types.Currency;
 
 const purchaseSchema = new Schema({
   _contactId: Schema.Types.ObjectId,
+  _partnerId: Schema.Types.ObjectId,
   servicePlace: {
     type: Schema.Types.Mixed,
     required: true
@@ -31,6 +32,11 @@ const purchaseSchema = new Schema({
   wayToDelivery: {
     type: String,
     enum: ['on site', 'delivery'],
+    required: true
+  },
+  wayToPayment: {
+    type: String,
+    enum: ['transfer', 'nequi', 'cash'],
     required: true
   }
 });
