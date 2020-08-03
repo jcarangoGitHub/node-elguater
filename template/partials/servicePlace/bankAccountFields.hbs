@@ -17,7 +17,7 @@
     <div class="input-group-lg mb-3">
       <input type="text" class="form-control-lg text-white bg-dark" id="accountNumber"
         name="accountNumber" placeholder="000-000000-00" required
-        {{#if bankAccount}}value="{{bankAccount.accountName}}" {{/if}}>
+        {{#if bankAccount}}value="{{bankAccount.accountNumber}}" {{/if}}>
     </div><!--input-group-->
   </div>
 </div>
@@ -36,7 +36,7 @@
         </input>
     </div>
     </br>
-    {{{getImageQRFromServicePlace servicePlace}}}
+    {{{getImageQRFromBankAccount bankAccount}}}
     </br>
   </div> <!--col-->
 </div><!--ROW 3-->

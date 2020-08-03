@@ -15,36 +15,66 @@
     data-parent="#accordingPaymWays">
   {{/if}}
     <div class="card-body bg-dark">
-      </br>   
+      </br>
 
       <div class="accordion bg-dark h" id="accordionNewAccount">
-        <div class="card-header" id="headingNewAccount">
-          <h class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                    data-target="#collapseNewAccount" aria-expanded="true"
-                    aria-controls="collapseNewAccount" style="font-size: 25px">
-              <span class="input-group-addon"><i class="fa fa-file-o fa-1x fa-fw" aria-hidden="true"></i></span>
-              &nbsp;Agregar cuenta bancaria
-            </button>
-          </h>
-        </div><!--card header-->
-        <div id="collapseNewAccount" class="collapse" aria-labelledby="headingNewAccount"
-          data-parent="#accordionNewAccount">
-          <div class="text-center text-white bg-dark mb-3">
-            {{>bankAccountFields}}
-            <div class="form-row">
-              <div class="col">
-                <div class="input-group mb-3">
-                  <button class="btn btn-success btn-lg btn-block" type="submit">
-                    Agregar
-                  </button>
+        <form action="/account" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="_servicePlaceId" id="_servicePlaceId" value="{{servicePlace._id}}">
+          <input type="hidden" name="_contactId" id="_contactId" value="{{contact._id}}">
+          <div class="card-header" id="headingNewAccount">
+            <h class="mb-0">
+              <button class="btn btn-light collapsed" type="button" data-toggle="collapse"
+                      data-target="#collapseNewAccount" aria-expanded="true"
+                      aria-controls="collapseNewAccount" style="font-size: 25px">
+                <span class="input-group-addon">
+                  <!-- <i class="fa fa-file-o fa-1x fa-fw" aria-hidden="true"></i> -->
+                  Nueva cuenta bancaria
+                </span>
+              </button>
+            </h>
+          </div><!--card header-->
+          <div id="collapseNewAccount" class="collapse" aria-labelledby="headingNewAccount"
+            data-parent="#accordionNewAccount">
+            <div class="text-center text-white bg-dark mb-3">
+              {{>bankAccountFields}}
+              <div class="form-row">
+                <div class="col">
+                  <div class="input-group mb-3">
+                    <button class="btn btn-success btn-lg btn-block" type="submit">
+                      Agregar
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div><!--collapse-->
+          </div><!--collapse-->
+        </form>
       </div> <!--accordion-->
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-secondary">Cuentas asociadas</li>
+        {{#each bankAccounts}}
+          <div class="form-row">
+            <div class="col">
+              <li class="list-group-item list-group-item-dark">
+                <a href="editBankAccount?id={{_id}}&_servicePlaceId={{_servicePlaceId}}">{{accountName}}: {{accountNumber}}</a>
+              </li>
+            </div>
+          </div>
 
+          <form action="/removeBankAccount" method="post">
+            <input type="hidden" name="_bankAccountId" id="_bankAccountId" value="{{_id}}">
+            <input type="hidden" name="_servicePlaceId" id="_servicePlaceId" value="{{_servicePlaceId}}">
+            <div class="form-row">
+              <div class="col">
+                <button class="btn btn-danger btn-lg btn-block" type="submit" style="font-size: 25px">
+                <span class="input-group-addon"><i class="fa fa-trash-o fa-1x fa-fw" aria-hidden="true"></i></span>
+                Eliminar
+                </button>
+              </div>
+            </div>
+          </form>
+        {{/each}}
+      </ul>
     </div> <!--card body-->
   </div> <!--collapse-->
 </div> <!--accordion-->

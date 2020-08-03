@@ -3,27 +3,28 @@
     <ul class="progressbar">
       <a href="/formPurchase?step=1">
       {{#if commit}}
-        <li class="active">Compra</li>
+        <li class="active"><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></li>
+        <!-- <li class="active">Compra</li> -->
       {{else}}
-       <li>Compra</li>
+       <li><i class="fa fa-cart-plus fa-4x" aria-hidden="true"></i></li>
       {{/if}}
       </a>
       <a href="/formPurchase?step=2">
       {{#if wayToDelivery}}
-       <li class="active">Entrega</li>
+       <li class="active"><i class="fa fa-bicycle fa-4x" aria-hidden="true"></i></li>
       {{else}}
-       <li>Entrega</li>
+       <li><i class="fa fa-bicycle fa-4x" aria-hidden="true"></i></li>
       {{/if}}
       </a>
       <a href="/formPurchase?step=3">
         {{#if payment}}
-          <li class="active">Pago</li>
+          <li class="active"><i class="fa fa-money fa-4x" aria-hidden="true"></i></li>
         {{else}}
-          <li>Pago</li>
+          <li><i class="fa fa-money fa-4x" aria-hidden="true"></i></li>
         {{/if}}
       </a>
-       <li>Confirmación</li>
-       <li>Entregado</li>
+       <li><i class="fa fa-check-circle fa-4x" aria-hidden="true"></i></li>
+       <li><i class="fa fa-hourglass fa-4x" aria-hidden="true"></i></li>
     </ul>
   </div>
 </div>

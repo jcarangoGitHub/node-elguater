@@ -4,7 +4,7 @@ const path = require('path');
 const hbs = require('hbs');
 const multer  = require('multer');
 
-const itemController = require('../api/item-controller');
+const itemController = require('../controllers/item-controller');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');

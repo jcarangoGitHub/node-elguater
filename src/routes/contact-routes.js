@@ -7,7 +7,7 @@ const hbs = require('hbs');
 require('../helpers/contact-helpers');
 
 
-const contactController = require('../api/contact-controller');
+const contactController = require('../controllers/contact-controller');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');

@@ -9,7 +9,7 @@ const dirPartialsStore = path.join(__dirname, '../../template/partials/store');
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
-const storeController = require('../api/store-controller');
+const storeController = require('../controllers/store-controller');
 
 //Hbs
 app.set ('view engine', 'hbs');

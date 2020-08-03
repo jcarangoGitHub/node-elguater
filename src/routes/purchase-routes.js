@@ -9,7 +9,7 @@ const dirPartialsPurchase = path.join(__dirname, '../../template/partials/purcha
 
 const dirViews = path.join(__dirname, '../../template/views/');
 
-const purchaseController = require('../api/purchase-controller');
+const purchaseController = require('../controllers/purchase-controller');
 const validator = require('../validators/validator');
 
 const commonUtils = require('./../utils/common-utils');

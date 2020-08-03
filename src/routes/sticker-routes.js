@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const hbs = require('hbs');
 
-const stickerController = require('../api/sticker-controller');
+const stickerController = require('../controllers/sticker-controller');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');

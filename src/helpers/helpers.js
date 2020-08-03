@@ -29,9 +29,9 @@ hbs.registerHelper('getImageFromServicePlace', (servicePlace) => {
   }
 });
 
-hbs.registerHelper('getImageQRFromServicePlace', (servicePlace) => {
-  if (servicePlace && servicePlace.imageQR) {
-  return `<img src="data:img/png;jpeg;jpg;base64, ${servicePlace.imageQR.toString('base64')}"
+hbs.registerHelper('getImageQRFromBankAccount', (bankAccount) => {
+  if (bankAccount && bankAccount.imageQR) {
+  return `<img src="data:img/png;jpeg;jpg;base64, ${bankAccount.imageQR.toString('base64')}"
     class="img-thumbnail rounded mx-auto d-block" alt="..." name="imageQRUploaded" style="width: 400px;" id="imageQRUploaded">`
   } else {
     return `<img src="../../images/no-image.png"

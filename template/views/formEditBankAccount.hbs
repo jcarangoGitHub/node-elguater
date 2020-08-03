@@ -1,0 +1,48 @@
+{{>header}}
+<div class="container">
+  <!--Error message -->
+  {{#if errorMsg}}
+    {{>messageError}}
+  {{/if}}
+  <!--Success message -->
+  {{#if successMsg}}
+    {{>messageSuccess}}
+  {{/if}}
+
+  <div class="card-header bg-secondary h">
+    <!--ROW 1-->
+    <div class="form-row">
+      <div class="col">
+        <h class="card-title">{{bankAccount.accountName}}</h>
+      </div>
+    </div>
+  </div>
+
+  <form action="/account?isEdit=true" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_bankAccountId" id="_bankAccountId" value="{{bankAccount._id}}">
+    <input type="hidden" name="_servicePlaceId" id="_servicePlaceId" value="{{servicePlaceId}}">
+
+    <div class="card-header bg-secondary h">
+      <!--ROW 1-->
+      <div class="form-row">
+        <div class="col">
+          <a class="btn btn-link" style="font-size: 25px"
+            href="/partner?cell={{cellPhoneNumber}}"
+            role="button">Volver
+          </a>
+        </div>
+      </div><!--ROW 1-->
+    </div> <!--card-header-->
+
+    <div class="card text-center text-white bg-dark mb-3">
+      <div class="card-body bg-dark">
+        {{>bankAccountFields}}
+      </div><!--card-body-->
+
+      <button class="btn btn-success btn-lg btn-block" type="submit" style="font-size: 25px">
+      Actualizar
+      </button>
+    </div>
+</form>
+
+</div>

@@ -7,7 +7,7 @@ const hbs = require('hbs');
 
 require('../helpers/helpers');
 
-const indexController = require('../api/index-controller');
+const indexController = require('../controllers/index-controller');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');

@@ -7,7 +7,7 @@ const multer  = require('multer');
 
 require('../helpers/helpers');
 
-const partnerController = require('../api/partner-controller');
+const partnerController = require('../controllers/partner-controller');
 
 //Partials - Paths
 const dirPartials = path.join(__dirname, '../../template/partials');
@@ -53,6 +53,14 @@ app.get('/partner', (req, res) => {
   partnerController.getFormPartner(req, res);
 });
 
+app.get('/editBankAccount', (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  partnerController.getFormEditBankAccount(req, res);
+});
+
 //used
 app.post('/partner', upload.fields([{name: 'image'}, {name: 'imageQR'}]), (req, res) => {
   partnerController.handlerPost(req, res);
@@ -67,7 +75,16 @@ app.post('/account', upload.single('imageQR'), (req, res) => {
     commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
     return;
   }
+
   partnerController.handlerPostAccount(req, res);
+});
+
+app.post('/removeBankAccount', (req, res) => {
+  if (! validator.contactSessionCreated(req)) {
+    commonUtils.handlerError(req, 'Debe iniciar sesión', res, 'index');
+    return;
+  }
+  partnerController.handlerRemoveBankAccount(req, res);
 });
 
 module.exports = app;
