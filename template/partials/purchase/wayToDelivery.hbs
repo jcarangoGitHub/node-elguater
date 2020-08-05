@@ -48,6 +48,12 @@
             value=""
             {{/if}}
             >
+            {{#if contactSession.urlMaps}}
+            </br>
+            <a href="https://{{contactSession.urlMaps}}" target="_blank">
+              Abrir en maps
+            </a>
+            {{/if}}
         </div>
       </div>
 
@@ -74,14 +80,13 @@
             placeholder="Donde reclamarías la compra" required disabled
             value="{{sessionPurchase.servicePlace.address}}">
           </br>
-          <a target="_blank"
-             href="https://www.google.com/maps/place/Urbanizacion+Camino+Real/@6.0845746,-75.636076,17z/data=!4m12!1m6!3m5!1s0x8e468662632ed213:0x78acbce606862de1!2sUrbanizacion+Camino+Real!8m2!3d6.0845746!4d-75.636076!3m4!1s0x8e468662632ed213:0x78acbce606862de1!8m2!3d6.0845746!4d-75.636076">
+          <a href="https://{{sessionPurchase.servicePlace.urlMaps}}" target="_blank">
             Abrir en maps
           </a>
         </div>
       </div>
 
-      <h5 class="card-title form-control-lg">Fecha y hora de entrega {{{getDefaultDeliveryDate}}}</h5>
+      <h5 class="card-title form-control-lg">Fecha y hora de entrega</h5>
       <input type="datetime-local" class="input-date" id="deliveryDate" name="deliveryDate"
            min="{{{getMinDeliveryDate}}}"
            {{#if sessionPurchase.dateOfDelivery}}

@@ -31,6 +31,25 @@
 <!--ROW 3-->
 <div class="form-row">
   <div class="col">
+    <label for="labelName" class="text-light">Url maps</label>
+    <div class="input-group-lg mb-3">
+        <input type="text" class="form-control-lg text-white bg-dark" id="servicePlaceUrlMaps"
+          name="servicePlaceUrlMaps" placeholder="url Maps"
+          {{#if servicePlace}}
+          value="{{servicePlace.urlMaps}}"
+          {{/if}}
+          >
+          <small id="helpUrlMaps" class="form-text text-muted">
+            <a href="https://www.google.com/maps/" target="_blank">maps</a>
+            <a href="https://www.shorturl.at/" target="_blank"> shortened url</a>
+          </small>
+    </div>
+  </div>
+</div><!--ROW 3-->
+</br>
+<!--ROW 4-->
+<div class="form-row">
+  <div class="col">
     <label for="labelName" class="text-light">Descripción</label>
     <div class="input-group-lg mb-3">
         <textarea class="form-control-lg text-white bg-dark" id="servicePlaceDescription"
@@ -42,9 +61,9 @@
         </textarea>
     </div>
   </div>
-</div><!--ROW 3-->
+</div><!--ROW 4-->
 </br>
-<!--ROW 4-->
+<!--ROW 5-->
 <div class="form-row">
   <div class="col">
     <label for="labelName" class="text-light">Nuestra imagen</label>
@@ -57,7 +76,7 @@
     {{{getImageFromServicePlace servicePlace}}}
 
   </div> <!--col-->
-</div><!--ROW 4-->
+</div><!--ROW 5-->
 
 </br>
 <div class="form-row">

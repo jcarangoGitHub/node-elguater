@@ -22,7 +22,12 @@
 
         <div class="card-body bg-dark">
           </br>
-            {{>formGeneralInformation}}
+            <form action="/partner" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="_partnerId" id="_partnerId" value="{{contact._partnerId}}">
+              <input type="hidden" name="_contactId" id="_contactId" value="{{contact._id}}">
+
+              {{>formGeneralInformation}}
+            </form>
         </div> <!--card body-->
       </div> <!--collapse-->
     </div> <!--accordion-->

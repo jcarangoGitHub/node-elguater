@@ -33,7 +33,11 @@ const contactSchema = new Schema({
     type: Number
   },
   address: {
-    type: String,    
+    type: String,
+    trim: true
+  },
+  urlMaps: {
+    type: String,
     trim: true
   },
   email: {

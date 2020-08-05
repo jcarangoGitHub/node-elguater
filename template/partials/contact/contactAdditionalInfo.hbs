@@ -40,7 +40,26 @@
           value="{{contact.address}}"
           {{/if}}
           required>
-      </div>      
+      </div>
+    </div>
+  </div><!--ROW 3-->
+  &nbsp;
+  <!--ROW 4-->
+  <div class="form-row">
+    <div class="col">
+      <label for="labelNumberID" class="text-light">Url maps</label>
+      <div class="input-group-lg mb-4">
+        <input type="text" class="form-control-lg text-white bg-dark custom-text" id="contactUrlMaps"
+          name="contactUrlMaps" placeholder="url maps"
+          {{#if contact}}
+          value="{{contact.urlMaps}}"
+          {{/if}}
+          required>
+          <small id="helpUrlMaps" class="form-text text-muted">
+            <a href="https://www.google.com/maps/" target="_blank">maps</a>
+            <a href="https://www.shorturl.at/" target="_blank"> shortened url</a>
+          </small>
+      </div>
     </div>
   </div><!--ROW 3-->
 

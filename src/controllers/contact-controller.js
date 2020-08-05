@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const Contact = require('./../models/contact');
 const User = require('./../models/user');
 
+const contactMongodb = require('./../api-mongodb/contact-mongodb');
+
 const path = require('path');
 
 const dirViews = path.join(__dirname, '../../template/views/');
@@ -44,12 +46,7 @@ const handlerSuccess = (req, res, formToRender, contact, successMsg) => {
 **/
 async function updateContact(req, res) {
   try {
-      let resContact = await Contact.findByIdAndUpdate(req.body._contactId, {
-          cellPhoneNumber: req.body.cellPhoneToSearch,
-          name: req.body.contactFirstName,
-          lastName: req.body.contactLastName,
-          address: req.body.contactAddress}, {new: true, upsert: true});
-
+      let resContact = contactMongodb.findByIdAndUpdate(req);
       if (resContact) {
         req.session.contact = resContact;
         let userPassword = req.body.userPassword;

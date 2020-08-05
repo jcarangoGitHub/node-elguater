@@ -99,6 +99,7 @@ async function handlerPost(req, res) {
     let partnerId = req.body._partnerId;
     //update
     if (partnerId) {
+      console.log(partnerId);
       return updatePartnerAndServicePlacesById(req, res);
     } else {
       //create

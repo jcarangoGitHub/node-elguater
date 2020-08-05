@@ -27,9 +27,6 @@ const commonUtils = require('./../utils/common-utils');
 //used header
 app.get('/formEditContact', (req, res) => {
   let user = req.session.user;
-  console.log(user.rol);
-  console.log(user.rol == 'admin');
-
   if (user && user.rol != 'admin') {//TODO constants
     commonUtils.handlerError(req, 'Permiso denegado', res, 'index');
     return;

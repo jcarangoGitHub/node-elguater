@@ -11,6 +11,10 @@ const servicePlaceSchema = new Schema({
     type: String,
     trim: true
   },
+  urlMaps: {
+    type: String,
+    trim: true
+  },
   description: {
     type: String,
     trim: true
@@ -21,11 +25,13 @@ const servicePlaceSchema = new Schema({
 
 //static functions
 servicePlaceSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id) {
+  console.log(req.body.servicePlaceUrlMaps);
   let image = req.file ? req.file.buffer : req.body.imageUploaded;
   if (image) {
     return this.findByIdAndUpdate({_id: id},
                             {name: req.body.servicePlaceName,
                             address: req.body.servicePlaceAddress,
+                            urlMaps: req.body.servicePlaceUrlMaps,
                             description: req.body.servicePlaceDescription,
                             images: [image]},
                             {new: true});
@@ -33,6 +39,7 @@ servicePlaceSchema.statics.findByIdAndUpdateAccordingToImage = function(req, id)
     return this.findByIdAndUpdate({_id: id},
                             {name: req.body.servicePlaceName,
                             address: req.body.servicePlaceAddress,
+                            urlMaps: req.body.servicePlaceUrlMaps,
                             description: req.body.servicePlaceDescription},
                             {new: true});
   }
