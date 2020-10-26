@@ -21,74 +21,59 @@
   <form method="post" action="/step">
     <div class="card text-center text-white bg-dark mb-3">
       <div class="form-row">
-        <div class="col">
-          <h5 class="card-title form-control-lg">Transferencia</h5>
-        </div>
-        <div class="col">
-          <div class="form-check">
-            <input class="form-check-input form-control" type="radio"
-                   name="radioWayToPayment" id="radioTransfer" value="transfer"
-                   {{{radioWayToPaymentChecked sessionPurchase.wayToPayment 'transfer'}}}
-                   onclick="javascript:wayToPaymentCheck('1');">
-          </div>
-        </div>
+        <h5 class="card-title form-control-lg">Cuenta bancaria</h5>
       </div>
-
-      </br>
-
-      <div id="transferFields" style="{{{wayToPaymentVisivility sessionPurchase.wayToPayment 'transfer'}}}">
-        <div class="input-group-lg mb-3">
-          transfer
-        </div>
-      </div>
-
       <div class="form-row">
-        <div class="col">
-          <h5 class="card-title form-control-lg">Nequi</h5>
+        <div class="input-group mb-3">
+          <select class="custom-select" id="selectAccount"
+                  name="selectAccount" onchange="onchangeSelectAccount(this.value)">
+            <option value="null" selected>Selecciona...</option>
+            {{#each bankAccounts}}
+              <option value="{{_id}}">{{accountName}}</option>
+            {{/each}}
+          </select>
         </div>
-        <div class="col">
-          <div class="form-check">
-            <input class="form-check-input form-control" type="radio"
-                   name="radioWayToPayment" id="radioNequi" value="nequi"
-                   {{{radioWayToPaymentChecked sessionPurchase.wayToPayment 'nequi'}}}
-                   onclick="javascript:wayToPaymentCheck('2');">
+      </div>
+
+      <script src="https://unpkg.com/@popperjs/core@2"></script>
+      <script src="https://unpkg.com/tippy.js@6"></script>
+
+
+
+      {{#each bankAccounts}}
+        <div class="detailsAccount" id="details.{{_id}}" style="display:none">
+          <div class="input-group-lg mb-3">
+            <div class="input-group input-group-sm mb-3">
+
+              <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                     value="{{accountNumber}}" id="accountNumber.{{_id}}">
+              <div class="input-group-prepend" onclick="javascript:copyText('{{_id}}');" id="detail">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Copiar</span>
+              </div>       
+            </div>
+            <!-- <button type="button" id="detail"
+                    class="btn btn-primary btn-sm"
+                    value="{{accountNumber}}"
+                    onclick="javascript:copyText('{{_id}}');">
+                    copiar
+            </button> -->
+
+            <script>
+              // With the above scripts loaded, you can call `tippy()` with a CSS
+              // selector and a `content` prop:
+              tippy('#detail', {
+                content: 'Copiado!',
+                touch: 'false',
+                trigger: 'click',
+              });
+            </script>
+
+            {{{getImageBankAccount imageQR}}}
           </div>
         </div>
-      </div>
+      {{/each}}
 
-      </br>
 
-      <div id="nequiFields" style="{{{wayToPaymentVisivility sessionPurchase.wayToPayment 'nequi'}}}">
-        <div class="input-group-lg mb-3">
-          nequi
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col">
-          <h5 class="card-title form-control-lg">Efectivo</h5>
-        </div>
-        <div class="col">
-          <div class="form-check">
-            <input class="form-check-input form-control" type="radio"
-                   name="radioWayToPayment" id="radioCash" value="cash"
-                   {{{radioWayToPaymentChecked sessionPurchase.wayToPayment 'cash'}}}
-                   onclick="javascript:wayToPaymentCheck('3');">
-          </div>
-        </div>
-      </div>
-
-      </br>
-
-      <div id="cashFields" style="{{{wayToPaymentVisivility sessionPurchase.wayToPayment 'cash'}}}">
-        <div class="input-group-lg mb-3">
-          cash
-        </div>
-      </div>
-
-      <h4 class="text-right">Total: $ {{{getTotal sessionPurchase.cartShopping}}}</h4>
-
-    </div>  <!--card center-->
 
     {{#if sessionPurchase.cartShopping}}
       <div class="row">

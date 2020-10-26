@@ -50,6 +50,8 @@ hbs.registerHelper('wayToDeliveryVisivility', (wayToDelivery, div) => {
   return wayToDelivery == div ? 'visibility:visible' : 'visibility:hidden'
 });
 
-hbs.registerHelper('wayToPaymentVisivility', (wayToPayment, div) => {
-  return wayToPayment == div ? 'visibility:visible' : 'visibility:hidden'
+hbs.registerHelper('getImageBankAccount', (image) => {
+  return `<img src="data:img/png;jpeg;jpg;base64, ${image.toString('base64')}" class="img-fluid d-block w-100">`
 });
+
+//hbs.registerHelper('getImageBankAccount', (bank))

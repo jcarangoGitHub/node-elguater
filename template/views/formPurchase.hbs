@@ -1,11 +1,10 @@
 {{>header}}
 </br>
-
 <div class="container">
   {{#if errorMsg}}
     {{>messageError}}
   {{/if}}
-  
+
   {{#unless session}}
     <form method="post" action="/login" class="searchContact">
         {{>loginView}}

@@ -38,7 +38,8 @@ const purchaseSchema = new Schema({
     type: String,
     enum: ['transfer', 'nequi', 'cash'],
     required: true
-  }
+  },
+  bankTransfer: Schema.Types.ObjectId  
 });
 
 purchaseSchema.virtual('getTotal').get(function() {

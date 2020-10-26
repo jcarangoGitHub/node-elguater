@@ -1,37 +1,23 @@
-function wayToPaymentCheck(radio) {
-  switch (radio) {
-    //radio: 1 Transfer; 2 Cash
-    case '1':
-      if (document.getElementById('radioTransfer').checked) {
-        document.getElementById('transferFields').style.visibility = 'visible';
-        document.getElementById('cashFields').style.visibility = 'hidden';
-        document.getElementById('nequiFields').style.visibility = 'hidden';
-      } else {
-        document.getElementById('transferFields').style.visibility = 'hidden';
-      }
-      break;
-    case '2':
-      if (document.getElementById('radioNequi').checked) {
-        document.getElementById('nequiFields').style.visibility = 'visible';
-        document.getElementById('transferFields').style.visibility = 'hidden';
-        document.getElementById('cashFields').style.visibility = 'hidden';
-      } else {
-        document.getElementById('nequiFields').style.visibility = 'hidden';
-      }
-
-      break;
-
-    case '3':
-      if (document.getElementById('radioCash').checked) {
-        document.getElementById('cashFields').style.visibility = 'visible';
-        document.getElementById('transferFields').style.visibility = 'hidden';
-        document.getElementById('nequiFields').style.visibility = 'hidden';
-      } else {
-        document.getElementById('cashFields').style.visibility = 'hidden';
-      }
-    default:
-
+function onchangeSelectAccount(value) {
+  console.log(value);
+  var id = 'details.' + value
+  var allDetails = document.getElementsByClassName("detailsAccount");
+  for (i = 0; i < allDetails.length; i++) {
+    allDetails[i].style.display = "none";
   }
+
+  var elemDetails = document.getElementById(id);
+  if (elemDetails) {
+    elemDetails.style.display = "";
+  }
+}
+
+function copyText(id) {
+  var copyText = document.getElementById("accountNumber."+id);
+  console.log(copyText);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
 }
 
 function wayToDeliveryCheck(radio) {

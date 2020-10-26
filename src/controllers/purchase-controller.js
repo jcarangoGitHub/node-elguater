@@ -7,10 +7,14 @@ const CartShopping = require('./../models/cartShopping');
 const commonUtils = require('./../utils/common-utils');
 const purchaseUtils = require('./../utils/purchase-utils');
 
+const bankAccountMongodb = require('./../api-mongodb/bank-account-mongodb');
+
 async function handlerSuccess(req, res, step) {
+  let bankAccounts = await bankAccountMongodb.getAllBankAccountByServicePlaceId(req.session.purchase.servicePlace._id);
   res.render(dirViews + 'formPurchase', {
     contactSession: req.session.contact,
     userSession: req.session.user,
+    bankAccounts: bankAccounts,
     commit: step == 'commit' ? true : false,
     delivery: step == 'delivery' ? true : false,
     payment: step == 'payment' ? true : false
